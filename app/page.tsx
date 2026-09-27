@@ -71,7 +71,7 @@ export default function Page() {
         <aside className="hidden w-[232px] flex-col border-r border-[#ded8cd] bg-[#f6f1e8] px-7 py-7 lg:flex">
           <div className="mb-14 flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fa5b48] text-xl font-black text-white">y</div>
-            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-[15px] font-bold tracking-[-0.04em] text-[#6f6a63]">services</span></span>
+            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-[23px] font-black tracking-[-0.08em] text-[#6f6a63]">services</span></span>
           </div>
           <nav className="space-y-2" aria-label="Main navigation">
             <NavItem icon={<Home size={19} />} label="Home" active />
