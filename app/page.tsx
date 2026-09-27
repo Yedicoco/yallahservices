@@ -19,7 +19,6 @@ import {
   VolumeX,
   X,
   Heart,
-  Link as LinkIcon,
 } from 'lucide-react'
 
 const videos = [
@@ -91,16 +90,19 @@ export default function Page() {
           <div className="mt-7 border-t border-[#ded8cd] pt-5">
             <div className="space-y-3">
               <a href="https://www.linkedin.com/in/yallah-services" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
-                <LinkIcon size={16} /> LinkedIn
+                <SocialMark label="in" className="bg-[#0a66c2]" /> LinkedIn
               </a>
               <a href="https://www.tiktok.com/@yallah.services.m" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
-                <Music2 size={16} /> TikTok
+                <SocialMark label="♪" className="bg-[#171717]" /> TikTok
               </a>
               <a href="https://www.instagram.com/yallahservice" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
-                <LinkIcon size={16} /> Instagram
+                <SocialMark label="◎" className="bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]" /> Instagram
               </a>
               <a href="https://www.facebook.com/yallahservicesmaroc" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
-                <LinkIcon size={16} /> Facebook
+                <SocialMark label="f" className="bg-[#1877f2]" /> Facebook
+              </a>
+              <a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <SocialMark label="⌕" className="bg-[#25d366]" /> WhatsApp
               </a>
             </div>
             <p className="mt-5 text-[10px] leading-4 text-[#8f897f]">© 2024 yallah<br />made for the curious</p>
@@ -172,6 +174,10 @@ export default function Page() {
 
 function NavItem({ icon, label, active = false, badge }: { icon: React.ReactNode; label: string; active?: boolean; badge?: string }) {
   return <button className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${active ? 'bg-[#171717] text-white' : 'text-[#6f6a63] hover:bg-[#e9e2d8]'}`}>{icon}<span>{label}</span>{badge && <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-[#fa5b48] px-1 text-[10px] text-white">{badge}</span>}</button>
+}
+
+function SocialMark({ label, className }: { label: string; className: string }) {
+  return <span aria-hidden="true" className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-white ${className}`}>{label}</span>
 }
 
 function CloseButton({ onClick }: { onClick: () => void }) { return <button onClick={onClick} aria-label="Close"><X size={18} /></button> }
