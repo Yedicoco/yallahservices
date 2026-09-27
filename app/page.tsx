@@ -69,9 +69,13 @@ export default function Page() {
     <main className="min-h-screen bg-[#f6f1e8] text-[#171717] selection:bg-[#fa5b48] selection:text-white">
       <div className="mx-auto flex min-h-screen max-w-[1440px]">
         <aside className="hidden w-[232px] flex-col border-r border-[#ded8cd] bg-[#f6f1e8] px-7 py-7 lg:flex">
-          <div className="mb-14 flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fa5b48] text-xl font-black text-white">y</div>
-            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span></span>
+          <div className="mb-14 flex items-center gap-3">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/da1235a0-a8a6-11f1-ae21-ff04260a3621.png-vH8DW3TxL0jLqWrKaFWAvBFyZ3rZpZ.jpeg"
+              alt="Yallah Services Maroc"
+              className="h-11 w-11 rounded-full object-cover"
+            />
+            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-[23px] font-black tracking-[-0.08em] text-[#6f6a63]">services</span></span>
           </div>
           <nav className="space-y-2" aria-label="Main navigation">
             <NavItem icon={<Home size={19} />} label="Home" active />
@@ -111,7 +115,14 @@ export default function Page() {
 
         <section className="min-w-0 flex-1">
           <header className="flex h-[78px] items-center justify-between border-b border-[#ded8cd] px-5 sm:px-10">
-            <div className="flex items-center gap-5 lg:hidden"><span className="text-xl font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span></span></div>
+            <div className="flex items-center gap-2 lg:hidden">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/da1235a0-a8a6-11f1-ae21-ff04260a3621.png-vH8DW3TxL0jLqWrKaFWAvBFyZ3rZpZ.jpeg"
+                alt="Yallah Services Maroc"
+                className="h-8 w-8 rounded-full object-cover"
+              />
+              <span className="text-xl font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-sm font-bold tracking-[-0.04em] text-[#6f6a63]">services</span></span>
+            </div>
             <div className="hidden items-center gap-8 sm:flex">
               {['For you', 'Following'].map((tab) => (
                 <button key={tab} onClick={() => setActiveTab(tab)} className={`relative py-7 text-sm font-semibold transition-colors ${activeTab === tab ? 'text-[#171717]' : 'text-[#8f897f]'}`}>
