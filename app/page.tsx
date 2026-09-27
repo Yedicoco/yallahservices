@@ -24,33 +24,36 @@ import {
 const videos = [
   {
     image: '/yallah-surf.png',
-    name: 'Maya Samir',
-    handle: '@mayasamir',
-    caption: 'salt in the air, nothing on the schedule.',
-    song: 'Sunset Lover — Petit Biscuit',
-    likes: '48.2K',
-    comments: '612',
+    name: 'Yallah Services',
+    handle: '@yallah.services.m',
+    caption: 'Le bon profil, au bon endroit, selon vos besoins.',
+    song: 'Yallah Services · Casablanca & Maroc',
+    likes: '1.2K',
+    comments: '86',
     accent: 'from-[#fa5b48]/70',
+    tag: 'À domicile',
   },
   {
     image: '/yallah-street.png',
-    name: 'Omar El Hadi',
-    handle: '@omar.eh',
-    caption: 'found the smoothest line through the old city.',
-    song: 'Ya Rayah — Rachid Taha',
-    likes: '21.8K',
-    comments: '284',
+    name: 'Yallah Services',
+    handle: '@yallah.services.m',
+    caption: 'Besoin de renfort pour votre hôtel, café ou chantier ?',
+    song: 'Yallah Services · Solutions entreprises',
+    likes: '948',
+    comments: '54',
     accent: 'from-[#e0a44a]/70',
+    tag: 'Entreprises',
   },
   {
     image: '/yallah-food.png',
-    name: 'Lina Cooks',
-    handle: '@linacooks',
-    caption: 'the table is always better when it is shared.',
-    song: 'Habibi — Tamino',
-    likes: '36.4K',
-    comments: '431',
+    name: 'Yallah Services',
+    handle: '@yallah.services.m',
+    caption: 'Ménage, nounou, cuisine ou aide au quotidien : présentez-nous votre besoin.',
+    song: 'Yallah Services · Un accompagnement humain',
+    likes: '2.4K',
+    comments: '137',
     accent: 'from-[#b9a35c]/70',
+    tag: 'Services',
   },
 ]
 
@@ -111,7 +114,7 @@ export default function Page() {
 
           <div className="mx-auto max-w-[860px] px-4 py-7 sm:px-10 sm:py-10">
             <div className="mb-7 flex items-end justify-between">
-              <div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">The daily scroll</p><h1 className="font-serif text-4xl font-medium tracking-[-0.04em] sm:text-5xl">A little bit of everywhere.</h1></div>
+              <div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">Yallah Services · Maroc</p><h1 className="font-serif text-4xl font-medium tracking-[-0.04em] sm:text-5xl">Le bon profil, au bon endroit.</h1></div>
               <button aria-label="More options" className="mb-1 rounded-full p-2 hover:bg-[#e9e2d8]"><Ellipsis size={20} /></button>
             </div>
             <div className="space-y-8">
@@ -124,7 +127,7 @@ export default function Page() {
                       <div className="flex items-center gap-2"><div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/60 bg-[#171717]/20 text-xs font-bold">{video.name.split(' ').map((n) => n[0]).join('')}</div><span className="text-sm font-bold">{video.handle}</span></div>
                       <button aria-label={muted ? 'Unmute video' : 'Mute video'} onClick={() => setMuted(!muted)} className="rounded-full bg-black/20 p-2 backdrop-blur-sm">{muted ? <VolumeX size={15} /> : <Volume2 size={15} />}</button>
                     </div>
-                    <div className="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#171717]">01 / 03</div>
+                    <div className="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#171717]">{video.tag}</div>
                   </div>
                   <div className="flex min-h-full flex-col justify-center py-1 sm:py-5">
                     <div className="mb-5 flex items-center gap-2 text-xs text-[#8f897f]"><span className="h-1.5 w-1.5 rounded-full bg-[#fa5b48]" />{index === activeVideo ? 'Now playing' : 'Featured for you'}</div>
@@ -136,12 +139,12 @@ export default function Page() {
                       <button onClick={() => setSaved({ ...saved, [index]: !saved[index] })} aria-label="Save video" className={`ml-auto rounded-full p-2 ${saved[index] ? 'bg-[#171717] text-white' : 'text-[#6f6a63] hover:bg-[#e9e2d8]'}`}><Bookmark size={18} fill={saved[index] ? 'currentColor' : 'none'} /></button>
                       <button aria-label="Share video" className="rounded-full p-2 text-[#6f6a63] hover:bg-[#e9e2d8]"><Share2 size={18} /></button>
                     </div>
-                    <button onClick={() => setActiveVideo(index)} className="mt-5 flex items-center gap-2 self-start text-xs font-bold text-[#fa5b48]">Watch full video <ChevronDown className="-rotate-90" size={15} /></button>
+                    <button onClick={() => setActiveVideo(index)} className="mt-5 flex items-center gap-2 self-start text-xs font-bold text-[#fa5b48]">Présenter mon besoin <ChevronDown className="-rotate-90" size={15} /></button>
                   </div>
                 </article>
               ))}
             </div>
-            <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Keep wandering.</p><p className="mt-1 text-xs text-[#777066]">There is always something new around here.</p></div><button className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white">Explore more</button></div>
+            <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white">Nous contacter</a></div>
           </div>
         </section>
       </div>
