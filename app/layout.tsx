@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'yallah. — A little bit of everywhere',
+  description: 'A curious corner of the internet for short videos, new places, and good energy.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -26,11 +26,9 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'light',
+  themeColor: '#f6f1e8',
+  userScalable: true,
 }
 
 export default function RootLayout({
