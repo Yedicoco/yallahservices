@@ -71,7 +71,7 @@ export default function Page() {
         <aside className="hidden w-[232px] flex-col border-r border-[#ded8cd] bg-[#f6f1e8] px-7 py-7 lg:flex">
           <div className="mb-14 flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fa5b48] text-xl font-black text-white">y</div>
-            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span></span>
+            <span className="text-[23px] font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-[15px] font-bold tracking-[-0.04em] text-[#6f6a63]">services</span></span>
           </div>
           <nav className="space-y-2" aria-label="Main navigation">
             <NavItem icon={<Home size={19} />} label="Home" active />
@@ -111,7 +111,7 @@ export default function Page() {
 
         <section className="min-w-0 flex-1">
           <header className="flex h-[78px] items-center justify-between border-b border-[#ded8cd] px-5 sm:px-10">
-            <div className="flex items-center gap-5 lg:hidden"><span className="text-xl font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span></span></div>
+            <div className="flex items-center gap-5 lg:hidden"><span className="text-xl font-black tracking-[-0.08em]">yallah<span className="text-[#fa5b48]">.</span><span className="ml-1 text-sm font-bold tracking-[-0.04em] text-[#6f6a63]">services</span></span></div>
             <div className="hidden items-center gap-8 sm:flex">
               {['For you', 'Following'].map((tab) => (
                 <button key={tab} onClick={() => setActiveTab(tab)} className={`relative py-7 text-sm font-semibold transition-colors ${activeTab === tab ? 'text-[#171717]' : 'text-[#8f897f]'}`}>
