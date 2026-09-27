@@ -96,6 +96,9 @@ export default function Page() {
               <a href="https://www.tiktok.com/@yallah.services.m" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
                 <Music2 size={16} /> TikTok
               </a>
+              <a href="https://www.instagram.com/yallahservice" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <LinkIcon size={16} /> Instagram
+              </a>
             </div>
             <p className="mt-5 text-[10px] leading-4 text-[#8f897f]">© 2024 yallah<br />made for the curious</p>
           </div>
