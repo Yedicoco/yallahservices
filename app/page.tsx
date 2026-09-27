@@ -19,6 +19,7 @@ import {
   VolumeX,
   X,
   Heart,
+  Link as LinkIcon,
 } from 'lucide-react'
 
 const videos = [
@@ -87,7 +88,23 @@ export default function Page() {
               <Plus size={18} /> Create
             </button>
           </div>
-          <p className="mt-7 text-[10px] leading-4 text-[#8f897f]">© 2024 yallah<br />made for the curious</p>
+          <div className="mt-7 border-t border-[#ded8cd] pt-5">
+            <div className="space-y-3">
+              <a href="https://www.linkedin.com/in/yallah-services" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <LinkIcon size={16} /> LinkedIn
+              </a>
+              <a href="https://www.tiktok.com/@yallah.services.m" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <Music2 size={16} /> TikTok
+              </a>
+              <a href="https://www.instagram.com/yallahservice" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <LinkIcon size={16} /> Instagram
+              </a>
+              <a href="https://www.facebook.com/yallahservicesmaroc" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-xs font-semibold text-[#6f6a63] transition-colors hover:text-[#fa5b48]">
+                <LinkIcon size={16} /> Facebook
+              </a>
+            </div>
+            <p className="mt-5 text-[10px] leading-4 text-[#8f897f]">© 2024 yallah<br />made for the curious</p>
+          </div>
         </aside>
 
         <section className="min-w-0 flex-1">
