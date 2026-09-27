@@ -23,15 +23,15 @@ import {
 
 const videos = [
   {
-    image: '/yallah-surf.png',
+    image: '/yallah-services-contact.png',
     name: 'Yallah Services',
     handle: '@yallah.services.m',
-    caption: 'Le bon profil, au bon endroit, selon vos besoins.',
-    song: 'Yallah Services · Casablanca & Maroc',
+    caption: 'L’excellence à votre service, partout au Maroc.',
+    song: 'WhatsApp / GSM · +212 691 733 585',
     likes: '1.2K',
     comments: '86',
-    accent: 'from-[#fa5b48]/70',
-    tag: 'À domicile',
+    accent: 'from-[#5f0b08]/80',
+    tag: 'Contact direct',
   },
   {
     image: '/yallah-street.png',
