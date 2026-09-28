@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'yallah. — A little bit of everywhere',
-  description: 'A curious corner of the internet for short videos, new places, and good energy.',
+  title: 'Yallah Services — Personnel et services au Maroc',
+  description: 'Yallah Services facilite la recherche de personnel pour les particuliers et les entreprises au Maroc.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

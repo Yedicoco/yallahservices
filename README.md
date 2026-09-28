@@ -20,7 +20,43 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## TikTok Content Posting API
+
+Le dépôt contient maintenant les pages publiques nécessaires à la revue TikTok :
+
+- `https://yallahservices.vercel.app/privacy.html`
+- `https://yallahservices.vercel.app/terms.html`
+
+Le flux serveur Direct Post est disponible via `/api/tiktok/auth`, `/api/tiktok/callback`, `/api/tiktok/publish` et `/api/tiktok/status`. Il ne publie qu’après une autorisation TikTok valide et un consentement explicite transmis à l’endpoint de publication.
+
+### Variables Vercel à configurer
+
+Créer ces variables côté serveur, dans les environnements Preview et Production si nécessaire :
+
+```text
+TIKTOK_CLIENT_KEY=<Client Key de l’application TikTok>
+TIKTOK_CLIENT_SECRET=<Client Secret de l’application TikTok>
+TIKTOK_REDIRECT_URI=https://yallahservices.vercel.app/api/tiktok/callback
+TIKTOK_TOKEN_SECRET=<secret aléatoire d’au moins 32 caractères>
+```
+
+Dans TikTok for Developers, enregistrer exactement cette Redirect URI HTTPS et activer Content Posting API + Direct Post avec le scope `video.publish`. TikTok indique qu’un client non audité est limité aux publications privées jusqu’à la fin de l’audit. Pour `PULL_FROM_URL`, le domaine qui héberge la vidéo doit aussi être vérifié auprès de TikTok.
+
+La publication attend un JSON de ce type sur `/api/tiktok/publish` :
+
+```json
+{
+  "video_url": "https://domaine-verifie.example/video.mp4",
+  "title": "Votre légende TikTok",
+  "privacy_level": "SELF_ONLY",
+  "consent": true,
+  "is_aigc": false
+}
+```
+
+La valeur `privacy_level` doit être choisie parmi les options renvoyées par TikTok pour le compte connecté. Les clés et jetons ne doivent jamais être commités dans Git.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

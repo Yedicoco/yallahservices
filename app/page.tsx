@@ -109,7 +109,7 @@ export default function Page() {
                 <SocialMark label="⌕" className="bg-[#25d366]" /> WhatsApp
               </a>
             </div>
-            <p className="mt-5 text-[10px] leading-4 text-[#8f897f]">© 2024 yallah<br />made for the curious</p>
+            <p className="mt-5 text-[10px] leading-4 text-[#8f897f]">© 2026 Yallah Services<br /><a href="/privacy.html" className="underline-offset-2 hover:underline">Confidentialité</a> · <a href="/terms.html" className="underline-offset-2 hover:underline">Conditions</a></p>
           </div>
         </aside>
 
