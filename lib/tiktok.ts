@@ -1,64 +1,121 @@
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto'
+import crypto from "crypto";
 
-export const TIKTOK_AUTHORIZE_URL = 'https://www.tiktok.com/v2/auth/authorize/'
-export const TIKTOK_API_URL = 'https://open.tiktokapis.com'
-export const TIKTOK_SESSION_COOKIE = 'yallah_tiktok_session'
-export const TIKTOK_STATE_COOKIE = 'yallah_tiktok_state'
+const TIKTOK_CLIENT_KEY = process.env.TIKTOK_CLIENT_KEY!;
+const TIKTOK_CLIENT_SECRET = process.env.TIKTOK_CLIENT_SECRET!;
+// Doit correspondre EXACTEMENT (schéma, host, chemin, slash final) à ce qui
+// est déclaré dans le portail TikTok Developers pour ton App.
+const REDIRECT_URI = process.env.TIKTOK_REDIRECT_URI!;
 
-export type TikTokSession = {
-  access_token: string
-  refresh_token?: string
-  open_id: string
-  expires_at: number
-  refresh_expires_at?: number
-  scope?: string
+export function base64url(input: Buffer) {
+  return input
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
-function keyFromSecret() {
-  const secret = process.env.SESSION_SECRET || process.env.TIKTOK_TOKEN_SECRET
-  if (!secret || secret.length < 32) throw new Error('SESSION_SECRET must contain at least 32 characters')
-  return createHash('sha256').update(secret).digest()
+export function generatePkcePair() {
+  const codeVerifier = base64url(crypto.randomBytes(32));
+  const codeChallenge = base64url(
+    crypto.createHash("sha256").update(codeVerifier).digest()
+  );
+  return { codeVerifier, codeChallenge };
 }
 
-export function encryptSession(session: TikTokSession) {
-  const iv = randomBytes(12)
-  const cipher = createCipheriv('aes-256-gcm', keyFromSecret(), iv)
-  const encrypted = Buffer.concat([cipher.update(JSON.stringify(session), 'utf8'), cipher.final()])
-  const tag = cipher.getAuthTag()
-  return [iv, tag, encrypted].map((part) => part.toString('base64url')).join('.')
+export function buildAuthorizeUrl(codeChallenge: string, state: string) {
+  const params = new URLSearchParams({
+    client_key: TIKTOK_CLIENT_KEY,
+    scope: "user.info.basic,video.publish",
+    response_type: "code",
+    redirect_uri: REDIRECT_URI,
+    state,
+    code_challenge: codeChallenge,
+    code_challenge_method: "S256",
+  });
+  return `https://www.tiktok.com/v2/auth/authorize/?${params.toString()}`;
 }
 
-export function decryptSession(value: string | undefined): TikTokSession | null {
-  if (!value) return null
-  try {
-    const [ivValue, tagValue, encryptedValue] = value.split('.')
-    if (!ivValue || !tagValue || !encryptedValue) return null
-    const decipher = createDecipheriv('aes-256-gcm', keyFromSecret(), Buffer.from(ivValue, 'base64url'))
-    decipher.setAuthTag(Buffer.from(tagValue, 'base64url'))
-    const plain = Buffer.concat([
-      decipher.update(Buffer.from(encryptedValue, 'base64url')),
-      decipher.final(),
-    ]).toString('utf8')
-    const session = JSON.parse(plain) as TikTokSession
-    if (!session.access_token || !session.open_id || !session.expires_at) return null
-    return session
-  } catch {
-    return null
+export async function exchangeCodeForToken(code: string, codeVerifier: string) {
+  const res = await fetch("https://open.tiktokapis.com/v2/oauth/token/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+    },
+    body: new URLSearchParams({
+      client_key: TIKTOK_CLIENT_KEY,
+      client_secret: TIKTOK_CLIENT_SECRET,
+      code,
+      grant_type: "authorization_code",
+      redirect_uri: REDIRECT_URI,
+      code_verifier: codeVerifier,
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Échange de token échoué: ${res.status} ${await res.text()}`);
   }
+  return res.json() as Promise<{
+    access_token: string;
+    expires_in: number;
+    open_id: string;
+    refresh_token: string;
+    scope: string;
+  }>;
 }
 
-export function requiredTikTokConfig() {
-  const values = {
-    clientKey: process.env.TIKTOK_CLIENT_KEY,
-    clientSecret: process.env.TIKTOK_CLIENT_SECRET,
-    redirectUri: process.env.TIKTOK_REDIRECT_URI,
+export async function getCreatorInfo(accessToken: string) {
+  const res = await fetch(
+    "https://open.tiktokapis.com/v2/post/publish/creator_info/query/",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }
+  );
+  if (!res.ok) {
+    throw new Error(`creator_info échoué: ${res.status} ${await res.text()}`);
   }
-  if (!values.clientKey || !values.clientSecret || !values.redirectUri) {
-    throw new Error('TikTok OAuth is not configured. Set TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET and TIKTOK_REDIRECT_URI.')
-  }
-  return values
+  return res.json();
 }
 
-export function cookieOptions(maxAge: number) {
-  return { httpOnly: true, secure: true, sameSite: 'lax' as const, path: '/', maxAge }
+export async function initDirectPost(
+  accessToken: string,
+  params: {
+    videoUrl: string;
+    caption: string;
+    privacyLevel: string; // doit être l'une des privacy_level_options renvoyées par creator_info
+    disableComment: boolean;
+    disableDuet: boolean;
+    disableStitch: boolean;
+  }
+) {
+  const res = await fetch(
+    "https://open.tiktokapis.com/v2/post/publish/video/init/",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        post_info: {
+          title: params.caption,
+          privacy_level: params.privacyLevel,
+          disable_comment: params.disableComment,
+          disable_duet: params.disableDuet,
+          disable_stitch: params.disableStitch,
+        },
+        source_info: {
+          source: "PULL_FROM_URL",
+          video_url: params.videoUrl,
+        },
+      }),
+    }
+  );
+  if (!res.ok) {
+    throw new Error(`publish/video/init échoué: ${res.status} ${await res.text()}`);
+  }
+  return res.json() as Promise<{ data: { publish_id: string }; error: { code: string } }>;
 }
