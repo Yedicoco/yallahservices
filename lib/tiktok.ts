@@ -15,8 +15,8 @@ export type TikTokSession = {
 }
 
 function keyFromSecret() {
-  const secret = process.env.TIKTOK_TOKEN_SECRET
-  if (!secret || secret.length < 32) throw new Error('TIKTOK_TOKEN_SECRET must contain at least 32 characters')
+  const secret = process.env.SESSION_SECRET || process.env.TIKTOK_TOKEN_SECRET
+  if (!secret || secret.length < 32) throw new Error('SESSION_SECRET must contain at least 32 characters')
   return createHash('sha256').update(secret).digest()
 }
 

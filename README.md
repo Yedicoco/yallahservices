@@ -26,10 +26,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 
 Le dépôt contient maintenant les pages publiques nécessaires à la revue TikTok :
 
-- `https://yallahservices.vercel.app/privacy.html`
-- `https://yallahservices.vercel.app/terms.html`
+- `https://yallahservices.vercel.app/confidentialite`
+- `https://yallahservices.vercel.app/cgu`
 
-Le flux serveur Direct Post est disponible via `/api/tiktok/auth`, `/api/tiktok/callback`, `/api/tiktok/publish` et `/api/tiktok/status`. Il ne publie qu’après une autorisation TikTok valide et un consentement explicite transmis à l’endpoint de publication.
+Le flux serveur Direct Post est disponible via `/api/auth/tiktok` et `/api/auth/callback` (les anciens chemins `/api/tiktok/auth` et `/api/tiktok/callback` restent compatibles), ainsi que `/api/tiktok/publish` et `/api/tiktok/status`. Il ne publie qu’après une autorisation TikTok valide et un consentement explicite transmis à l’endpoint de publication.
 
 ### Variables Vercel à configurer
 
@@ -38,8 +38,8 @@ Créer ces variables côté serveur, dans les environnements Preview et Producti
 ```text
 TIKTOK_CLIENT_KEY=<Client Key de l’application TikTok>
 TIKTOK_CLIENT_SECRET=<Client Secret de l’application TikTok>
-TIKTOK_REDIRECT_URI=https://yallahservices.vercel.app/api/tiktok/callback
-TIKTOK_TOKEN_SECRET=<secret aléatoire d’au moins 32 caractères>
+TIKTOK_REDIRECT_URI=https://yallahservices.vercel.app/api/auth/callback
+SESSION_SECRET=<secret aléatoire d’au moins 32 caractères>
 ```
 
 Dans TikTok for Developers, enregistrer exactement cette Redirect URI HTTPS et activer Content Posting API + Direct Post avec le scope `video.publish`. TikTok indique qu’un client non audité est limité aux publications privées jusqu’à la fin de l’audit. Pour `PULL_FROM_URL`, le domaine qui héberge la vidéo doit aussi être vérifié auprès de TikTok.
