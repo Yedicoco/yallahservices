@@ -1,8 +1,11 @@
 import crypto from "crypto";
 
+// Constantes d'authentification OAuth TikTok
+export const TIKTOK_AUTHORIZE_URL = "https://www.tiktok.com/v2/auth/authorize/";
+export const TIKTOK_STATE_COOKIE = "tiktok_oauth_state";
+
 /**
  * Valide et retourne les variables d'environnement nécessaires pour TikTok.
- * Lève une erreur explicite si une variable est manquante.
  */
 export function requiredTikTokConfig() {
   const clientKey = process.env.TIKTOK_CLIENT_KEY;
@@ -16,6 +19,19 @@ export function requiredTikTokConfig() {
   }
 
   return { clientKey, clientSecret, redirectUri };
+}
+
+/**
+ * Helper de configuration sécurisée des cookies HTTP pour les jetons OAuth/PKCE.
+ */
+export function cookieOptions(maxAge: number) {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    maxAge,
+    path: "/",
+  };
 }
 
 export function base64url(input: Buffer) {
@@ -46,7 +62,8 @@ export function buildAuthorizeUrl(codeChallenge: string, state: string) {
     code_challenge: codeChallenge,
     code_challenge_method: "S256",
   });
-  return `https://www.tiktok.com/v2/auth/authorize/?${params.toString()}`;
+
+  return `${TIKTOK_AUTHORIZE_URL}?${params.toString()}`;
 }
 
 export async function exchangeCodeForToken(code: string, codeVerifier: string) {
