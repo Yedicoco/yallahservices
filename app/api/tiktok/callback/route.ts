@@ -8,7 +8,10 @@ export async function GET(request: NextRequest) {
   const code = url.searchParams.get('code')
   const state = url.searchParams.get('state')
   const expectedState = request.cookies.get(TIKTOK_STATE_COOKIE)?.value
-  if (!code || !state || !expectedState || state !== expectedState) {
+  if (!code) {
+    return NextResponse.redirect(new URL('/?error=missing_code', request.url))
+  }
+  if (!state || !expectedState || state !== expectedState) {
     return NextResponse.json({ error: 'Invalid or expired TikTok authorization state.' }, { status: 400 })
   }
 
