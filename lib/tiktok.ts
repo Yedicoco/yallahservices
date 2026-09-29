@@ -1,10 +1,22 @@
 import crypto from "crypto";
 
-const TIKTOK_CLIENT_KEY = process.env.TIKTOK_CLIENT_KEY!;
-const TIKTOK_CLIENT_SECRET = process.env.TIKTOK_CLIENT_SECRET!;
-// Doit correspondre EXACTEMENT (schéma, host, chemin, slash final) à ce qui
-// est déclaré dans le portail TikTok Developers pour ton App.
-const REDIRECT_URI = process.env.TIKTOK_REDIRECT_URI!;
+/**
+ * Valide et retourne les variables d'environnement nécessaires pour TikTok.
+ * Lève une erreur explicite si une variable est manquante.
+ */
+export function requiredTikTokConfig() {
+  const clientKey = process.env.TIKTOK_CLIENT_KEY;
+  const clientSecret = process.env.TIKTOK_CLIENT_SECRET;
+  const redirectUri = process.env.TIKTOK_REDIRECT_URI;
+
+  if (!clientKey || !clientSecret || !redirectUri) {
+    throw new Error(
+      "Variables d'environnement TikTok manquantes. Vérifiez TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET et TIKTOK_REDIRECT_URI."
+    );
+  }
+
+  return { clientKey, clientSecret, redirectUri };
+}
 
 export function base64url(input: Buffer) {
   return input
@@ -23,11 +35,13 @@ export function generatePkcePair() {
 }
 
 export function buildAuthorizeUrl(codeChallenge: string, state: string) {
+  const { clientKey, redirectUri } = requiredTikTokConfig();
+
   const params = new URLSearchParams({
-    client_key: TIKTOK_CLIENT_KEY,
+    client_key: clientKey,
     scope: "user.info.basic,video.publish",
     response_type: "code",
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: redirectUri,
     state,
     code_challenge: codeChallenge,
     code_challenge_method: "S256",
@@ -36,6 +50,8 @@ export function buildAuthorizeUrl(codeChallenge: string, state: string) {
 }
 
 export async function exchangeCodeForToken(code: string, codeVerifier: string) {
+  const { clientKey, clientSecret, redirectUri } = requiredTikTokConfig();
+
   const res = await fetch("https://open.tiktokapis.com/v2/oauth/token/", {
     method: "POST",
     headers: {
@@ -43,17 +59,19 @@ export async function exchangeCodeForToken(code: string, codeVerifier: string) {
       Accept: "application/json",
     },
     body: new URLSearchParams({
-      client_key: TIKTOK_CLIENT_KEY,
-      client_secret: TIKTOK_CLIENT_SECRET,
+      client_key: clientKey,
+      client_secret: clientSecret,
       code,
       grant_type: "authorization_code",
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: redirectUri,
       code_verifier: codeVerifier,
     }),
   });
+
   if (!res.ok) {
     throw new Error(`Échange de token échoué: ${res.status} ${await res.text()}`);
   }
+
   return res.json() as Promise<{
     access_token: string;
     expires_in: number;
@@ -74,9 +92,11 @@ export async function getCreatorInfo(accessToken: string) {
       },
     }
   );
+
   if (!res.ok) {
     throw new Error(`creator_info échoué: ${res.status} ${await res.text()}`);
   }
+
   return res.json();
 }
 
@@ -85,7 +105,7 @@ export async function initDirectPost(
   params: {
     videoUrl: string;
     caption: string;
-    privacyLevel: string; // doit être l'une des privacy_level_options renvoyées par creator_info
+    privacyLevel: string;
     disableComment: boolean;
     disableDuet: boolean;
     disableStitch: boolean;
@@ -114,8 +134,10 @@ export async function initDirectPost(
       }),
     }
   );
+
   if (!res.ok) {
     throw new Error(`publish/video/init échoué: ${res.status} ${await res.text()}`);
   }
+
   return res.json() as Promise<{ data: { publish_id: string }; error: { code: string } }>;
 }
