@@ -34,6 +34,45 @@ export function cookieOptions(maxAge: number) {
   };
 }
 
+/**
+ * Gestion du chiffrement et déchiffrement des sessions / jetons stockés en cookies.
+ */
+const SESSION_SECRET =
+  process.env.SESSION_SECRET ||
+  process.env.TIKTOK_CLIENT_SECRET ||
+  "fallback_secret_key_32_bytes_min!!";
+
+export function encryptSession(data: any): string {
+  const iv = crypto.randomBytes(16);
+  const key = crypto.scryptSync(SESSION_SECRET, "salt", 32);
+  const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+
+  let encrypted = cipher.update(JSON.stringify(data));
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+
+  return `${iv.toString("hex")}:${encrypted.toString("hex")}`;
+}
+
+export function decryptSession<T = any>(encryptedData: string): T | null {
+  if (!encryptedData) return null;
+  try {
+    const textParts = encryptedData.split(":");
+    if (textParts.length !== 2) return null;
+
+    const iv = Buffer.from(textParts[0], "hex");
+    const encryptedText = Buffer.from(textParts[1], "hex");
+    const key = crypto.scryptSync(SESSION_SECRET, "salt", 32);
+    const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return JSON.parse(decrypted.toString());
+  } catch {
+    return null;
+  }
+}
+
 export function base64url(input: Buffer) {
   return input
     .toString("base64")
