@@ -51,6 +51,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: { card: 'summary_large_image', title: dict.meta.ogTitle, description: dict.meta.metaDescription, images: ['/opengraph-image'] },
     robots: { index: true, follow: true },
+    // Google Search Console : produit <meta name="google-site-verification" content="…" />.
+    verification: { google: 'Syqp8FEggtIpAISaikH_jb_3V164E9APe2fPGSShBtY' },
     generator: 'v0.app',
     icons: {
       icon: [
