@@ -22,40 +22,11 @@ import {
 } from 'lucide-react'
 
 const videos = [
-  {
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ae28a7b0-a551-11f1-a943-d9befee7b578-fICNJsGf7PaHjnpulrqiCLHhzqgLqd.webp',
-    name: 'Yallah Services',
-    handle: '@yallah.services.maroc',
-    caption: 'Plus de temps pour vous : nous prenons soin de votre maison.',
-    song: 'WhatsApp · +212 691 733 585',
-    likes: '1.2K',
-    comments: '86',
-    accent: 'from-[#071a35]/90',
-    tag: 'Ménage · Repassage · Nettoyage',
-  },
-  {
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/b6821b30-a551-11f1-a943-d9befee7b578.png-a1AaTSc2l9CP0nCSCvOVPrwV8zxEeb.jpeg',
-    name: 'Yallah Services',
-    handle: '@yallah.services.maroc',
-    caption: 'Besoin d’une femme de ménage ? Des profils sérieux, disponibles et sélectionnés avec soin.',
-    song: 'Casablanca · Profils vérifiés',
-    likes: '948',
-    comments: '54',
-    accent: 'from-[#06172f]/90',
-    tag: 'Profils sélectionnés',
-  },
-  {
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grilles%20des%20salaires%20par%20Aide%20et%20taches-ccrH5xho5pg9TT1OlE6jnnkmGJTtdQ.jpeg',
-    name: 'Yallah Services',
-    handle: '@yallah.services.maroc',
-    caption: 'Découvrez nos tarifs indicatifs pour ménage, nounou, cuisine et garde-malade.',
-    song: 'Grille tarifaire · À partir de 3 500 DH',
-    likes: '2.4K',
-    comments: '137',
-    accent: 'from-[#090d16]/90',
-    tag: 'Tarifs Maroc',
-  },
-]
+  { source: '/videos/yallah service.mp4', tag: 'Yallah Services', title: 'Le service à domicile, pensé pour votre quotidien.', description: 'Une équipe locale pour vous aider à gagner du temps, avec des profils sérieux et un accompagnement humain.', meta: 'Présentation · Maroc' },
+  { source: '/videos/besoin de\'aide à domicile.mp4', tag: 'Besoin d’aide ?', title: 'Trouvez la personne qui correspond vraiment à votre besoin.', description: 'Ménage, nounou, cuisine ou garde-malade : nous vous orientons vers le bon profil.', meta: 'Ménage · Repassage · Garde' },
+  { source: '/videos/prospection b2b.mp4', tag: 'Pour les entreprises', title: 'Développez votre activité avec une prospection plus humaine.', description: 'Yallah Services accompagne aussi les professionnels qui veulent structurer leur développement commercial.', meta: 'Prospection · B2B' },
+  { source: '/videos/2026-08-28-151819708.mp4', tag: 'Nos repères', title: 'Des informations claires pour choisir sereinement.', description: 'Découvrez nos conseils, nos services et les repères utiles avant de démarrer.', meta: 'Conseils · Services' },
+] as const
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState('For you')
@@ -153,33 +124,21 @@ export default function Page() {
               <div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">Yallah Services · Maroc</p><h1 className="font-serif text-4xl font-medium tracking-[-0.04em] sm:text-5xl">Le bon profil, au bon endroit.</h1></div>
               <button aria-label="More options" className="mb-1 rounded-full p-2 hover:bg-[#e9e2d8]"><Ellipsis size={20} /></button>
             </div>
-            <div className="space-y-8">
-              {videos.map((video, index) => (
-                <article key={video.handle} className="group grid gap-5 sm:grid-cols-[minmax(230px,320px)_1fr] sm:gap-7">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-[#ddd3c7] shadow-[0_14px_30px_rgba(39,31,22,0.12)] sm:aspect-[3/4]">
-                    <img src={video.image} alt={`${video.name} video`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-                    <div className={`absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t ${video.accent} to-transparent`} />
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 text-white">
-                      <div className="flex items-center gap-2"><div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/60 bg-[#171717]/20 text-xs font-bold">{video.name.split(' ').map((n) => n[0]).join('')}</div><span className="text-sm font-bold">{video.handle}</span></div>
-                      <button aria-label={muted ? 'Unmute video' : 'Mute video'} onClick={() => setMuted(!muted)} className="rounded-full bg-black/20 p-2 backdrop-blur-sm">{muted ? <VolumeX size={15} /> : <Volume2 size={15} />}</button>
-                    </div>
-                    <div className="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-[#171717]">{video.tag}</div>
-                  </div>
-                  <div className="flex min-h-full flex-col justify-center py-1 sm:py-5">
-                    <div className="mb-5 flex items-center gap-2 text-xs text-[#8f897f]"><span className="h-1.5 w-1.5 rounded-full bg-[#fa5b48]" />{index === activeVideo ? 'Now playing' : 'Featured for you'}</div>
-                    <h2 className="max-w-[390px] font-serif text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl">{video.caption}</h2>
-                    <div className="mt-7 flex items-center gap-3 text-sm font-semibold"><Music2 size={16} className="text-[#fa5b48]" /><span>{video.song}</span></div>
-                    <div className="mt-8 flex items-center gap-5 border-b border-[#ded8cd] pb-6">
-                      <button onClick={() => setLiked({ ...liked, [index]: !liked[index] })} className={`flex items-center gap-2 text-xs font-bold transition-colors ${liked[index] ? 'text-[#fa5b48]' : 'text-[#6f6a63]'}`}><Heart size={19} fill={liked[index] ? 'currentColor' : 'none'} />{liked[index] ? '48.3K' : video.likes}</button>
-                      <button className="flex items-center gap-2 text-xs font-bold text-[#6f6a63]"><MessageCircle size={18} />{video.comments}</button>
-                      <button onClick={() => setSaved({ ...saved, [index]: !saved[index] })} aria-label="Save video" className={`ml-auto rounded-full p-2 ${saved[index] ? 'bg-[#171717] text-white' : 'text-[#6f6a63] hover:bg-[#e9e2d8]'}`}><Bookmark size={18} fill={saved[index] ? 'currentColor' : 'none'} /></button>
-                      <button aria-label="Share video" className="rounded-full p-2 text-[#6f6a63] hover:bg-[#e9e2d8]"><Share2 size={18} /></button>
-                    </div>
-                    <button onClick={() => setActiveVideo(index)} className="mt-5 flex items-center gap-2 self-start text-xs font-bold text-[#fa5b48]">Présenter mon besoin <ChevronDown className="-rotate-90" size={15} /></button>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <section className="overflow-hidden rounded-[28px] bg-[#171717] text-[#f6f1e8] shadow-[0_24px_60px_rgba(39,31,22,0.16)]" aria-label="Vidéos Yallah Services">
+              <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="relative aspect-video min-h-[280px] bg-black lg:aspect-auto">
+                  <video key={videos[activeVideo].source} className="h-full w-full object-cover" src={videos[activeVideo].source} controls playsInline muted={muted} preload="metadata" aria-label={videos[activeVideo].title} />
+                  <div className="pointer-events-none absolute left-5 top-5 rounded-full bg-[#fa5b48] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em]">À découvrir</div>
+                </div>
+                <div className="flex flex-col justify-between p-6 sm:p-9">
+                  <div><div className="mb-5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-[#b7afa4]"><span>{videos[activeVideo].tag}</span><span>{String(activeVideo + 1).padStart(2, '0')} / 04</span></div><h2 className="max-w-[460px] font-serif text-3xl leading-[1.04] tracking-[-0.04em] sm:text-4xl">{videos[activeVideo].title}</h2><p className="mt-5 max-w-[420px] text-sm leading-6 text-[#b7afa4]">{videos[activeVideo].description}</p></div>
+                  <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-5"><span className="text-xs font-semibold text-[#b7afa4]">{videos[activeVideo].meta}</span><button onClick={() => setMuted(!muted)} aria-label={muted ? 'Activer le son' : 'Couper le son'} className="rounded-full border border-white/20 p-2.5 hover:bg-white/10">{muted ? <VolumeX size={15} /> : <Volume2 size={15} />}</button></div>
+                </div>
+              </div>
+              <div className="grid border-t border-white/15 sm:grid-cols-4">
+                {videos.map((video, index) => <button key={video.source} onClick={() => setActiveVideo(index)} className={`group flex items-center gap-3 border-b border-white/10 p-4 text-left transition-colors last:border-0 sm:border-b-0 sm:border-r sm:last:border-r-0 ${index === activeVideo ? 'bg-[#fa5b48]' : 'hover:bg-white/10'}`}><span className="font-serif text-2xl text-white/50">0{index + 1}</span><span className="min-w-0"><span className="block truncate text-xs font-bold">{video.tag}</span><span className="mt-1 block truncate text-[11px] text-white/55">{video.meta}</span></span></button>)}
+              </div>
+            </section>
             <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white">Nous contacter</a></div>
           </div>
         </section>
