@@ -87,6 +87,56 @@ app/connect/page.tsx            interface de publication (404 sans session admin
 
 Anciennes adresses conservées (réécritures dans `next.config.mjs`, pour ne rien casser côté portail TikTok) : `/api/auth/tiktok` → `/api/tiktok/auth`, `/api/auth/callback` et `/api/tiktok/callback` → `/api/tiktok/auth/callback`. Elles pointent vers le produit **public**.
 
+## Hub d'intégrations sociales (TikTok · Meta · LinkedIn)
+
+Publication multi-réseaux de l'entreprise depuis l'espace interne : chaque réseau se connecte par OAuth2 (+ PKCE S256), ses jetons sont chiffrés dans le stockage durable, et un cron les rafraîchit.
+
+```
+app/api/
+├── integrations/
+│   ├── tiktok/
+│   │   ├── auth/
+│   │   │   ├── connect/route.ts      GET  initialisation OAuth2 + PKCE · DELETE déconnecte et révoque
+│   │   │   └── callback/route.ts     GET  échange du code (code_verifier) → jetons chiffrés en base
+│   │   ├── publish/route.ts          POST Content Posting API (Direct Post) · GET ?publish_id= suit
+│   │   └── webhooks/route.ts         POST événements TikTok (signature HMAC) + révocation/RGPD
+│   ├── meta/
+│   │   ├── auth/
+│   │   │   ├── connect/route.ts      GET  Login Facebook (Business) · DELETE déconnecte et révoque
+│   │   │   └── callback/route.ts     GET  code → jeton long-lived + jetons Pages + Instagram Business
+│   │   ├── publish/route.ts          POST Pages (feed / vidéo par URL) et Instagram Reels, images, carrousels
+│   │   └── webhooks/
+│   │       ├── events/route.ts       GET  vérification du hub (challenge) · POST abonnements Meta
+│   │       └── deletion/route.ts     POST callback légal de suppression des données (RGPD)
+│   └── linkedin/
+│       ├── auth/
+│       │   ├── connect/route.ts      GET  OAuth2 LinkedIn (profil / Company Page) · DELETE déconnecte
+│       │   └── callback/route.ts     GET  échange du code (PKCE) → jeton 60 j chiffré en base
+│       ├── publish/route.ts          POST profil (urn:li:members:me) ou Company Page — texte ou image
+│       └── webhooks/route.ts         GET  challenge · POST webhooks de la Company Page
+└── admin/
+    └── system/
+        ├── health/route.ts           GET  état du stockage, des configurations et des jetons + sondes API
+        └── cron/
+            └── refresh-tokens/route.ts  GET/POST rafraîchissement des jetons (secret CRON_SECRET)
+```
+
+| Réseau | Jetons conservés | Rafraîchissement |
+|---|---|---|
+| TikTok | access (24 h) + refresh (365 j) + open_id | cron : refresh_token, marge 15 min |
+| Meta | jeton utilisateur long-lived (60 j) + un jeton long-lived **par Page** (+ compte Instagram rattaché) | cron : ré-échange `fb_exchange_token` sous 7 jours |
+| LinkedIn | access token (60 j), sub OpenID | **aucun** refresh_token possible : le cron signale les jours restants, reconnexion à prévoir |
+
+**Sécurité du hub** :
+
+- `auth/` et `publish/` : mêmes garde-fous que le Direct Post — `denyUnlessAdmin()` (404 neutre sinon), contrôle d'origine sur les écritures, state + PKCE S256 dans un cookie chiffré de 10 min, jetons **jamais** dans un cookie (AES-256-GCM, purpose dédié, dans Redis).
+- `webhooks/` : routes publiques mais en échec fermé — TikTok : HMAC-SHA256 sur « timestamp + corps brut » (± 5 min, anti-rejeu) ; Meta : `X-Hub-Signature-256` (HMAC du corps brut, app secret) et `hub.verify_token` ; LinkedIn : challenge d'enregistrement. Un événement de **révocation** supprime immédiatement les jetons du réseau concerné (RGPD).
+- Le callback de **suppression Meta** (`webhooks/deletion`) révoque et purge les données du compte si l'identifiant reçu correspond au compte connecté ; chaque demande est journalisée (audit RGPD) sans aucun jeton.
+- `admin/system/health` : réservé à l'administrateur, ne renvoie aucun jeton (statuts `ok` / `expiring_soon` / `expired` / `not_connected` + sondes d'accessibilité des API).
+- `admin/system/cron/refresh-tokens` : secret `CRON_SECRET` (≥ 24 caractères) dans `x-cron-secret` ou `Authorization: Bearer`, comparé en temps constant ; absent = endpoint désactivé (503). À programmer (Vercel Cron / Actions / crontab) une fois par jour au moins.
+
+**URIs à déclarer chez les éditeurs** : `https://<domaine>/api/integrations/tiktok/auth/callback`, `https://<domaine>/api/integrations/tiktok/webhooks`, `https://<domaine>/api/integrations/meta/auth/callback` (+ URL de suppression `…/meta/webhooks/deletion`), `https://<domaine>/api/integrations/linkedin/auth/callback`.
+
 ## Mise en route sur Vercel
 
 1. **Stockage durable des jetons.** Sur Vercel, le disque est éphémère : un fichier local (du type `.data/users.json`) disparaît à chaque déploiement, et un cookie n'est pas un stockage serveur. Dans le projet Vercel : *Storage → Marketplace → **Upstash Redis** → Connect Project*. Les variables `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (ou les anciens noms `KV_REST_API_*`) sont injectées automatiquement. Aucune dépendance npm n'est ajoutée : l'adaptateur (`lib/storage/kv.ts`) parle directement à l'API REST d'Upstash.
@@ -97,6 +147,7 @@ Anciennes adresses conservées (réécritures dans `next.config.mjs`, pour ne ri
    - *Manage apps → URL properties* : le domaine `https://yallahservices.vercel.app/` doit être vérifié (les fichiers `public/tiktok*.txt` servent à cette vérification). TikTok n'accepte la publication depuis une URL que pour un domaine vérifié.
    - Tant que l'application n'a pas passé l'audit TikTok, **toute publication est limitée à la visibilité « Moi uniquement »**. Ajoutez votre compte comme *target user* (sandbox) pour tester.
 4. **Déployer**, puis ouvrir `https://yallahservices.vercel.app/connect?key=<ADMIN_SECRET>`, cliquer *Connecter le compte TikTok* et autoriser.
+5. **Hub d'intégrations** (facultatif, réseau par réseau) : créer les applications Meta / LinkedIn, déclarer les URI de retour listées dans la section « Hub d'intégrations sociales », définir les variables correspondantes, puis connecter chaque compte depuis l'espace interne. Programmer le cron (`/api/admin/system/cron/refresh-tokens`) avec `CRON_SECRET`.
 
 ### Variables d'environnement
 
@@ -109,6 +160,15 @@ Anciennes adresses conservées (réécritures dans `next.config.mjs`, pour ne ri
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | stockage durable des jetons admin | pour le Direct Post |
 | `TIKTOK_ADMIN_CLIENT_KEY`, `TIKTOK_ADMIN_CLIENT_SECRET`, `TIKTOK_ADMIN_REDIRECT_URI` | application TikTok distincte pour le Direct Post | non (par défaut : mêmes identifiants, URI `/api/tiktok/admin/callback`) |
 | `TIKTOK_VIDEO_ALLOWED_HOSTS` | hôtes vérifiés supplémentaires pour la publication depuis une URL | non |
+| `TIKTOK_INTEGRATION_CLIENT_KEY`, `TIKTOK_INTEGRATION_CLIENT_SECRET` | application TikTok distincte pour le hub | non (défaut : application du Direct Post) |
+| `TIKTOK_INTEGRATION_REDIRECT_URI` | URI de retour du hub (à déclarer chez TikTok) | non (défaut : domaine des URIs TikTok + `/api/integrations/tiktok/auth/callback`) |
+| `TIKTOK_WEBHOOK_SECRET` | clé HMAC des webhooks TikTok | non (défaut : client_secret de l'application du hub) |
+| `META_APP_ID`, `META_APP_SECRET`, `META_REDIRECT_URI` | application Meta (Facebook Pages + Instagram) | pour le hub Meta |
+| `META_SCOPE`, `META_API_VERSION` | scopes et version du Graph API | non (défauts : voir `.env.example`) |
+| `META_WEBHOOK_SECRET`, `META_WEBHOOK_VERIFY_TOKEN` | signature + jeton de vérification des webhooks Meta | non (défaut secret : l'app secret) |
+| `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_REDIRECT_URI` | application LinkedIn | pour le hub LinkedIn |
+| `LINKEDIN_SCOPE`, `LINKEDIN_ORGANIZATION_ID` | scopes et Company Page par défaut | non (défauts : voir `.env.example`) |
+| `CRON_SECRET` | secret de la tâche de rafraîchissement des jetons (≥ 24 caractères) | pour le cron |
 | `NEXT_PUBLIC_SITE_URL` | adresse publique (canonique, partages, publication) | non (défaut : domaine Vercel de production) |
 
 Les clés `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` et `TIKTOK_REDIRECT_URI` sont conservées telles quelles. Les clés et jetons ne doivent jamais être commités.
