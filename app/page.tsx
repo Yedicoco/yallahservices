@@ -22,7 +22,7 @@ import { Zones } from '@/components/site/Zones'
 function structuredData() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'EmploymentAgency',
+    '@type': 'LocalBusiness',
     name: SITE.name,
     slogan: SITE.tagline,
     description: SITE.description,
@@ -31,6 +31,7 @@ function structuredData() {
     image: `${siteUrl()}/opengraph-image`,
     telephone: `+${SITE.phoneDigits}`,
     email: SITE.email,
+    priceRange: '$$',
     address: { '@type': 'PostalAddress', addressLocality: SITE.baseCity, addressCountry: SITE.country },
     areaServed: CITIES.map((name) => ({ '@type': 'City', name })),
     sameAs: Object.values(SITE.socials).map((social) => social.url),

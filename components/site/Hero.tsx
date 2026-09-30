@@ -24,7 +24,7 @@ export function Hero() {
         <div>
           <p className="eyebrow">Yallah Services · Maroc</p>
           <h1 id="titre-accueil" className="mt-4 font-serif text-[2.65rem] leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-            Le bon profil, <span className="italic text-mint-deep">au bon endroit.</span>
+            Personnel qualifié & services à domicile au Maroc
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-ink/85">{SITE.description}</p>
           <p className="mt-3 max-w-xl text-base leading-7 text-stone">

@@ -4,9 +4,9 @@ import { SITE, siteUrl } from '@/lib/site'
 import './globals.css'
 
 // Titre court (≈ 45 caractères) pour ne pas être tronqué dans les résultats de recherche ; le slogan complet sert aux partages.
-const TITLE = 'Yallah Services — Personnel qualifié au Maroc'
+const TITLE = 'Yallah Services — Personnel qualifié & Aide à domicile au Maroc'
 const SHARE_TITLE = 'Yallah Services — Le bon profil, au bon endroit'
-const DESCRIPTION = `${SITE.description} Ménage, nounous, aide aux personnes âgées, cuisine, gardiennage, chauffeurs, personnel pour hôtels, riads, restaurants et chantiers.`
+const DESCRIPTION = 'Trouvez facilement du personnel de confiance au Maroc : ménage à domicile, garde d'enfants, aides soignantes, chauffeurs et solutions B2B à Casablanca, Rabat et dans tout le Maroc.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -15,8 +15,11 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   keywords: [
     'personnel de maison Maroc',
-    'femme de ménage Casablanca',
-    'nounou Casablanca',
+    'ménage à domicile Casablanca',
+    'nounou Rabat',
+    'chauffeur privé Maroc',
+    'gardiennage villa',
+    'recrutement B2B hôtellerie',
     'aide aux personnes âgées',
     'grand ménage Airbnb',
     'personnel hôtel riad restaurant',
@@ -27,12 +30,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE.name,
-    locale: 'fr_FR',
+    locale: 'fr_MA',
     url: '/',
     title: SHARE_TITLE,
     description: DESCRIPTION,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: TITLE }],
   },
-  twitter: { card: 'summary_large_image', title: SHARE_TITLE, description: DESCRIPTION },
+  twitter: { card: 'summary_large_image', title: SHARE_TITLE, description: DESCRIPTION, images: ['/opengraph-image'] },
   robots: { index: true, follow: true },
   generator: 'v0.app',
   icons: {

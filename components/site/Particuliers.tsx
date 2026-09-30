@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { ArrowRight, Baby, Car, Check, ChefHat, HeartHandshake, Home, ShieldCheck, SprayCan } from 'lucide-react'
 import { B2C_SERVICES, GRAND_MENAGE, type B2CServiceId } from '@/lib/content'
 import { WA, whatsappUrl } from '@/lib/whatsapp'
@@ -40,17 +41,18 @@ export function Particuliers() {
             return (
               <li
                 key={service.id}
-                className="flex flex-col rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <span
+                <Image src="/images/hero-professionals.jpg" alt="" fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="pointer-events-none object-cover opacity-15 backdrop-blur-sm" aria-hidden="true" />
+                <span className="relative"
                   aria-hidden="true"
                   className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
                 >
                   <Icon size={24} />
                 </span>
-                <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
-                <ul className="mt-4 flex-1 space-y-2">
+                <h3 className="relative mt-5 font-serif text-xl leading-tight">{service.title}</h3>
+                <p className="relative mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
+                <ul className="relative mt-4 flex-1 space-y-2">
                   {service.bullets.map((bullet) => (
                     <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
                       <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
@@ -63,7 +65,7 @@ export function Particuliers() {
                   href={whatsappUrl(WA.service(service.title))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-wa-ghost"
+                  className="btn-wa-ghost relative"
                 >
                   <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
                   Demander ce service
