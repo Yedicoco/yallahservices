@@ -16,9 +16,19 @@ export function SiteHeader({ dict, locale }: Localized) {
   // Libellés et aria-labels viennent du dictionnaire de la langue servie.
   const navLabel = (id: (typeof NAV_IDS)[number]) => dict.nav[id]
 
-  // Met en évidence la section qui traverse le milieu de l'écran.
+  // Determine active section from URL hash first (explicit navigation), then fallback to scroll position.
+  // 'entreprises' should only be active when URL hash is #entreprises (explicit click), not on scroll.
   useEffect(() => {
-    const sections = NAV_IDS.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
+    const hash = window.location.hash.slice(1)
+    if (hash && NAV_IDS.includes(hash as (typeof NAV_IDS)[number])) {
+      setActive(hash)
+    }
+  }, [])
+
+  // IntersectionObserver for scroll-based highlighting — EXCLUDE 'entreprises' so it only activates on explicit hash.
+  useEffect(() => {
+    const scrollNavIds = NAV_IDS.filter((id) => id !== 'entreprises')
+    const sections = scrollNavIds.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id)
@@ -27,6 +37,18 @@ export function SiteHeader({ dict, locale }: Localized) {
     )
     sections.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
+  }, [])
+
+  // Update active on hash change (explicit navigation)
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash && NAV_IDS.includes(hash as (typeof NAV_IDS)[number])) {
+        setActive(hash)
+      }
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
   // Fermeture du menu mobile : touche Échap, ou passage à la navigation bureau.
@@ -113,4 +135,3 @@ export function SiteHeader({ dict, locale }: Localized) {
     </header>
   )
 }
-

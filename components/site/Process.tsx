@@ -20,14 +20,17 @@ export function Process({ dict, locale }: Localized) {
           {PROCESS_STEP_IDS.map((id, index) => {
             const step = dict.process.steps.find((candidate) => candidate.id === id) ?? dict.process.steps[index]
             return (
-              <li key={id} className="relative rounded-3xl border border-line bg-sand p-6 transition hover:shadow-md">
+              <li 
+                key={id} 
+                className="relative rounded-3xl border border-slate-200/80 bg-slate-50/80 p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-slate-300/80"
+              >
                 <span
                   aria-hidden="true"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-mint-deep to-mint-deeper font-serif text-lg text-white ring-4 ring-mint/15"
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-mint-deep to-mint-deeper font-display text-xl font-bold text-white ring-4 ring-mint/15 shadow-lg"
                 >
                   {index + 1}
                 </span>
-                <h3 className="mt-5 font-serif text-xl leading-tight">
+                <h3 className="mt-5 font-display text-xl font-bold leading-tight">
                   <span className="sr-only">{t(dict.process.stepLabel, { numero: index + 1 })}</span>
                   {step?.title}
                 </h3>

@@ -185,6 +185,8 @@
   /* Vert WhatsApp : boutons du canal prioritaire (5,4:1 avec du blanc) */
   --color-wa: #0e7a3d;
   --color-wa-deep: #0b6433;
+  /* Polices : Plus Jakarta Sans pour les titres (moderne, accueillant), Georgia pour le serif */
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
