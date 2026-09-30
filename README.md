@@ -1,4 +1,6 @@
-# yallahservices
+# Yallah Services
+
+Vitrine commerciale de **Yallah Services** (« Le bon profil, au bon endroit. ») : mise en relation de personnel qualifié pour les particuliers (B2C) et les entreprises (B2B) au Maroc. Site Next.js (App Router) déployé sur Vercel : <https://yallahservices.vercel.app>.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
@@ -8,62 +10,112 @@ This repository is linked to a [v0](https://v0.app) project. You can continue de
 
 [Continue working on v0 →](https://v0.app/chat/projects/prj_l3xX092c3qx9PtGHM2EsxVPyjynE)
 
-## Getting Started
+## Ce que fait le site
 
-First, run the development server:
+- **Vitrine publique** (`/`) : navigation fixe *Accueil → Services Particuliers → Services Entreprises → Tarifs & Grille → Zones d'intervention → Vidéos → Contact*, offre B2C et offre B2B visuellement séparées, grille tarifaire en tableau HTML indexable, zones et quartiers, vidéos, contact. Des boutons **WhatsApp** avec message pré-rempli sont présents partout.
+- **Produit 1 : Login Kit TikTok public** : un visiteur peut (facultativement) se connecter avec TikTok dans le formulaire de contact ; le site lit son nom de profil public pour personnaliser le message WhatsApp. Scope demandé : `user.info.basic` **uniquement**.
+- **Produit 2 : Direct Post TikTok interne** : publication de vidéos sur `@yallah.services.m` depuis un espace réservé (`/connect`), invisible du public. Scopes : `user.info.basic` + `video.publish`.
+
+Les deux produits sont **strictement séparés** (routes, cookies, scopes, configuration) : aucun n'écrase l'autre.
+
+## Architecture des routes TikTok
+
+```
+app/api/tiktok/
+├── auth/                       PRODUIT 1 — Login Kit public (leads)
+│   ├── route.ts                GET  démarre la connexion (scope user.info.basic)
+│   ├── callback/route.ts       GET  retour TikTok → session visiteur (nom + avatar)
+│   ├── status/route.ts         GET  { connected, profile }
+│   └── logout/route.ts         POST efface la session visiteur
+└── admin/                      PRODUIT 2 — Direct Post interne (404 pour tout non-administrateur)
+    ├── session/route.ts        GET  ouverture de session (clé) · DELETE fermeture
+    ├── connect/route.ts        GET  démarre la connexion du compte · DELETE déconnecte et révoque
+    ├── callback/route.ts       GET  retour TikTok → jetons chiffrés, stockés côté serveur
+    ├── creator-info/route.ts   GET  état de la connexion + réglages du créateur
+    └── publish/route.ts        POST publie · GET ?publish_id= suit la publication
+app/connect/page.tsx            interface de publication (404 sans session admin)
+```
+
+| | Login Kit public | Direct Post interne |
+|---|---|---|
+| Qui se connecte | n'importe quel visiteur, avec son compte | l'équipe, avec `@yallah.services.m` |
+| Scopes | `user.info.basic` | `user.info.basic` + `video.publish` |
+| Jeton TikTok | **jamais conservé** (lu une fois, puis révoqué) | chiffré (AES-256-GCM) dans Upstash Redis, **rafraîchi automatiquement** |
+| Ce qui reste côté visiteur | cookie chiffré : nom + avatar, 12 h | rien (session admin : cookie chiffré, 8 h) |
+| URI de retour | `/api/tiktok/auth/callback` | `/api/tiktok/admin/callback` |
+| Cookie d'état OAuth | `yallah_tt_login_state` | `yallah_tt_admin_state` |
+
+Anciennes adresses conservées (réécritures dans `next.config.mjs`, pour ne rien casser côté portail TikTok) : `/api/auth/tiktok` → `/api/tiktok/auth`, `/api/auth/callback` et `/api/tiktok/callback` → `/api/tiktok/auth/callback`. Elles pointent vers le produit **public**.
+
+## Mise en route sur Vercel
+
+1. **Stockage durable des jetons.** Sur Vercel, le disque est éphémère : un fichier local (du type `.data/users.json`) disparaît à chaque déploiement, et un cookie n'est pas un stockage serveur. Dans le projet Vercel : *Storage → Marketplace → **Upstash Redis** → Connect Project*. Les variables `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (ou les anciens noms `KV_REST_API_*`) sont injectées automatiquement. Aucune dépendance npm n'est ajoutée : l'adaptateur (`lib/storage/kv.ts`) parle directement à l'API REST d'Upstash.
+2. **Variables d'environnement** (*Settings → Environment Variables*, environnement Production) : voir le tableau ci-dessous et `.env.example`. Générez les secrets avec `openssl rand -hex 32`.
+3. **TikTok for Developers** :
+   - *Login Kit → Redirect URI* : déclarez `https://yallahservices.vercel.app/api/tiktok/auth/callback` **et** `https://yallahservices.vercel.app/api/tiktok/admin/callback`. Gardez l'ancienne URI déjà déclarée si `TIKTOK_REDIRECT_URI` la contient encore.
+   - *Content Posting API* : activez **Direct Post** (`video.publish`) pour l'application.
+   - *Manage apps → URL properties* : le domaine `https://yallahservices.vercel.app/` doit être vérifié (les fichiers `public/tiktok*.txt` servent à cette vérification). TikTok n'accepte la publication depuis une URL que pour un domaine vérifié.
+   - Tant que l'application n'a pas passé l'audit TikTok, **toute publication est limitée à la visibilité « Moi uniquement »**. Ajoutez votre compte comme *target user* (sandbox) pour tester.
+4. **Déployer**, puis ouvrir `https://yallahservices.vercel.app/connect?key=<ADMIN_SECRET>`, cliquer *Connecter le compte TikTok* et autoriser.
+
+### Variables d'environnement
+
+| Variable | Rôle | Obligatoire |
+|---|---|---|
+| `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` | identifiants de l'application TikTok | oui |
+| `TIKTOK_REDIRECT_URI` | URI de retour du Login Kit public | oui |
+| `SESSION_SECRET` | chiffre la session visiteur et les jetons stockés (≥ 32 caractères) | oui en production |
+| `ADMIN_SECRET` | ouvre l'espace interne (≥ 24 caractères) ; absent = espace interne désactivé | pour le Direct Post |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | stockage durable des jetons admin | pour le Direct Post |
+| `TIKTOK_ADMIN_CLIENT_KEY`, `TIKTOK_ADMIN_CLIENT_SECRET`, `TIKTOK_ADMIN_REDIRECT_URI` | application TikTok distincte pour le Direct Post | non (par défaut : mêmes identifiants, URI `/api/tiktok/admin/callback`) |
+| `TIKTOK_VIDEO_ALLOWED_HOSTS` | hôtes vérifiés supplémentaires pour la publication depuis une URL | non |
+| `NEXT_PUBLIC_SITE_URL` | adresse publique (canonique, partages, publication) | non (défaut : domaine Vercel de production) |
+
+Les clés `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` et `TIKTOK_REDIRECT_URI` sont conservées telles quelles. Les clés et jetons ne doivent jamais être commités.
+
+## Sécurité de l'espace interne
+
+- **Invisible** : sans session administrateur, `/connect` et toutes les routes `/api/tiktok/admin/*` répondent par le même 404 que n'importe quelle adresse inconnue. Aucun lien public, ni dans `robots.txt` ni dans `sitemap.xml`.
+- **Accès** : `/connect?key=<ADMIN_SECRET>` (clé vérifiée en temps constant). La clé est échangée contre un cookie chiffré `HttpOnly`/`Secure`/`SameSite=Lax` de 8 h, puis retirée de l'URL. Changer `ADMIN_SECRET` invalide immédiatement toutes les sessions. Un court délai freine les essais répétés.
+- **Jetons** : chiffrés (AES-256-GCM, clé dérivée par HKDF) avant d'être écrits dans Redis ; jamais dans un cookie, jamais dans les journaux. Rafraîchis avant expiration (le nouveau `refresh_token` renvoyé par TikTok remplace toujours l'ancien).
+- **Anti-CSRF** : cookie `SameSite=Lax` + contrôle de l'en-tête `Origin` sur toute requête d'écriture.
+- **Règles éditoriales appliquées côté serveur** à chaque publication (l'interface ne suffit jamais) : appel à l'action WhatsApp obligatoire, aucun tarif ferme, aucune coordonnée tierce, confirmation explicite de l'administrateur, vidéo hébergée sur un domaine vérifié, visibilité choisie parmi celles que TikTok renvoie (aucune valeur par défaut), interactions désactivées par défaut.
+
+## Contenu vidéo (production soutenable)
+
+Deux rubriques prioritaires, répétables dans la durée :
+
+1. **Le bon profil du jour** : un besoin par ville ou quartier (« Aujourd'hui, une aide-ménagère disponible à Aïn Diab »), sans jamais nommer de personne.
+2. **Coulisses & Vos Questions** : le processus de mise en relation et les réponses aux questions reçues sur WhatsApp (anonymisées).
+
+Le volet Entreprises a sa propre vidéo, dans la section Entreprises (jamais mélangé au contenu B2C). Constantes non négociables, rappelées publiquement et contrôlées par le serveur : **CTA WhatsApp systématique, aucun tarif ferme, aucune donnée identifiante** de client ou de candidat.
+
+Le catalogue (`lib/videos.ts`) est la source unique de la vitrine et du formulaire de publication. Pour ajouter une vidéo : déposez le fichier dans `public/videos/` en **kebab-case strict** (minuscules, chiffres et tirets : pas d'espace, d'accent ni d'apostrophe), ajoutez une image de couverture `public/images/video-posters/<id>.jpg`, puis déclarez-la dans `lib/videos.ts`.
+
+## Vérifications
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install            # ou npm install
+pnpm typecheck          # tsc --noEmit (le build ignore les erreurs de types : ceci les révèle)
+pnpm check              # audit statique : médias, noms de vidéos, liens, pages légales, routes TikTok
+pnpm test:e2e           # build + une centaine de contrôles de bout en bout (faux TikTok + faux Upstash, aucun vrai secret)
+```
+
+`pnpm test:e2e` démarre ses propres faux services et n'utilise jamais vos identifiants : il vérifie la séparation public/interne, l'invisibilité de l'espace interne, le chiffrement des jetons, le rafraîchissement et la rotation du `refresh_token`, et les règles éditoriales.
+
+## Pages légales
+
+La politique de confidentialité et les conditions d'utilisation (exigence TikTok) restent servies par `public/privacy.html` et `public/terms.html`, aussi disponibles sur `/confidentialite` et `/cgu`, et reliées depuis le pied de page.
+
+## Développement local
+
+```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
-
-## TikTok Content Posting API
-
-Le dépôt contient maintenant les pages publiques nécessaires à la revue TikTok :
-
-- `https://yallahservices.vercel.app/confidentialite`
-- `https://yallahservices.vercel.app/cgu`
-
-Le flux serveur Direct Post est disponible via `/api/auth/tiktok` et `/api/auth/callback` (les anciens chemins `/api/tiktok/auth` et `/api/tiktok/callback` restent compatibles), ainsi que `/api/tiktok/publish` et `/api/tiktok/status`. Il ne publie qu’après une autorisation TikTok valide et un consentement explicite transmis à l’endpoint de publication.
-
-### Variables Vercel à configurer
-
-Créer ces variables côté serveur, dans les environnements Preview et Production si nécessaire :
-
-```text
-TIKTOK_CLIENT_KEY=<Client Key de l’application TikTok>
-TIKTOK_CLIENT_SECRET=<Client Secret de l’application TikTok>
-TIKTOK_REDIRECT_URI=https://yallahservices.vercel.app/api/auth/callback
-SESSION_SECRET=<secret aléatoire d’au moins 32 caractères>
-```
-
-Dans TikTok for Developers, enregistrer exactement cette Redirect URI HTTPS et activer Content Posting API + Direct Post avec le scope `video.publish`. TikTok indique qu’un client non audité est limité aux publications privées jusqu’à la fin de l’audit. Pour `PULL_FROM_URL`, le domaine qui héberge la vidéo doit aussi être vérifié auprès de TikTok.
-
-La publication attend un JSON de ce type sur `/api/tiktok/publish` :
-
-```json
-{
-  "video_url": "https://domaine-verifie.example/video.mp4",
-  "title": "Votre légende TikTok",
-  "privacy_level": "SELF_ONLY",
-  "consent": true,
-  "is_aigc": false
-}
-```
-
-La valeur `privacy_level` doit être choisie parmi les options renvoyées par TikTok pour le compte connecté. Les clés et jetons ne doivent jamais être commités dans Git.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Ouvrez [http://localhost:3000](http://localhost:3000). Copiez `.env.example` vers `.env.local` pour tester TikTok. Sans Upstash configuré, un stockage **mémoire** est utilisé en développement uniquement (les jetons sont perdus au redémarrage) ; en production, l'absence de stockage est une erreur explicite.
 
 ## Learn More
 
-To learn more, take a look at the following resources:
-
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
