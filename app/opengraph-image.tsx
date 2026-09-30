@@ -18,23 +18,23 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#f6f1e8',
-          color: '#171717',
+          background: '#ffffff',
+          color: '#0f172a',
           padding: '72px 80px',
         }}
       >
         <div style={{ display: 'flex', fontSize: 52, fontWeight: 900, letterSpacing: -3 }}>
           <span>yallah</span>
           <span style={{ color: '#fa5b48' }}>.</span>
-          <span style={{ color: '#5a554e', marginLeft: 6 }}>services</span>
+          <span style={{ color: '#475569', marginLeft: 6 }}>services</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif' }}>Le bon profil,</div>
-          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif', fontStyle: 'italic', color: '#b43524' }}>
+          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif', fontStyle: 'italic', color: '#047857' }}>
             au bon endroit.
           </div>
-          <div style={{ display: 'flex', marginTop: 28, fontSize: 34, color: '#5a554e' }}>
+          <div style={{ display: 'flex', marginTop: 28, fontSize: 34, color: '#475569' }}>
             Personnel qualifié pour particuliers et entreprises au Maroc
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function OpengraphImage() {
           >
             WhatsApp · +212 691 733 585
           </div>
-          <div style={{ display: 'flex', fontSize: 30, color: '#5a554e' }}>Casablanca · Rabat · Marrakech · Fès · Tanger…</div>
+          <div style={{ display: 'flex', fontSize: 30, color: '#475569' }}>Casablanca · Rabat · Marrakech · Fès · Tanger…</div>
         </div>
       </div>
     ),

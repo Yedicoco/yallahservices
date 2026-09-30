@@ -33,7 +33,7 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className="inline-flex min-h-9 items-center text-sm font-medium text-paper/85 hover:text-coral hover:underline">
+                <a href={`#${item.id}`} className="inline-flex min-h-9 items-center text-sm font-medium text-paper/85 hover:text-amber hover:underline">
                   {item.label}
                 </a>
               </li>
@@ -49,14 +49,14 @@ export function SiteFooter() {
                 href={whatsappUrl(WA.general)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-9 items-center gap-2 font-semibold text-paper hover:text-coral"
+                className="inline-flex min-h-9 items-center gap-2 font-semibold text-paper hover:text-amber"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 {SITE.phoneDisplay}
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="inline-flex min-h-9 items-center text-paper/85 hover:text-coral hover:underline">
+              <a href={`mailto:${SITE.email}`} className="inline-flex min-h-9 items-center text-paper/85 hover:text-amber hover:underline">
                 {SITE.email}
               </a>
             </li>
@@ -69,7 +69,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} : ${handle}`}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-paper hover:border-coral hover:text-coral"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-paper hover:border-amber hover:text-amber"
                 >
                   <Icon className="h-[1.05rem] w-[1.05rem]" />
                 </a>

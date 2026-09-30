@@ -6,41 +6,49 @@
 
 export type B2CServiceId = 'menage' | 'garde-enfants' | 'personnes-agees' | 'cuisine' | 'gardiennage' | 'chauffeurs' | 'grand-menage'
 
-export const B2C_SERVICES: ReadonlyArray<{ id: B2CServiceId; title: string; description: string }> = [
+/** Services particuliers : description officielle + puces courtes dérivées de cette même description (cartes de la vitrine). */
+export const B2C_SERVICES: ReadonlyArray<{ id: B2CServiceId; title: string; description: string; bullets: readonly string[] }> = [
   {
     id: 'menage',
     title: 'Ménage à domicile',
     description: 'Entretien régulier ou ponctuel, repassage : une maison soignée, sans que vous ayez à y penser.',
+    bullets: ['Entretien régulier ou ponctuel', 'Repassage inclus'],
   },
   {
     id: 'garde-enfants',
     title: 'Garde d’enfants (nounous)',
     description: 'Une nounou sérieuse pour accompagner vos enfants au quotidien, avec ou sans entretien de la maison.',
+    bullets: ['Accompagnement au quotidien', 'Avec ou sans entretien de la maison'],
   },
   {
     id: 'personnes-agees',
     title: 'Aide aux personnes âgées',
     description: 'Une présence bienveillante et une aide de tous les jours pour vos proches : garde-malade, accompagnement, entretien.',
+    bullets: ['Garde-malade et accompagnement', 'Aide à l’entretien au quotidien'],
   },
   {
     id: 'cuisine',
     title: 'Cuisine à domicile',
     description: 'Des repas préparés chez vous, selon vos goûts et vos habitudes, avec ou sans aide à l’entretien.',
+    bullets: ['Repas préparés selon vos goûts', 'Avec ou sans aide à l’entretien'],
   },
   {
     id: 'gardiennage',
     title: 'Gardiennage',
     description: 'Une présence de confiance pour veiller sur votre domicile ou votre propriété.',
+    bullets: ['Domicile ou propriété', 'Présence de confiance'],
   },
   {
     id: 'chauffeurs',
     title: 'Chauffeurs',
     description: 'Un chauffeur pour vos trajets du quotidien, selon vos horaires et vos besoins.',
+    bullets: ['Trajets du quotidien', 'Selon vos horaires et vos besoins'],
   },
   {
     id: 'grand-menage',
     title: 'Nettoyage & grand ménage',
     description: 'Appartements, résidences, logements Airbnb, remise en état : un nettoyage en profondeur, ponctuel ou régulier.',
+    bullets: ['Appartements, résidences et Airbnb', 'Ponctuel ou régulier'],
   },
 ]
 

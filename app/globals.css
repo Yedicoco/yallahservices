@@ -154,21 +154,35 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Identité Yallah Services : palette chaude, contrastes conformes WCAG AA */
+/* Identité Yallah Services : blanc pur, sections gris très léger,      */
+/* vert émeraude vibrant (CTA & icônes), ambre chaud (badges & étoiles),*/
+/* corail conservé pour la marque. Contrastes conformes WCAG AA.        */
 /* ------------------------------------------------------------------ */
 @theme inline {
-  --color-paper: #f6f1e8;
-  --color-sand: #e9e2d8;
-  --color-line: #ded8cd;
-  --color-ink: #171717;
-  /* Texte secondaire : 6,5:1 sur paper, 5,7:1 sur sand */
-  --color-stone: #5a554e;
-  /* Corail de marque : décor, grands titres, texte sur fond sombre */
+  /* Fond principal : blanc pur ; sections alternées : gris très léger */
+  --color-paper: #ffffff;
+  --color-sand: #f8fafc;
+  --color-mist: #f1f5f9;
+  --color-line: #e2e8f0;
+  /* Encre : texte principal et blocs sombres */
+  --color-ink: #0f172a;
+  /* Texte secondaire : 7,4:1 sur blanc */
+  --color-stone: #475569;
+  /* Corail de marque : conservé pour l'identité (point du logo, accents) */
   --color-coral: #fa5b48;
-  /* Corail profond : texte et boutons (5,4:1 sur paper, 6,0:1 avec du blanc) */
   --color-coral-strong: #b43524;
   --color-coral-deep: #98291a;
-  /* Vert WhatsApp profond : 5,4:1 avec du blanc */
+  /* Vert émeraude / menthe : boutons d'action, icônes, emphase */
+  --color-mint: #10b981;
+  --color-mint-bright: #34d399;
+  --color-mint-deep: #047857;
+  --color-mint-deeper: #065f46;
+  --color-mint-soft: #ecfdf5;
+  /* Ambre chaud : étoiles de satisfaction, badges, éléments mis en avant */
+  --color-amber: #f59e0b;
+  --color-amber-deep: #b45309;
+  --color-amber-soft: #fffbeb;
+  /* Vert WhatsApp : boutons du canal prioritaire (5,4:1 avec du blanc) */
   --color-wa: #0e7a3d;
   --color-wa-deep: #0b6433;
   --font-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
@@ -211,7 +225,7 @@
     box-shadow: 0 0 0 2px var(--color-ink);
   }
   ::selection {
-    background: var(--color-coral-strong);
+    background: var(--color-mint-deep);
     color: #fff;
   }
 }
@@ -221,10 +235,10 @@
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
   .eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.22em] text-coral-strong;
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-mint-deep;
   }
   .eyebrow-light {
-    @apply text-xs font-bold uppercase tracking-[0.22em] text-coral;
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-amber;
   }
   .section-title {
     @apply font-serif text-3xl leading-[1.12] tracking-[-0.02em] sm:text-4xl lg:text-[2.6rem];
@@ -237,6 +251,14 @@
   }
   .btn-wa {
     @apply bg-wa text-white hover:bg-wa-deep;
+  }
+  /* Vert émeraude vibrant : CTA principal de la vitrine (5,9:1 avec du blanc) */
+  .btn-mint {
+    @apply bg-mint-deep text-white hover:bg-mint-deeper;
+  }
+  /* CTA secondaire « carte » : WhatsApp discret au repos, plein au survol */
+  .btn-wa-ghost {
+    @apply mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-wa/30 bg-wa/10 px-4 text-sm font-bold text-wa transition hover:bg-wa hover:text-white;
   }
   .btn-ink {
     @apply bg-ink text-paper hover:bg-black;

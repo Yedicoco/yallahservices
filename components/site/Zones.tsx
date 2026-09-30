@@ -7,7 +7,7 @@ import { WhatsAppLink } from './WhatsAppLink'
 /** Ancrage local : les villes couvertes et les quartiers prioritaires, en badges lisibles. */
 export function Zones() {
   return (
-    <section id="zones" aria-labelledby="titre-zones" className="bg-sand/60 py-16 sm:py-24">
+    <section id="zones" aria-labelledby="titre-zones" className="bg-white py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">Zones d’intervention</p>
@@ -28,7 +28,7 @@ export function Zones() {
                 <li
                   key={city}
                   className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-semibold ${
-                    city === SITE.baseCity ? 'border-ink bg-ink text-paper' : 'border-line bg-paper text-ink'
+                    city === SITE.baseCity ? 'border-mint-deep bg-mint-deep text-white' : 'border-line bg-sand text-ink'
                   }`}
                 >
                   {city === SITE.baseCity && <MapPin size={14} aria-hidden="true" />}
@@ -42,11 +42,14 @@ export function Zones() {
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone">Quartiers et secteurs prioritaires</h3>
             <ul className="mt-4 grid gap-3">
               {PRIORITY_AREAS.map((zone) => (
-                <li key={zone.city} className="rounded-2xl border border-line bg-paper p-4">
+                <li key={zone.city} className="rounded-2xl border border-line bg-sand p-4">
                   <p className="font-serif text-lg">{zone.label}</p>
                   <ul className="mt-3 flex flex-wrap gap-2">
                     {zone.areas.map((area) => (
-                      <li key={area} className="rounded-full bg-coral/15 px-3 py-1.5 text-sm font-semibold text-coral-deep">
+                      <li
+                        key={area}
+                        className="rounded-full border border-amber/30 bg-amber-soft px-3 py-1.5 text-sm font-semibold text-amber-deep"
+                      >
                         {area}
                       </li>
                     ))}
@@ -57,7 +60,7 @@ export function Zones() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-line bg-paper p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-line bg-sand p-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-[0.95rem] leading-7">
             <strong>Votre quartier n’est pas dans la liste ?</strong> Écrivez-nous : nous confirmons la couverture de votre secteur lors de
             l’échange.

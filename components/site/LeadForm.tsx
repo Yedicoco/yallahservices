@@ -84,7 +84,7 @@ export function LeadForm() {
       </p>
 
       {/* Connexion TikTok : facultative */}
-      <div className="mt-5 rounded-2xl bg-sand/70 p-4">
+      <div className="mt-5 rounded-2xl bg-mist p-4">
         {visitor ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -133,7 +133,7 @@ export function LeadForm() {
       <form ref={formRef} onSubmit={(event) => event.preventDefault()} className="mt-5 space-y-4" noValidate={false}>
         <fieldset>
           <legend className="text-sm font-semibold">Vous êtes</legend>
-          <div className="mt-1.5 grid grid-cols-2 gap-2 rounded-full bg-sand p-1">
+          <div className="mt-1.5 grid grid-cols-2 gap-2 rounded-full bg-mist p-1">
             {(
               [
                 ['particulier', 'Un particulier'],
@@ -227,7 +227,7 @@ export function LeadForm() {
 
         <div>
           <p className="text-sm font-semibold">Aperçu de votre message</p>
-          <pre className="mt-1.5 whitespace-pre-wrap rounded-xl bg-sand/70 p-4 font-sans text-sm leading-6 text-ink/90">{message}</pre>
+          <pre className="mt-1.5 whitespace-pre-wrap rounded-xl bg-mist p-4 font-sans text-sm leading-6 text-ink/90">{message}</pre>
         </div>
 
         <a
