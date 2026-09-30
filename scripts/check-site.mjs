@@ -60,22 +60,54 @@ check('réécritures /confidentialite → privacy.html et /cgu → terms.html', 
 const footer = read('components/site/SiteFooter.tsx')
 check('pied de page relié aux deux pages légales', /LEGAL\.privacy\.href/.test(footer) && /LEGAL\.terms\.href/.test(footer))
 
-// 5) routes TikTok attendues
+// 5) routes API attendues : produit 1/2 TikTok + hub d'intégrations + opérations système
 const expectedRoutes = [
+  // Produit 2 — Direct Post interne
   'app/api/tiktok/admin/callback/route.ts',
   'app/api/tiktok/admin/connect/route.ts',
   'app/api/tiktok/admin/creator-info/route.ts',
   'app/api/tiktok/admin/publish/route.ts',
   'app/api/tiktok/admin/session/route.ts',
+  // Produit 1 — Login Kit public
   'app/api/tiktok/auth/callback/route.ts',
   'app/api/tiktok/auth/logout/route.ts',
   'app/api/tiktok/auth/route.ts',
   'app/api/tiktok/auth/status/route.ts',
+  // Hub d'intégrations (TikTok, Meta, LinkedIn) : auth/ + publish/ internes, webhooks/ publics (signature)
+  'app/api/integrations/tiktok/auth/callback/route.ts',
+  'app/api/integrations/tiktok/auth/connect/route.ts',
+  'app/api/integrations/tiktok/publish/route.ts',
+  'app/api/integrations/tiktok/webhooks/route.ts',
+  'app/api/integrations/meta/auth/callback/route.ts',
+  'app/api/integrations/meta/auth/connect/route.ts',
+  'app/api/integrations/meta/publish/route.ts',
+  'app/api/integrations/meta/webhooks/events/route.ts',
+  'app/api/integrations/meta/webhooks/deletion/route.ts',
+  'app/api/integrations/linkedin/auth/callback/route.ts',
+  'app/api/integrations/linkedin/auth/connect/route.ts',
+  'app/api/integrations/linkedin/publish/route.ts',
+  'app/api/integrations/linkedin/webhooks/route.ts',
+  // Opérations système (staff)
+  'app/api/admin/system/health/route.ts',
+  'app/api/admin/system/cron/refresh-tokens/route.ts',
 ]
 const actualRoutes = walk('app/api', (p) => p.endsWith(`${sep}route.ts`)).map((p) => relative(root, join(root, p)).split(sep).join('/')).sort()
-check('routes TikTok = 4 publiques (auth/) + 5 internes (admin/), rien d’autre', JSON.stringify(actualRoutes) === JSON.stringify(expectedRoutes), `trouvées : ${actualRoutes.join(', ')}`)
-const adminRoutesGuarded = expectedRoutes.filter((r) => r.includes('/admin/') && !r.endsWith('/session/route.ts')).every((r) => /denyUnlessAdmin/.test(read(r)))
-check('chaque route interne (hors ouverture de session) passe par denyUnlessAdmin()', adminRoutesGuarded)
+check('routes API = produit 1 (auth/), produit 2 (admin/), hub d’intégrations et opérations système, rien d’autre', JSON.stringify(actualRoutes) === JSON.stringify(expectedRoutes.slice().sort()), `trouvées : ${actualRoutes.join(', ')}`)
+// Toutes les routes internes passent par denyUnlessAdmin(), SAUF :
+//  - l'ouverture de session (session/route.ts : la clé ADMIN_SECRET est l'authentification) ;
+//  - les webhooks (publics, protégés par signature HMAC / challenge / callback de suppression) ;
+//  - le cron (public, protégé par le secret CRON_SECRET en temps constant).
+const internalRoutes = expectedRoutes.filter(
+  (r) =>
+    (r.includes('tiktok/admin/') && !r.endsWith('/session/route.ts')) ||
+    r.includes('integrations/') && r.includes('/auth/') ||
+    (r.includes('integrations/') && r.includes('/publish/')) ||
+    r === 'app/api/admin/system/health/route.ts',
+)
+check('chaque route interne (hors session, webhooks et cron) passe par denyUnlessAdmin()', internalRoutes.every((r) => /denyUnlessAdmin/.test(read(r))))
+// Les webhooks publics ne doivent jamais exposer l'espace interne ni renvoyer un « ok » sans vérification.
+const webhookRoutes = expectedRoutes.filter((r) => r.includes('/webhooks/'))
+check('chaque route webhook vérifie une signature, un challenge ou un secret (échec fermé)', webhookRoutes.every((r) => /safeEqual|challenge/.test(read(r))))
 const publicScope = /SCOPE_LOGIN/.test(read('app/api/tiktok/auth/route.ts')) && !/video\.publish|SCOPE_DIRECT_POST/.test(read('app/api/tiktok/auth/route.ts'))
 check('le Login Kit public ne demande que « user.info.basic » (aucune référence à video.publish)', publicScope)
 
