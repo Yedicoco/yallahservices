@@ -1,8 +1,10 @@
 import crypto from "crypto";
 
 // Constantes d'authentification OAuth TikTok
+export const TIKTOK_API_URL = "https://open.tiktokapis.com";
 export const TIKTOK_AUTHORIZE_URL = "https://www.tiktok.com/v2/auth/authorize/";
 export const TIKTOK_STATE_COOKIE = "tiktok_oauth_state";
+export const TIKTOK_SESSION_COOKIE = "tiktok_session";
 
 /**
  * Valide et retourne les variables d'environnement nécessaires pour TikTok.
