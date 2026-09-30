@@ -153,19 +153,107 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Identité Yallah Services : palette chaude, contrastes conformes WCAG AA */
+/* ------------------------------------------------------------------ */
+@theme inline {
+  --color-paper: #f6f1e8;
+  --color-sand: #e9e2d8;
+  --color-line: #ded8cd;
+  --color-ink: #171717;
+  /* Texte secondaire : 6,5:1 sur paper, 5,7:1 sur sand */
+  --color-stone: #5a554e;
+  /* Corail de marque : décor, grands titres, texte sur fond sombre */
+  --color-coral: #fa5b48;
+  /* Corail profond : texte et boutons (5,4:1 sur paper, 6,0:1 avec du blanc) */
+  --color-coral-strong: #b43524;
+  --color-coral-deep: #98291a;
+  /* Vert WhatsApp profond : 5,4:1 avec du blanc */
+  --color-wa: #0e7a3d;
+  --color-wa-deep: #0b6433;
+  --font-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   html {
-    background: #f6f1e8;
+    background: var(--color-paper);
+    /* Les ancres ne passent pas sous l'en-tête fixe */
+    scroll-padding-top: 5rem;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* Le site est conçu en clair uniquement (colorScheme: light) : on neutralise le thème sombre hérité. */
   body {
-    @apply bg-background text-foreground;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
   }
   button {
     cursor: pointer;
+  }
+  /* Double anneau (encre + liseré clair) : visible sur fond clair comme sombre, sans connotation d'erreur. */
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-paper);
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-paper);
+    box-shadow: 0 0 0 2px var(--color-ink);
+  }
+  ::selection {
+    background: var(--color-coral-strong);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-coral-strong;
+  }
+  .eyebrow-light {
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-coral;
+  }
+  .section-title {
+    @apply font-serif text-3xl leading-[1.12] tracking-[-0.02em] sm:text-4xl lg:text-[2.6rem];
+  }
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center text-sm font-semibold transition duration-200;
+  }
+  .btn-sm {
+    @apply min-h-10 px-4;
+  }
+  .btn-wa {
+    @apply bg-wa text-white hover:bg-wa-deep;
+  }
+  .btn-ink {
+    @apply bg-ink text-paper hover:bg-black;
+  }
+  .btn-coral {
+    @apply bg-coral-strong text-white hover:bg-coral-deep;
+  }
+  .btn-outline {
+    @apply border border-ink/30 text-ink hover:border-ink hover:bg-ink hover:text-paper;
+  }
+  .btn-light {
+    @apply bg-paper text-ink hover:bg-white;
+  }
+  .btn-outline-light {
+    @apply border border-white/35 text-paper hover:bg-white/10;
+  }
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition-transform focus:translate-y-0;
   }
 }

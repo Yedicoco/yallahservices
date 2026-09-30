@@ -14,3 +14,7 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# Fichiers générés par Next.js / TypeScript
+next-env.d.ts
+*.tsbuildinfo
