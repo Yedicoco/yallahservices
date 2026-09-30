@@ -1,24 +1,27 @@
-import { randomBytes } from 'node:crypto'
-import { NextResponse } from 'next/server'
-import { TIKTOK_AUTHORIZE_URL, TIKTOK_STATE_COOKIE, cookieOptions, requiredTikTokConfig } from '@/lib/tiktok'
+import { redirectTo } from '@/lib/http'
+import { SCOPE_LOGIN, loginConfig } from '@/lib/tiktok/config'
+import { LOGIN_STATE_COOKIE, stateCookieOptions } from '@/lib/tiktok/cookies'
+import { buildAuthorizeUrl, newState } from '@/lib/tiktok/oauth'
 
+/**
+ * PRODUIT 1 — Login Kit public (génération de leads).
+ * GET /api/tiktok/auth : le visiteur est envoyé vers l'écran d'autorisation TikTok.
+ * Scope demandé : « user.info.basic » uniquement (nom de profil et avatar publics).
+ * Aucun lien avec le Direct Post interne (routes /api/tiktok/admin/*).
+ */
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
+  let authorizeUrl: string
+  const state = newState()
   try {
-    const { clientKey, redirectUri } = requiredTikTokConfig()
-    const state = randomBytes(32).toString('hex')
-    const params = new URLSearchParams({
-      client_key: clientKey,
-      scope: 'user.info.basic,video.publish',
-      response_type: 'code',
-      redirect_uri: redirectUri,
-      state,
-    })
-    const response = NextResponse.redirect(`${TIKTOK_AUTHORIZE_URL}?${params.toString()}`)
-    response.cookies.set(TIKTOK_STATE_COOKIE, state, cookieOptions(600))
-    return response
+    authorizeUrl = buildAuthorizeUrl(loginConfig(), SCOPE_LOGIN, state)
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'TikTok OAuth is unavailable' }, { status: 503 })
+    console.error('[tiktok:login] configuration', error instanceof Error ? error.message : 'erreur inconnue')
+    return redirectTo('/?tiktok=unavailable#contact')
   }
+  const response = redirectTo(authorizeUrl, 307)
+  response.cookies.set(LOGIN_STATE_COOKIE, state, stateCookieOptions())
+  return response
 }

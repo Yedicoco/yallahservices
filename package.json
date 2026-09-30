@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check": "node scripts/check-site.mjs",
+    "test:e2e": "next build && node tests/e2e/run.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
