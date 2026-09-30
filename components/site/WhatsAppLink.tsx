@@ -23,6 +23,7 @@ export function WhatsAppLink({
   return (
     <a
       href={whatsappUrl(message)}
+      aria-label={`${typeof children === 'string' ? children : 'Contacter Yallah Services'} sur WhatsApp`}
       target="_blank"
       rel="noopener noreferrer"
       className={`btn btn-${variant} ${className}`.trim()}
