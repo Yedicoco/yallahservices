@@ -70,6 +70,8 @@ export type Dictionary = {
     detail: Localizable
     ctaParticulier: Localizable
     ctaEntreprise: Localizable
+    ctaDevis: Localizable
+    ctaDevisAria: Localizable
     responseNote: Localizable
     imageAlt: Localizable
     chatPreviewHeader: Localizable

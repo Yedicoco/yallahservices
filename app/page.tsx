@@ -58,7 +58,7 @@ export default async function HomePage() {
         {dict.skip.label}
       </a>
       <SiteHeader dict={dict} locale={locale} />
-      <main id={dict.skip.targetId}>
+      <main id={dict.skip.targetId} className="pb-20 sm:pb-24">
         <Hero dict={dict} locale={locale} />
         <KeyFigures dict={dict} locale={locale} />
         <Particuliers dict={dict} locale={locale} />

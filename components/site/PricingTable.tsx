@@ -39,9 +39,9 @@ export function PricingTable({ dict, locale }: Localized) {
                 </span>
               </div>
             </caption>
-            <thead>
-              <tr className="bg-mint-deep text-white">
-                <th scope="col" className="px-5 py-3 text-start text-xs font-bold uppercase tracking-[0.14em] sm:px-7">
+            <thead className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-t-3xl">
+              <tr>
+                <th scope="col" className="px-5 py-4 text-start text-xs font-bold uppercase tracking-[0.14em] sm:px-7">
                   {dict.pricing.colService}
                 </th>
                 <th scope="col" className="px-5 py-3 text-end text-xs font-bold uppercase tracking-[0.14em] sm:px-7">
@@ -49,19 +49,27 @@ export function PricingTable({ dict, locale }: Localized) {
                 </th>
               </tr>
             </thead>
-            {groups.map((group) => (
+            {groups.map((group, groupIndex) => (
               <tbody key={group.id}>
                 <tr>
-                  <th scope="rowgroup" colSpan={2} className="bg-mist px-5 py-2 text-start text-xs font-bold uppercase tracking-[0.16em] text-mint-deep sm:px-7">
-                    {dict.pricing.groupTitles[group.id]}
+                  <th scope="rowgroup" colSpan={2} className="bg-gradient-to-r from-slate-50 to-slate-100/50 px-5 py-4 text-start text-sm font-bold uppercase tracking-[0.1em] text-ink sm:px-7 border-t border-slate-200/50">
+                    <div className="flex items-center gap-3">
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-mint-deep/10 text-mint-deep">
+                        {groupIndex + 1}
+                      </span>
+                      {dict.pricing.groupTitles[group.id]}
+                    </div>
                   </th>
                 </tr>
-                {group.rows.map((row) => (
-                  <tr key={row.id} className="border-t border-line">
-                    <th scope="row" className="px-5 py-3.5 text-start text-[0.95rem] font-medium sm:px-7">
+                {group.rows.map((row, rowIndex) => (
+                  <tr
+                    key={row.id}
+                    className={`border-t border-slate-200/50 hover:bg-slate-50/30 transition-colors ${rowIndex % 2 === 1 ? 'bg-slate-50/50' : ''}`}
+                  >
+                    <th scope="row" className="px-5 py-4 text-start text-[0.95rem] font-medium sm:px-7 text-ink/90">
                       {dict.pricing.rows[row.id]}
                     </th>
-                    <td className="whitespace-nowrap px-5 py-3.5 text-end font-semibold tabular-nums sm:px-7">
+                    <td className="whitespace-nowrap px-5 py-3.5 text-end font-semibold tabular-nums sm:px-7 text-ink/90">
                       <LtrValue>
                         {row.price} <span className="text-xs font-medium text-stone">{dict.pricing.currency}</span>
                       </LtrValue>

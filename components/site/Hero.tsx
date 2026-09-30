@@ -1,4 +1,4 @@
-import { BadgeCheck, Clock, HeartHandshake, MapPin, Wifi } from 'lucide-react'
+import { BadgeCheck, Clock, HeartHandshake, MapPin, Wifi, ArrowRight, FileText } from 'lucide-react'
 import { CITIES_COUNT } from '@/lib/content'
 import { t } from '@/lib/i18n/dictionaries'
 import { WhatsAppIcon } from './icons'
@@ -20,7 +20,7 @@ export function Hero({ dict, locale }: Localized) {
   const trustIcons = [BadgeCheck, Clock, MapPin, HeartHandshake] as const
 
   return (
-    <section id="accueil" aria-labelledby="titre-accueil" className="relative overflow-hidden bg-white pb-20 pt-28 sm:pt-32 lg:pb-28">
+    <section id="accueil" aria-labelledby="titre-accueil" className="relative overflow-hidden bg-white pb-32 pt-28 sm:pt-32 lg:pb-40">
       {/* Nappes de couleur : émeraude et ambre aux deux extrémités — l'aplat blanc reste dominant. */}
       <div
         aria-hidden="true"
@@ -36,7 +36,7 @@ export function Hero({ dict, locale }: Localized) {
           <p className="eyebrow">{dict.hero.eyebrow}</p>
           {/* Titre principal = devise de la marque (exigence de la spécification) ; la formulation
               riche en mots-clés reste présente, sous le titre, pour la lecture comme pour l'indexation. */}
-          <h1 id="titre-accueil" className="mt-4 font-serif text-[2.65rem] leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-7xl rtl:tracking-normal rtl:leading-[1.2]">
+          <h1 id="titre-accueil" className="mt-4 font-display font-bold text-[2.65rem] leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-7xl rtl:tracking-normal rtl:leading-[1.2]">
             {dict.hero.tagline}
           </h1>
           <p className="mt-4 text-xl font-semibold leading-7 text-ink/90 sm:text-2xl">{dict.hero.title}</p>
@@ -45,11 +45,14 @@ export function Hero({ dict, locale }: Localized) {
 
           {/* CTA d'orientation rapide : particuliers / entreprises, avec message WhatsApp pré-rempli dans la langue. */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button className="btn btn-mint sm:min-w-[15.5rem] inline-flex items-center justify-center gap-2" aria-label={dict.hero.ctaDevisAria}>
+              <FileText className="h-5 w-5" aria-hidden="true" />
+              <span>{dict.hero.ctaDevis}</span>
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </button>
             <WhatsAppLink dict={dict} messageKey="particulier" variant="mint" className="sm:min-w-[15.5rem]">
+              <WhatsAppIcon className="h-5 w-5 mr-2" aria-hidden="true" />
               {dict.hero.ctaParticulier}
-            </WhatsAppLink>
-            <WhatsAppLink dict={dict} messageKey="entreprise" variant="ink" className="sm:min-w-[15.5rem]">
-              {dict.hero.ctaEntreprise}
             </WhatsAppLink>
           </div>
           <p className="mt-3 text-sm text-stone">{dict.hero.responseNote}</p>
