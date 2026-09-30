@@ -40,36 +40,55 @@ export function Particuliers() {
             return (
               <li
                 key={service.id}
-                className="flex flex-col rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <span
-                  aria-hidden="true"
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
-                >
-                  <Icon size={24} />
-                </span>
-                <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
-                <ul className="mt-4 flex-1 space-y-2">
-                  {service.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
-                      <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-                {/* Action rapide : WhatsApp avec message pré-rempli pour ce service. */}
-                <a
-                  href={whatsappUrl(WA.service(service.title))}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-wa-ghost"
-                >
-                  <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
-                  Demander ce service
-                  <span className="sr-only"> : {service.title}, sur WhatsApp</span>
-                  <ArrowRight size={15} aria-hidden="true" />
-                </a>
+                {/* Bannière du service : 16:9, coins suivis par le rounded-3xl de la carte. */}
+                {service.image ? (
+                  <picture className="block">
+                    <source srcSet={service.image.webp} type="image/webp" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={service.image.jpg}
+                      alt={service.image.alt}
+                      width={1408}
+                      height={792}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-video w-full object-cover object-center"
+                    />
+                  </picture>
+                ) : null}
+
+                <div className="flex flex-1 flex-col p-6">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
+                  >
+                    <Icon size={24} />
+                  </span>
+                  <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
+                  <ul className="mt-4 flex-1 space-y-2">
+                    {service.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
+                        <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                  {/* Action rapide : WhatsApp avec message pré-rempli pour ce service. */}
+                  <a
+                    href={whatsappUrl(WA.service(service.title))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wa-ghost"
+                  >
+                    <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
+                    Demander ce service
+                    <span className="sr-only"> : {service.title}, sur WhatsApp</span>
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </a>
+                </div>
               </li>
             )
           })}
