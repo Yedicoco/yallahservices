@@ -105,7 +105,7 @@ export function Contact() {
               <MessageCircle size={22} aria-hidden="true" className="mt-0.5 shrink-0 text-mint-deep" />
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.14em] text-stone">WhatsApp, canal prioritaire</p>
-                <a href={`tel:+${SITE.phoneDigits}`} className="text-lg font-semibold hover:underline">
+                <a href={`tel:+${SITE.phoneDigits}`} aria-label={`Appeler Yallah Services : ${SITE.phoneDisplay}`} className="text-lg font-semibold hover:underline">
                   {SITE.phoneDisplay}
                 </a>
               </div>
@@ -134,6 +134,7 @@ export function Contact() {
               <li key={label}>
                 <a
                   href={url}
+                  aria-label={`${label} : ${handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-line bg-white px-4 text-sm font-semibold hover:border-ink"

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { ArrowRight, Baby, Car, Check, ChefHat, HeartHandshake, Home, ShieldCheck, SprayCan } from 'lucide-react'
 import { B2C_SERVICES, GRAND_MENAGE, type B2CServiceId } from '@/lib/content'
 import { WA, whatsappUrl } from '@/lib/whatsapp'
@@ -40,11 +41,22 @@ export function Particuliers() {
             return (
               <li
                 key={service.id}
-                className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
               >
-                {/* Bannière du service : 16:9, coins suivis par le rounded-3xl de la carte. */}
+                {/* Fond décoratif discret : la photo des professionnels, très atténuée. */}
+                <Image
+                  src="/images/hero-professionals.jpg"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="pointer-events-none object-cover opacity-15 backdrop-blur-sm"
+                  aria-hidden="true"
+                />
+
+                {/* Bannière du service : 16:9, coins suivis par le rounded-3xl de la carte.
+                    `relative` la place au-dessus du fond décoratif, qui est en position absolue. */}
                 {service.image ? (
-                  <picture className="block">
+                  <picture className="relative block">
                     <source srcSet={service.image.webp} type="image/webp" />
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -59,7 +71,9 @@ export function Particuliers() {
                   </picture>
                 ) : null}
 
-                <div className="flex flex-1 flex-col p-6">
+                {/* Le rembourrage de la carte vit ici, et non sur le <li>, pour que la bannière
+                    reste bord à bord. `relative` garde tout le texte au-dessus du fond décoratif. */}
+                <div className="relative flex flex-1 flex-col p-6">
                   <span
                     aria-hidden="true"
                     className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
