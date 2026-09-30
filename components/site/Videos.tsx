@@ -13,7 +13,7 @@ import { WhatsAppLink } from './WhatsAppLink'
  */
 export function Videos() {
   return (
-    <section id="videos" aria-labelledby="titre-videos" className="py-16 sm:py-24">
+    <section id="videos" aria-labelledby="titre-videos" className="bg-sand py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">Vidéos</p>
@@ -36,11 +36,11 @@ export function Videos() {
                     {rubrique.title}
                   </h3>
                   <p className="mt-4 text-base leading-7 text-ink/85">{rubrique.description}</p>
-                  <blockquote className="mt-5 border-l-4 border-coral pl-4 font-serif text-lg italic leading-7 text-ink/85">{rubrique.example}</blockquote>
+                  <blockquote className="mt-5 border-l-4 border-amber pl-4 font-serif text-lg italic leading-7 text-ink/85">{rubrique.example}</blockquote>
                   <ul className="mt-6 space-y-2.5">
                     {VIDEO_COMMITMENTS.map((commitment) => (
                       <li key={commitment} className="flex items-start gap-3 text-sm font-medium leading-6">
-                        <ShieldCheck size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-wa" />
+                        <ShieldCheck size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-mint-deep" />
                         {commitment}
                       </li>
                     ))}
@@ -56,7 +56,7 @@ export function Videos() {
                   {rubrique.id === 'coulisses-et-questions' && (
                     <div className="on-dark mx-auto flex w-full max-w-[20rem] flex-col justify-center gap-8 rounded-3xl bg-ink p-6 text-paper sm:max-w-none">
                       <div>
-                        <MessagesSquare size={28} aria-hidden="true" className="text-coral" />
+                        <MessagesSquare size={28} aria-hidden="true" className="text-amber" />
                         <h3 className="mt-4 font-serif text-2xl leading-tight">Une question ?</h3>
                         <p className="mt-2 text-sm leading-6 text-paper/75">
                           Posez-la sur WhatsApp : nous y répondons en vidéo, de façon anonyme, sans jamais citer votre nom.

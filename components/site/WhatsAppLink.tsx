@@ -1,7 +1,7 @@
 import { whatsappUrl } from '@/lib/whatsapp'
 import { WhatsAppIcon } from './icons'
 
-type Variant = 'wa' | 'ink' | 'coral' | 'outline' | 'light' | 'outline-light'
+type Variant = 'wa' | 'mint' | 'ink' | 'coral' | 'outline' | 'light' | 'outline-light'
 
 /**
  * Bouton d'appel à l'action vers WhatsApp (canal prioritaire), avec un message pré-rempli

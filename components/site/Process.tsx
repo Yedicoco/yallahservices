@@ -3,7 +3,7 @@ import { PROCESS_STEPS } from '@/lib/content'
 /** Réassurance : le sérieux du processus (sélection, vérification, accompagnement humain). */
 export function Process() {
   return (
-    <section id="confiance" aria-labelledby="titre-confiance" className="bg-sand/60 py-16 sm:py-24">
+    <section id="confiance" aria-labelledby="titre-confiance" className="bg-white py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">Notre façon de travailler</p>
@@ -17,8 +17,11 @@ export function Process() {
 
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PROCESS_STEPS.map((step, index) => (
-            <li key={step.title} className="relative rounded-3xl border border-line bg-paper p-6">
-              <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-serif text-lg text-paper">
+            <li key={step.title} className="relative rounded-3xl border border-line bg-sand p-6 transition hover:shadow-md">
+              <span
+                aria-hidden="true"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-mint-deep to-mint-deeper font-serif text-lg text-white ring-4 ring-mint/15"
+              >
                 {index + 1}
               </span>
               <h3 className="mt-5 font-serif text-xl leading-tight">
@@ -30,7 +33,7 @@ export function Process() {
           ))}
         </ol>
 
-        <p className="mt-8 max-w-3xl rounded-2xl border border-line bg-paper p-5 text-[0.95rem] leading-7 text-ink/85">
+        <p className="mt-8 max-w-3xl rounded-2xl border border-amber/40 bg-amber-soft p-5 text-[0.95rem] leading-7 text-ink">
           <strong>Tarifs et disponibilités sont confirmés directement lors de l’échange</strong>, en fonction de votre ville, de vos horaires
           et du niveau de responsabilité attendu.
         </p>

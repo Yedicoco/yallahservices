@@ -10,7 +10,7 @@ import { WhatsAppLink } from './WhatsAppLink'
  */
 export function PricingTable() {
   return (
-    <section id="tarifs" aria-labelledby="titre-tarifs" className="py-16 sm:py-24">
+    <section id="tarifs" aria-labelledby="titre-tarifs" className="bg-sand py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">Tarifs &amp; Grille</p>
@@ -25,9 +25,10 @@ export function PricingTable() {
 
         <div className="mt-8 overflow-hidden rounded-3xl border border-line bg-white shadow-sm">
           <table className="w-full border-collapse text-left">
-            <caption className="border-b border-line bg-coral/10 px-5 py-4 text-left text-sm font-semibold leading-6 sm:px-7">
+            {/* Mention légale obligatoire, mise en avant par l'accent ambre. */}
+            <caption className="border-b border-amber/30 bg-amber-soft px-5 py-4 text-left text-sm font-semibold leading-6 sm:px-7">
               <div className="flex items-start gap-3">
-                <Info size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-coral-strong" />
+                <Info size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-amber-deep" />
                 <span>
                   <span className="sr-only">Grille tarifaire des services à domicile. </span>
                   {PRICING_DISCLAIMER}
@@ -35,7 +36,7 @@ export function PricingTable() {
               </div>
             </caption>
             <thead>
-              <tr className="bg-ink text-paper">
+              <tr className="bg-mint-deep text-white">
                 <th scope="col" className="px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] sm:px-7">
                   Service
                 </th>
@@ -47,7 +48,7 @@ export function PricingTable() {
             {PRICING_GROUPS.map((group) => (
               <tbody key={group.title}>
                 <tr>
-                  <th scope="rowgroup" colSpan={2} className="bg-sand px-5 py-2 text-left text-xs font-bold uppercase tracking-[0.16em] text-stone sm:px-7">
+                  <th scope="rowgroup" colSpan={2} className="bg-mist px-5 py-2 text-left text-xs font-bold uppercase tracking-[0.16em] text-mint-deep sm:px-7">
                     {group.title}
                   </th>
                 </tr>

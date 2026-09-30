@@ -1,6 +1,8 @@
 import { ArrowRight, Baby, Car, Check, ChefHat, HeartHandshake, Home, ShieldCheck, SprayCan } from 'lucide-react'
 import { B2C_SERVICES, GRAND_MENAGE, type B2CServiceId } from '@/lib/content'
 import { WA, whatsappUrl } from '@/lib/whatsapp'
+import { ServicesTabs } from './ServicesTabs'
+import { WhatsAppIcon } from './icons'
 import { WhatsAppLink } from './WhatsAppLink'
 
 const ICONS: Record<B2CServiceId, typeof Home> = {
@@ -13,42 +15,60 @@ const ICONS: Record<B2CServiceId, typeof Home> = {
   'grand-menage': SprayCan,
 }
 
+/** Services Particuliers (B2C) : grille de cartes modernes sur section gris très léger. */
 export function Particuliers() {
   const cards = B2C_SERVICES.filter((service) => service.id !== 'grand-menage')
   const grandMenage = B2C_SERVICES.find((service) => service.id === 'grand-menage')!
 
   return (
-    <section id="particuliers" aria-labelledby="titre-particuliers" className="py-16 sm:py-24">
+    <section id="particuliers" aria-labelledby="titre-particuliers" className="bg-sand py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
-          <p className="eyebrow">Particuliers</p>
+          <p className="eyebrow">Services Particuliers (B2C)</p>
           <h2 id="titre-particuliers" className="section-title mt-3">
             Des services à domicile, pensés pour votre quotidien.
           </h2>
           <p className="mt-4 text-lg leading-8 text-stone">
             Ménage, enfants, proches, repas, maison : dites-nous ce dont vous avez besoin, nous vous présentons un profil adapté à votre foyer.
           </p>
+          <ServicesTabs current="particuliers" />
         </header>
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((service) => {
             const Icon = ICONS[service.id]
             return (
-              <li key={service.id} className="flex flex-col rounded-3xl border border-line bg-white/70 p-6 shadow-sm">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral/15 text-coral-strong">
-                  <Icon size={24} aria-hidden="true" />
+              <li
+                key={service.id}
+                className="flex flex-col rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
+                >
+                  <Icon size={24} />
                 </span>
                 <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
-                <p className="mt-2 flex-1 text-[0.95rem] leading-7 text-stone">{service.description}</p>
+                <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
+                <ul className="mt-4 flex-1 space-y-2">
+                  {service.bullets.map((bullet) => (
+                    <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
+                      <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+                {/* Action rapide : WhatsApp avec message pré-rempli pour ce service. */}
                 <a
                   href={whatsappUrl(WA.service(service.title))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-wa hover:text-wa-deep"
+                  className="btn-wa-ghost"
                 >
+                  <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
                   Demander ce service
                   <span className="sr-only"> : {service.title}, sur WhatsApp</span>
-                  <ArrowRight size={16} aria-hidden="true" />
+                  <ArrowRight size={15} aria-hidden="true" />
                 </a>
               </li>
             )
@@ -56,7 +76,7 @@ export function Particuliers() {
         </ul>
 
         {/* Nettoyage & grand ménage : le service le plus visuel, détaillé d'après les affiches officielles. */}
-        <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-line bg-white p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
+        <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-line bg-white p-6 shadow-sm sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
           <div>
             <p className="eyebrow">{grandMenage.title}</p>
             <h3 className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] sm:text-4xl">{GRAND_MENAGE.title}</h3>
@@ -65,12 +85,12 @@ export function Particuliers() {
             <ul className="mt-5 space-y-2.5">
               {GRAND_MENAGE.bullets.map((bullet) => (
                 <li key={bullet} className="flex items-start gap-3 text-[0.95rem] font-medium leading-6">
-                  <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-wa" />
+                  <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-mint-deep" />
                   {bullet}
                 </li>
               ))}
             </ul>
-            <WhatsAppLink message={WA.service(grandMenage.title)} className="mt-7">
+            <WhatsAppLink message={WA.service(grandMenage.title)} variant="mint" className="mt-7">
               Demander un grand ménage
             </WhatsAppLink>
           </div>

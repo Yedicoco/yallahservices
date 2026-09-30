@@ -40,7 +40,7 @@ export function SiteHeader() {
 
   const linkClass = (id: string) =>
     `whitespace-nowrap rounded-full px-2.5 py-2 text-[0.8125rem] font-semibold transition-colors ${
-      active === id ? 'bg-ink text-paper' : 'text-stone hover:bg-sand hover:text-ink'
+      active === id ? 'bg-ink text-paper' : 'text-stone hover:bg-mist hover:text-ink'
     }`
 
   return (
@@ -71,7 +71,7 @@ export function SiteHeader() {
           </a>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink hover:bg-sand xl:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink hover:bg-mist xl:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -92,7 +92,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   aria-current={active === item.id ? 'location' : undefined}
                   className={`flex min-h-12 items-center rounded-xl px-4 text-base font-semibold ${
-                    active === item.id ? 'bg-ink text-paper' : 'text-ink hover:bg-sand'
+                    active === item.id ? 'bg-ink text-paper' : 'text-ink hover:bg-mist'
                   }`}
                 >
                   {item.label}
