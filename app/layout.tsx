@@ -6,7 +6,7 @@ import './globals.css'
 // Titre court (≈ 45 caractères) pour ne pas être tronqué dans les résultats de recherche ; le slogan complet sert aux partages.
 const TITLE = 'Yallah Services — Personnel qualifié & Aide à domicile au Maroc'
 const SHARE_TITLE = 'Yallah Services — Le bon profil, au bon endroit'
-const DESCRIPTION = 'Trouvez facilement du personnel de confiance au Maroc : ménage à domicile, garde d'enfants, aides soignantes, chauffeurs et solutions B2B à Casablanca, Rabat et dans tout le Maroc.'
+const DESCRIPTION = 'Trouvez facilement du personnel de confiance au Maroc : ménage à domicile, garde d’enfants, aides soignantes, chauffeurs et solutions B2B à Casablanca, Rabat et dans tout le Maroc.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

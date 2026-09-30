@@ -6,43 +6,87 @@
 
 export type B2CServiceId = 'menage' | 'garde-enfants' | 'personnes-agees' | 'cuisine' | 'gardiennage' | 'chauffeurs' | 'grand-menage'
 
+/**
+ * Visuel d'en-tête d'un service. Toutes les bannières sont livrées en 1408×792 (16:9),
+ * en JPEG (repli universel) et en WebP (plus léger), servies via <picture>.
+ * Le tiers gauche de chaque bannière reste volontairement vide : il est prévu pour
+ * recevoir un titre en surimpression.
+ */
+export type ServiceImage = { jpg: string; webp: string; alt: string }
+
 /** Services particuliers : description officielle + puces courtes dérivées de cette même description (cartes de la vitrine). */
-export const B2C_SERVICES: ReadonlyArray<{ id: B2CServiceId; title: string; description: string; bullets: readonly string[] }> = [
+export const B2C_SERVICES: ReadonlyArray<{
+  id: B2CServiceId
+  title: string
+  description: string
+  bullets: readonly string[]
+  image?: ServiceImage
+}> = [
   {
     id: 'menage',
     title: 'Ménage à domicile',
     description: 'Entretien régulier ou ponctuel, repassage : une maison soignée, sans que vous ayez à y penser.',
     bullets: ['Entretien régulier ou ponctuel', 'Repassage inclus'],
+    image: {
+      jpg: '/images/banners/01-menage-a-domicile.jpg',
+      webp: '/images/banners/01-menage-a-domicile.webp',
+      alt: 'Femme de ménage souriante, tablier vert, un chiffon à la main dans un salon marocain lumineux et impeccable.',
+    },
   },
   {
     id: 'garde-enfants',
     title: 'Garde d’enfants (nounous)',
     description: 'Une nounou sérieuse pour accompagner vos enfants au quotidien, avec ou sans entretien de la maison.',
     bullets: ['Accompagnement au quotidien', 'Avec ou sans entretien de la maison'],
+    image: {
+      jpg: '/images/banners/02-garde-denfants.jpg',
+      webp: '/images/banners/02-garde-denfants.webp',
+      alt: 'Nounou jouant avec un jeune enfant et des jouets en bois dans un coin jeu baigné de lumière naturelle.',
+    },
   },
   {
     id: 'personnes-agees',
     title: 'Aide aux personnes âgées',
     description: 'Une présence bienveillante et une aide de tous les jours pour vos proches : garde-malade, accompagnement, entretien.',
     bullets: ['Garde-malade et accompagnement', 'Aide à l’entretien au quotidien'],
+    image: {
+      jpg: '/images/banners/03-aide-personnes-agees.jpg',
+      webp: '/images/banners/03-aide-personnes-agees.webp',
+      alt: 'Aide à domicile apportant un thé à la menthe à une personne âgée souriante, installée dans un fauteuil au soleil.',
+    },
   },
   {
     id: 'cuisine',
     title: 'Cuisine à domicile',
     description: 'Des repas préparés chez vous, selon vos goûts et vos habitudes, avec ou sans aide à l’entretien.',
     bullets: ['Repas préparés selon vos goûts', 'Avec ou sans aide à l’entretien'],
+    image: {
+      jpg: '/images/banners/04-cuisine-a-domicile.jpg',
+      webp: '/images/banners/04-cuisine-a-domicile.webp',
+      alt: 'Cuisinière préparant des ingrédients marocains — menthe fraîche, huile d’olive, agrumes, tomates — sur un plan de travail clair.',
+    },
   },
   {
     id: 'gardiennage',
     title: 'Gardiennage',
     description: 'Une présence de confiance pour veiller sur votre domicile ou votre propriété.',
     bullets: ['Domicile ou propriété', 'Présence de confiance'],
+    image: {
+      jpg: '/images/banners/05-gardiennage.jpg',
+      webp: '/images/banners/05-gardiennage.webp',
+      alt: 'Gardien souriant devant l’entrée d’une villa marocaine de style riad, palmiers et lumière dorée de fin de journée.',
+    },
   },
   {
     id: 'chauffeurs',
     title: 'Chauffeurs',
     description: 'Un chauffeur pour vos trajets du quotidien, selon vos horaires et vos besoins.',
     bullets: ['Trajets du quotidien', 'Selon vos horaires et vos besoins'],
+    image: {
+      jpg: '/images/banners/06-chauffeurs.jpg',
+      webp: '/images/banners/06-chauffeurs.webp',
+      alt: 'Chauffeur souriant au volant d’une voiture à l’intérieur en cuir crème, vue depuis la fenêtre côté passager.',
+    },
   },
   {
     id: 'grand-menage',
