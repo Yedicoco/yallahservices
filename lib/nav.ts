@@ -1,15 +1,19 @@
 /**
  * Navigation publique, dans l'ordre demandé :
  * Accueil → Services Particuliers → Services Entreprises → Tarifs & Grille → Zones d'intervention → Vidéos → Contact.
- * Module neutre (ni « use client » ni serveur) : partagé par l'en-tête et le pied de page.
+ * Module neutre (ni « use client » ni serveur) : partagé par l'en-tête, le pied de page et les tests.
+ *
+ * Seuls les ancres et les identifiants vivent ici — les libellés viennent du dictionnaire de la
+ * langue courante (`dict.nav[id]`), ce qui permet de traduire la navigation sans toucher au routage.
  * Aucun lien vers l'espace interne (/connect, /api/tiktok/admin/*) ne doit jamais figurer ici.
  */
-export const NAV_ITEMS = [
-  { id: 'accueil', label: 'Accueil' },
-  { id: 'particuliers', label: 'Services Particuliers' },
-  { id: 'entreprises', label: 'Services Entreprises' },
-  { id: 'tarifs', label: 'Tarifs & Grille' },
-  { id: 'zones', label: 'Zones d’intervention' },
-  { id: 'videos', label: 'Vidéos' },
-  { id: 'contact', label: 'Contact' },
-] as const
+export const NAV_IDS = ['accueil', 'particuliers', 'entreprises', 'tarifs', 'zones', 'videos', 'contact'] as const
+
+/**
+ * Identifiant d'ancre = identifiant de libellé (`dict.nav[id]`) : un seul mot-clé, aucune table
+ * de correspondance à maintenir, et l'ordre du tableau fait l'ordre d'affichage.
+ */
+export type NavId = (typeof NAV_IDS)[number]
+
+/** Largeur des ancres : la navigation est traduite, les identifiants HTML ne le sont jamais. */
+export const navHref = (id: NavId) => `#${id}`

@@ -49,7 +49,7 @@ check(`toutes les vidéos et images référencées existent (${referenced.size} 
 check('aucune image de grille tarifaire n’est encore utilisée', ![...referenced].some((path) => /grille/i.test(path)))
 
 // 3) aucun lien public vers l'espace interne
-const publicFiles = [...walk('components/site', (p) => /\.tsx$/.test(p)), 'app/page.tsx', 'app/layout.tsx', 'app/not-found.tsx', 'app/sitemap.ts', 'app/robots.ts', 'lib/nav.ts', 'lib/site.ts', 'lib/content.ts']
+const publicFiles = [...walk('components/site', (p) => /\.tsx$/.test(p)), 'app/page.tsx', 'app/layout.tsx', 'app/not-found.tsx', 'app/sitemap.xml/route.ts', 'app/robots.ts', 'proxy.ts', 'lib/nav.ts', 'lib/site.ts', 'lib/content.ts']
 const leaks = publicFiles.filter((file) => /\/connect|tiktok\/admin/.test(read(file).replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '')))
 check('aucun lien public vers /connect ni /api/tiktok/admin/* (code public hors commentaires)', leaks.length === 0, `références dans : ${leaks.join(', ')}`)
 

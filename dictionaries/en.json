@@ -1,0 +1,579 @@
+{
+  "meta": {
+    "locale": "en",
+    "languageCode": "en-MA",
+    "dir": "ltr",
+    "ogTitle": "Yallah Services — The right profile, in the right place",
+    "metaTitle": "Yallah Services — Qualified Staff & Home Services in Morocco",
+    "metaDescription": "Easily find trustworthy staff in Morocco: home cleaning, childcare, elderly support, drivers and B2B solutions in Casablanca, Rabat and all over Morocco.",
+    "metaKeywords": [
+      "domestic staff Morocco",
+      "home cleaning Casablanca",
+      "nanny Rabat",
+      "private driver Morocco",
+      "villa security guard",
+      "B2B hospitality recruitment",
+      "elderly assistance",
+      "deep cleaning Airbnb",
+      "hotel riad restaurant staff",
+      "construction labour",
+      "Yallah Services"
+    ]
+  },
+  "brand": {
+    "tagline": "The right profile, in the right place.",
+    "name": "Yallah Services",
+    "cityLine": "Based in {ville} · {villes} cities in Morocco"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "whatsappAria": "Message Yallah Services on WhatsApp",
+    "callWa": "Call on WhatsApp",
+    "online": "online",
+    "onWhatsAppSuffix": ", on WhatsApp",
+    "hours": "Reply within 2h · 7 days a week",
+    "chatCta": "Chat on WhatsApp"
+  },
+  "skip": {
+    "label": "Skip to content",
+    "targetId": "contenu"
+  },
+  "header": {
+    "navLabel": "Main navigation",
+    "homeAria": "Yallah Services, back to home",
+    "openMenu": "Open the menu",
+    "closeMenu": "Close the menu",
+    "mobileNavLabel": "Mobile menu"
+  },
+  "tabs": {
+    "aria": "Choose an offer: for individuals or for businesses",
+    "particuliers": "Individuals (B2C)",
+    "entreprises": "Businesses (B2B)"
+  },
+  "lang": {
+    "groupLabel": "Page language",
+    "hint": "Change the website language",
+    "aria": "Language: {langue}",
+    "switchTo": "Show the website in {langue}"
+  },
+  "nav": {
+    "accueil": "Home",
+    "particuliers": "Home Services",
+    "entreprises": "Business Services",
+    "tarifs": "Pricing & Rates",
+    "zones": "Service Areas",
+    "videos": "Videos",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Yallah Services · Morocco",
+    "tagline": "The right profile, in the right place.",
+    "title": "Qualified staff & home services in Morocco",
+    "lead": "Yallah Services finds and connects qualified staff profiles for households and businesses across Morocco.",
+    "detail": "A simple chat on WhatsApp, careful screening, human support: we take the time to understand your need before presenting you with the right profile.",
+    "ctaParticulier": "I am a private individual",
+    "ctaEntreprise": "I represent a company",
+    "responseNote": "Reply on WhatsApp · Rates and availability confirmed during the conversation.",
+    "imageAlt": "Illustration: service professionals in Morocco, at home and in business — household staff, hotel worker, cook and business owner.",
+    "chatPreviewHeader": "Yallah Services",
+    "chatPreviewMessage": "Hello Yallah Services, I'd like to discuss my need.",
+    "chatPreviewFooter": "Reply within 2h · 7 days a week",
+    "trust": [
+      {
+        "id": "verifies",
+        "label": "Verified, screened profiles"
+      },
+      {
+        "id": "reponse",
+        "label": "Reply within 2h · 7 days a week"
+      },
+      {
+        "id": "villes",
+        "label": "{villes} cities covered in Morocco"
+      },
+      {
+        "id": "humain",
+        "label": "Human, personalised support"
+      }
+    ]
+  },
+  "keyFigures": {
+    "sectionAria": "Key figures and commitments",
+    "eyebrow": "Our commitments, in numbers",
+    "title": "Concrete landmarks, kept from day one.",
+    "items": [
+      {
+        "id": "villes",
+        "value": "+10",
+        "label": "Cities covered",
+        "detail": "Casablanca, Rabat, Marrakech, and more"
+      },
+      {
+        "id": "profils",
+        "value": "100%",
+        "label": "Verified & identified profiles",
+        "detail": "Checked before they are presented to you"
+      },
+      {
+        "id": "whatsapp",
+        "value": "7j/7",
+        "label": "Dedicated support on WhatsApp",
+        "detail": "The team's priority channel"
+      },
+      {
+        "id": "delai",
+        "value": "< 24h",
+        "label": "Average time to a profile proposal",
+        "detail": "After we understand your need"
+      }
+    ]
+  },
+  "b2c": {
+    "eyebrow": "Home Services (B2C)",
+    "title": "Home services designed around your daily life.",
+    "intro": "Cleaning, children, elderly relatives, meals, the house: tell us what you need and we present a profile suited to your household.",
+    "askLabel": "Request this service",
+    "services": {
+      "menage": {
+        "title": "Home cleaning",
+        "description": "Regular or one-off upkeep and ironing: a well-kept home, without you having to think about it.",
+        "bullets": [
+          "Regular or one-off upkeep",
+          "Ironing included"
+        ]
+      },
+      "garde-enfants": {
+        "title": "Childcare & Nannies",
+        "description": "A reliable nanny to support your children day to day, with or without upkeep of the house.",
+        "bullets": [
+          "Day-to-day support for your children",
+          "With or without house upkeep"
+        ]
+      },
+      "personnes-agees": {
+        "title": "Elderly assistance",
+        "description": "A caring presence and everyday help for your relatives: patient care, accompaniment, household upkeep.",
+        "bullets": [
+          "Patient care and accompaniment",
+          "Help with daily upkeep"
+        ]
+      },
+      "cuisine": {
+        "title": "Home cooking",
+        "description": "Meals prepared in your home, to your taste and habits, with or without help with upkeep.",
+        "bullets": [
+          "Meals prepared to your taste",
+          "With or without help with upkeep"
+        ]
+      },
+      "gardiennage": {
+        "title": "Security & guarding",
+        "description": "A trustworthy presence to watch over your home or property.",
+        "bullets": [
+          "Home or property",
+          "A trustworthy presence"
+        ]
+      },
+      "chauffeurs": {
+        "title": "Drivers",
+        "description": "A driver for your everyday trips, around your schedule and your needs.",
+        "bullets": [
+          "Everyday trips",
+          "Around your schedule and needs"
+        ]
+      },
+      "grand-menage": {
+        "title": "Cleaning & deep clean",
+        "description": "Apartments, residences, Airbnb units, reset before check-in: a deep clean, one-off or regular.",
+        "bullets": [
+          "Apartments, residences and Airbnb",
+          "One-off or regular"
+        ]
+      }
+    },
+    "banners": {
+      "menage": "Smiling housekeeper in a green apron, a cloth in hand, in a bright and spotless Moroccan living room.",
+      "garde-enfants": "Nanny playing with a young child and wooden toys in a play corner filled with daylight.",
+      "personnes-agees": "Home helper bringing mint tea to a smiling older person seated in an armchair in the sun.",
+      "cuisine": "Cook preparing Moroccan ingredients — fresh mint, olive oil, citrus, tomatoes — on a bright worktop.",
+      "gardiennage": "Smiling guard at the entrance of a riad-style Moroccan villa, palm trees and golden late-day light.",
+      "chauffeurs": "Smiling driver behind the wheel of a car with cream leather interior, seen from the passenger window."
+    },
+    "grand": {
+      "eyebrow": "Our most requested service",
+      "title": "The deep clean, done properly.",
+      "description": "Apartments, residences, Airbnb units, reset before check-in: a deep clean, one-off or regular.",
+      "intro": "For Airbnb residences, apartments, couples, families and offices: one-off, or once, twice or three times a week, at the frequency that suits you.",
+      "bullets": [
+        "Complete deep clean",
+        "Reset before check-in",
+        "Thorough cleaning",
+        "Ideal for Airbnb, short-term rentals and private apartments"
+      ],
+      "cta": "Request a deep clean",
+      "posterServiceAlt": "Poster: one-off or weekly deep clean for Airbnb residences and apartments in Casablanca",
+      "posterNeedAlt": "Poster: need a deep clean in Casablanca — thorough cleaning, Airbnb reset and regular upkeep"
+    }
+  },
+  "b2b": {
+    "eyebrow": "Business Solutions (B2B)",
+    "title": "Reliable staff, when your business needs them.",
+    "intro": "A hotel, a restaurant or a construction site cannot afford to be short-staffed. We help you find the profile suited to your need.",
+    "sectorsHeading": "Sectors we support",
+    "sectorBullets": [
+      "Verified & identified profiles",
+      "Permanent, temporary or daily"
+    ],
+    "askLabel": "Request staff",
+    "sectors": {
+      "hotels": {
+        "title": "Hôtels",
+        "message": "I represent a hotel and I am looking for staff"
+      },
+      "riads": {
+        "title": "Riads",
+        "message": "I represent a riad and I am looking for staff"
+      },
+      "restaurants": {
+        "title": "Restaurants",
+        "message": "I represent a restaurant and I am looking for staff"
+      },
+      "chantiers": {
+        "title": "Construction sites",
+        "message": "I have a construction site and I am looking for labour"
+      },
+      "commerces": {
+        "title": "Commerces",
+        "message": "I represent a shop and I am looking for staff"
+      },
+      "evenements": {
+        "title": "Événements",
+        "message": "I am organizing an event and I am looking for staff"
+      }
+    },
+    "formulasHeading": "Labour for businesses and project owners",
+    "formulas": {
+      "permanente": {
+        "title": "Permanent",
+        "description": "A long-term worker, integrated into your team."
+      },
+      "temporaire": {
+        "title": "Temporary",
+        "description": "Extra hands for a season, a project or a replacement."
+      },
+      "journalier": {
+        "title": "Daily reinforcement",
+        "description": "Extra hands by the day, when activity demands it."
+      }
+    },
+    "prospection": {
+      "title": "B2B outreach",
+      "description": "Yallah Services also supports professionals who want to structure their business development.",
+      "cta": "Discuss it on WhatsApp"
+    },
+    "mainCta": "Talk to me about my staffing need"
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "A serious process, human support.",
+    "intro": "Trusting someone with your home or your business takes confidence. Here, simply, how we work.",
+    "stepLabel": "Step {numero}: ",
+    "steps": [
+      {
+        "id": "ecrit",
+        "title": "You write to us",
+        "description": "A WhatsApp message or a call: you describe your need, your city and your schedule."
+      },
+      {
+        "id": "selection",
+        "title": "We screen",
+        "description": "We look for qualified profiles that genuinely match your need."
+      },
+      {
+        "id": "verification",
+        "title": "We verify",
+        "description": "We verify the shortlisted profiles before presenting them to you."
+      },
+      {
+        "id": "mise-en-relation",
+        "title": "We connect you",
+        "description": "Introduction, then support: we stay available for what comes next."
+      }
+    ],
+    "noteStrong": "Rates and availability are confirmed directly during the conversation",
+    "noteRest": ", based on your city, your schedule and the level of responsibility expected."
+  },
+  "pricing": {
+    "eyebrow": "Pricing & Rates",
+    "title": "Clear landmarks to prepare your request.",
+    "intro": "Here is the rate card for our main home services. It gives an order of magnitude; the rate for your situation is confirmed directly during the conversation. Indicative amounts in Moroccan dirhams (MAD / DH).",
+    "disclaimer": "Rates are indicative and vary with the city, duration, schedule and level of responsibility.",
+    "captionSr": "Rate card for home services. ",
+    "colService": "Service",
+    "colPrice": "Indicative rate (DH)",
+    "currency": "DH",
+    "groupsOrder": [
+      "menage",
+      "nounou",
+      "cuisine",
+      "garde-malade"
+    ],
+    "groupTitles": {
+      "menage": "Cleaning",
+      "nounou": "Nanny (childcare)",
+      "cuisine": "Cooking",
+      "garde-malade": "Patient care"
+    },
+    "rows": {
+      "menage-villa": "Standard cleaning in a villa",
+      "menage-mini-villa": "Standard cleaning in a mini villa",
+      "menage-appartement": "Cleaning in an apartment",
+      "nounou-1": "Nanny for one child",
+      "nounou-1-menage": "Nanny for one child + cleaning",
+      "nounou-2-menage": "Nanny for 2 children with cleaning",
+      "nounou-3": "Nanny for 3 children",
+      "nounou-3-menage": "Nanny for 3 children + cleaning",
+      "cuisine-simple": "Simple cooking",
+      "cuisine-menage": "Cooking / cleaning",
+      "cuisine-aide": "Kitchen helper",
+      "cuisine-aide-menage": "Kitchen helper / cleaning",
+      "garde-malade-simple": "Simple patient care",
+      "garde-malade-menage": "Patient care and cleaning"
+    },
+    "footnote": "Duration, schedule and terms are settled during the conversation. No commitment: we honestly guide you towards the profile that matches your need.",
+    "cta": "Get a tailored estimate"
+  },
+  "zones": {
+    "eyebrow": "Service areas",
+    "title": "Present in {villes} cities in Morocco, based in {ville}.",
+    "intro": "We are based in {ville} and we work in the cities below, with particular attention to some neighbourhoods.",
+    "citiesHeading": "Cities covered",
+    "cities": {
+      "casablanca": "Casablanca",
+      "rabat": "Rabat",
+      "marrakech": "Marrakech",
+      "fes": "Fez",
+      "tanger": "Tanger",
+      "agadir": "Agadir",
+      "kenitra": "Kénitra",
+      "mohammedia": "Mohammedia",
+      "temara": "Témara",
+      "sale": "Salé"
+    },
+    "areasHeading": "Priority neighbourhoods and areas",
+    "zones": [
+      {
+        "id": "casablanca",
+        "label": "Casablanca and surroundings",
+        "areas": [
+          "Anfa",
+          "Aïn Diab",
+          "Californie",
+          "Bouskoura"
+        ]
+      },
+      {
+        "id": "rabat",
+        "label": "Rabat",
+        "areas": [
+          "Souissi",
+          "Hay Riad"
+        ]
+      },
+      {
+        "id": "marrakech",
+        "label": "Marrakech",
+        "areas": [
+          "Hivernage",
+          "Palmeraie"
+        ]
+      }
+    ],
+    "unlistedStrong": "Is your neighbourhood not on the list?",
+    "unlistedRest": " Write to us: we confirm coverage of your area during the conversation.",
+    "cta": "Check my area"
+  },
+  "videos": {
+    "eyebrow": "Videos",
+    "title": "Two recurring formats to get to know us.",
+    "intro": "Concrete needs, and the behind-the-scenes of matchmaking: short videos you can watch in a few seconds.",
+    "durationLabel": "Duration {duree}",
+    "cta": "Write on WhatsApp",
+    "playerUnsupported": "Your browser cannot play this video.",
+    "playerDownload": "Download the video",
+    "questionTitle": "A question?",
+    "questionDescription": "Ask it on WhatsApp: we answer on video, anonymously, never mentioning your name.",
+    "questionCta": "Ask my question",
+    "rubriques": {
+      "bon-profil-du-jour": {
+        "kicker": "Format 1",
+        "title": "Today’s right profile",
+        "description": "A concrete need, in a city or neighbourhood: we start from your situation, never from a person. Short vertical format, made to go straight to the point.",
+        "example": "\"Today, a housekeeper available in Aïn Diab.\""
+      },
+      "coulisses-et-questions": {
+        "kicker": "Format 2",
+        "title": "Behind the scenes & Your Questions",
+        "description": "How the matchmaking works, from your first message to the introduction, plus video answers to questions received on WhatsApp, always anonymously.",
+        "example": "\"How do you verify profiles? What happens after my message?\""
+      }
+    },
+    "entries": {
+      "besoin-femme-de-menage-casablanca": {
+        "title": "Need a housekeeper in Casablanca?",
+        "description": "Home cleaning, ironing, move-out cleaning: screened profiles and flexible availability."
+      },
+      "plus-de-temps-pour-vous": {
+        "title": "More time for yourself.",
+        "description": "We care for your home seriously and discreetly: cleaning, ironing, upkeep, in Casablanca and surroundings."
+      },
+      "commentez-ville-et-service": {
+        "title": "Comment “city + service”, we reply privately.",
+        "description": "How we work: honest guidance, no commitment, then the introduction to the right profile."
+      },
+      "vous-manquez-de-personnel": {
+        "title": "Short on staff?",
+        "description": "Hotels, restaurants, sites, shops, events: permanent, temporary or daily staff, suited to your need."
+      }
+    },
+    "commitments": [
+      "Never a candidate or client name or face",
+      "No fixed rates: rates and availability are confirmed during the conversation",
+      "Always a direct line to WhatsApp"
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Client reviews",
+    "title": "Trust, message after message.",
+    "intro": "In Casablanca as in Rabat, what clients remember first: responsiveness, clarity and the feeling of being well supported.",
+    "ratingSr": "Rating: {note} out of {total}",
+    "items": [
+      {
+        "id": "nadia",
+        "quote": "I wrote on a Sunday evening on WhatsApp and I already had profiles proposed the next morning. The person chosen is serious, my home is in good hands.",
+        "name": "Nadia B.",
+        "city": "Casablanca",
+        "service": "Home cleaning"
+      },
+      {
+        "id": "karim",
+        "quote": "We were looking for a trustworthy nanny in Rabat. The team took the time to understand our routine before presenting two profiles. Very responsive on WhatsApp.",
+        "name": "Karim E.",
+        "city": "Rabat",
+        "service": "Childcare"
+      },
+      {
+        "id": "sofia",
+        "quote": "Deep clean before Airbnb guests arrived: clear communication, fast intervention, spotless result. I recommend them for their responsiveness.",
+        "name": "Sofia R.",
+        "city": "Casablanca",
+        "service": "Cleaning & deep clean"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your need.",
+    "intro": "The simplest way: write to us on WhatsApp. We reply, ask the right questions, then present the right profile.",
+    "chatLabel": "Example conversation",
+    "chatBrand": "Yallah Services",
+    "chatToday": "Today",
+    "chatVisitor": "Hello Yallah Services, I'd like to discuss my need. I am looking for a nanny in Casablanca.",
+    "chatCompany1": "Hello 👋 Thank you for your message. Could you specify your schedule and the frequency you want?",
+    "chatCompany2": "Perfect. We come back to you within 24h with verified profiles, suited to your need.",
+    "chatInputPlaceholder": "Message",
+    "chatDisclaimer": "Example conversation. Your message then opens in WhatsApp: you can edit it before sending.",
+    "whatsappChannelLabel": "WhatsApp, priority channel",
+    "callAria": "Call Yallah Services: {numero}",
+    "emailLabel": "Email",
+    "baseLabel": "Based in {ville}",
+    "baseDetail": "Serving {villes} cities in Morocco",
+    "followLabel": "Follow us",
+    "cta": "Write on WhatsApp · {numero}"
+  },
+  "form": {
+    "title": "Describe your need",
+    "intro": "A few details help us answer you better. Your message then opens in WhatsApp — you can edit it before sending.",
+    "tiktokConnected": "Signed in with TikTok",
+    "tiktokConnectedInfo": "Your profile name will be mentioned in your message.",
+    "tiktokContinue": "Continue with TikTok",
+    "optional": "(optional)",
+    "learnMore": "Learn more",
+    "notices": {
+      "connected": "TikTok sign-in successful: your profile name will be mentioned in your message.",
+      "denied": "TikTok sign-in cancelled. You can continue without TikTok.",
+      "error": "TikTok sign-in did not complete. You can retry, or continue without TikTok.",
+      "unavailable": "TikTok sign-in is not available right now. You can continue without TikTok."
+    },
+    "segmentLegend": "You are",
+    "segments": {
+      "particulier": "An individual",
+      "entreprise": "A company"
+    },
+    "serviceLabel": "Service needed",
+    "needLabel": "Need",
+    "placeholderChoose": "Choose…",
+    "otherCity": "Another city",
+    "cityLabel": "City",
+    "districtLabel": "Neighbourhood",
+    "districtPlaceholder": "e.g. Aïn Diab",
+    "detailsLabel": "Details",
+    "detailsPlaceholder": "Schedule, frequency, special situation…",
+    "b2bNeeds": {
+      "hotel": "Staff for a hotel",
+      "riad": "Staff for a riad",
+      "restaurant": "Staff for a restaurant",
+      "chantier": "Labour for a construction site",
+      "commerce": "Staff for a shop",
+      "evenement": "Staff for an event",
+      "permanente-temporaire-journaliere": "Permanent, temporary or daily labour",
+      "prospection": "B2B outreach",
+      "autre": "Another need"
+    },
+    "previewLabel": "Your message preview",
+    "submit": "Send my request on WhatsApp",
+    "footnote": "Rates and availability are confirmed directly during the conversation.",
+    "logout": "Sign out",
+    "message": [
+      "Hello Yallah Services,",
+      "My name is {prenom} (TikTok profile).",
+      "{qui} and I am looking for: {besoin}.",
+      "City / neighbourhood: {ville}.",
+      "Please get back to me."
+    ]
+  },
+  "wa": {
+    "hello": "Hello Yallah Services,",
+    "general": "{hello} I'd like to discuss my need.",
+    "particulier": "{hello} I am a private individual looking for a profile for my home. Could you get back to me? My city: ",
+    "entreprise": "{hello} I represent a company and I would like to discuss a staffing need. Could you get back to me?",
+    "tarifs": "{hello} I looked at the indicative rate card and would like an estimate tailored to my need (city, duration, schedule).",
+    "zones": "{hello} could you confirm that you cover my area? City / neighbourhood: ",
+    "question": "{hello} I have a question for your “Behind the scenes & Your Questions” format: ",
+    "service": "{hello} I am interested in the service “{service}”. Could you get back to me? My city: ",
+    "sector": "{hello} {besoin}. Could you get back to me?",
+    "prospection": "{hello} I would like to know more about your support on B2B outreach.",
+    "video": "{hello} I saw your video “{video}” and I would like to discuss it."
+  },
+  "footer": {
+    "navLabel": "Site map",
+    "contactLabel": "Contact",
+    "copyright": "© {annee} {marque} · {ville}, Morocco",
+    "followAria": "{label} : {identifiant}"
+  },
+  "legal": {
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d’utilisation"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Page not found",
+    "description": "This page does not exist or is no longer available. Find our services again from the home page.",
+    "cta": "Back to home",
+    "homeAria": "Yallah Services, back to home"
+  },
+  "structured": {
+    "slogan": "The right profile, in the right place.",
+    "description": "Yallah Services finds and connects qualified staff profiles for households and businesses in Morocco."
+  }
+}

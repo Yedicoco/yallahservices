@@ -43,7 +43,10 @@ const nextConfig = {
   },
 
   typescript: {
-    ignoreBuildErrors: true,
+    // Le dépôt est vérifié (`pnpm typecheck`) : on refuse désormais un build cassé plutôt que de
+    // laisser passer une régression de types — l'i18n s'appuie sur le moulage des dictionnaires JSON
+    // dans `Dictionary` pour signaler une clé manquante ou déplacée.
+    ignoreBuildErrors: false,
   },
   images: {
     unoptimized: true,

@@ -43,7 +43,7 @@ export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
       </span>
       <span className={`text-[1.3rem] font-black leading-none tracking-[-0.06em] ${tone === 'light' ? 'text-paper' : 'text-ink'}`}>
         yallah<span className="text-coral">.</span>
-        <span className={`ml-0.5 ${tone === 'light' ? 'text-paper/70' : 'text-stone'}`}>services</span>
+        <span className={`ms-0.5 ${tone === 'light' ? 'text-paper/70' : 'text-stone'}`}>services</span>
       </span>
     </span>
   )

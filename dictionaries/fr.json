@@ -1,0 +1,579 @@
+{
+  "meta": {
+    "locale": "fr",
+    "languageCode": "fr-MA",
+    "dir": "ltr",
+    "ogTitle": "Yallah Services — Le bon profil, au bon endroit",
+    "metaTitle": "Yallah Services — Personnel qualifié & Aide à domicile au Maroc",
+    "metaDescription": "Trouvez facilement du personnel de confiance au Maroc : ménage à domicile, garde d'enfants, aides soignantes, chauffeurs et solutions B2B à Casablanca, Rabat et dans tout le Maroc.",
+    "metaKeywords": [
+      "personnel de maison Maroc",
+      "ménage à domicile Casablanca",
+      "nounou Rabat",
+      "chauffeur privé Maroc",
+      "gardiennage villa",
+      "recrutement B2B hôtellerie",
+      "aide aux personnes âgées",
+      "grand ménage Airbnb",
+      "personnel hôtel riad restaurant",
+      "main-d’œuvre chantier",
+      "Yallah Services"
+    ]
+  },
+  "brand": {
+    "tagline": "Le bon profil, au bon endroit.",
+    "name": "Yallah Services",
+    "cityLine": "Basés à {ville} · {villes} villes au Maroc"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "whatsappAria": "Écrire à Yallah Services sur WhatsApp",
+    "callWa": "Appeler sur WhatsApp",
+    "online": "en ligne",
+    "onWhatsAppSuffix": ", sur WhatsApp",
+    "hours": "Réponse sous 2h · 7j/7",
+    "chatCta": "Discuter sur WhatsApp"
+  },
+  "skip": {
+    "label": "Aller au contenu",
+    "targetId": "contenu"
+  },
+  "header": {
+    "navLabel": "Navigation principale",
+    "homeAria": "Yallah Services, retour à l’accueil",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "mobileNavLabel": "Menu mobile"
+  },
+  "tabs": {
+    "aria": "Choisir une offre : particuliers ou entreprises",
+    "particuliers": "Particuliers (B2C)",
+    "entreprises": "Entreprises (B2B)"
+  },
+  "lang": {
+    "groupLabel": "Langue de la page",
+    "hint": "Changer la langue du site",
+    "aria": "Langue : {langue}",
+    "switchTo": "Afficher le site en {langue}"
+  },
+  "nav": {
+    "accueil": "Accueil",
+    "particuliers": "Services Particuliers",
+    "entreprises": "Services Entreprises",
+    "tarifs": "Tarifs & Grille",
+    "zones": "Zones d’intervention",
+    "videos": "Vidéos",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Yallah Services · Maroc",
+    "tagline": "Le bon profil, au bon endroit.",
+    "title": "Personnel qualifié & services à domicile au Maroc",
+    "lead": "Yallah Services recherche et met en relation des profils de personnel qualifiés pour les particuliers et les entreprises au Maroc.",
+    "detail": "Un échange simple sur WhatsApp, une sélection attentive, un accompagnement humain : nous prenons le temps de comprendre votre besoin avant de vous présenter le bon profil.",
+    "ctaParticulier": "Je suis un particulier",
+    "ctaEntreprise": "Je représente une entreprise",
+    "responseNote": "Réponse sur WhatsApp · Tarifs et disponibilités confirmés lors de l’échange.",
+    "imageAlt": "Illustration : des professionnels des services à domicile et en entreprise au Maroc — personnel de maison, hôtelier, cuisinier et chef d’entreprise.",
+    "chatPreviewHeader": "Yallah Services",
+    "chatPreviewMessage": "Bonjour Yallah Services, j’aimerais échanger sur mon besoin.",
+    "chatPreviewFooter": "Réponse sous 2h · 7j/7",
+    "trust": [
+      {
+        "id": "verifies",
+        "label": "Profils vérifiés et sélectionnés"
+      },
+      {
+        "id": "reponse",
+        "label": "Réponse sous 2h · 7j/7"
+      },
+      {
+        "id": "villes",
+        "label": "{villes} villes couvertes au Maroc"
+      },
+      {
+        "id": "humain",
+        "label": "Accompagnement humain et personnalisé"
+      }
+    ]
+  },
+  "keyFigures": {
+    "sectionAria": "Chiffres clés et engagements",
+    "eyebrow": "Nos engagements, en chiffres",
+    "title": "Des repères concrets, tenus dès le premier jour.",
+    "items": [
+      {
+        "id": "villes",
+        "value": "+10",
+        "label": "Villes couvertes",
+        "detail": "Casablanca, Rabat, Marrakech, etc."
+      },
+      {
+        "id": "profils",
+        "value": "100%",
+        "label": "Profils vérifiés & identifiés",
+        "detail": "Contrôlés avant de vous être présentés"
+      },
+      {
+        "id": "whatsapp",
+        "value": "7j/7",
+        "label": "Accompagnement dédié sur WhatsApp",
+        "detail": "Le canal prioritaire de l’équipe"
+      },
+      {
+        "id": "delai",
+        "value": "< 24h",
+        "label": "Délai moyen de proposition de profil",
+        "detail": "Après la compréhension de votre besoin"
+      }
+    ]
+  },
+  "b2c": {
+    "eyebrow": "Services Particuliers (B2C)",
+    "title": "Des services à domicile, pensés pour votre quotidien.",
+    "intro": "Ménage, enfants, proches, repas, maison : dites-nous ce dont vous avez besoin, nous vous présentons un profil adapté à votre foyer.",
+    "askLabel": "Demander ce service",
+    "services": {
+      "menage": {
+        "title": "Ménage à domicile",
+        "description": "Entretien régulier ou ponctuel, repassage : une maison soignée, sans que vous ayez à y penser.",
+        "bullets": [
+          "Entretien régulier ou ponctuel",
+          "Repassage inclus"
+        ]
+      },
+      "garde-enfants": {
+        "title": "Garde d’enfants (nounous)",
+        "description": "Une nounou sérieuse pour accompagner vos enfants au quotidien, avec ou sans entretien de la maison.",
+        "bullets": [
+          "Accompagnement au quotidien",
+          "Avec ou sans entretien de la maison"
+        ]
+      },
+      "personnes-agees": {
+        "title": "Aide aux personnes âgées",
+        "description": "Une présence bienveillante et une aide de tous les jours pour vos proches : garde-malade, accompagnement, entretien.",
+        "bullets": [
+          "Garde-malade et accompagnement",
+          "Aide à l’entretien au quotidien"
+        ]
+      },
+      "cuisine": {
+        "title": "Cuisine à domicile",
+        "description": "Des repas préparés chez vous, selon vos goûts et vos habitudes, avec ou sans aide à l’entretien.",
+        "bullets": [
+          "Repas préparés selon vos goûts",
+          "Avec ou sans aide à l’entretien"
+        ]
+      },
+      "gardiennage": {
+        "title": "Gardiennage",
+        "description": "Une présence de confiance pour veiller sur votre domicile ou votre propriété.",
+        "bullets": [
+          "Domicile ou propriété",
+          "Présence de confiance"
+        ]
+      },
+      "chauffeurs": {
+        "title": "Chauffeurs",
+        "description": "Un chauffeur pour vos trajets du quotidien, selon vos horaires et vos besoins.",
+        "bullets": [
+          "Trajets du quotidien",
+          "Selon vos horaires et vos besoins"
+        ]
+      },
+      "grand-menage": {
+        "title": "Nettoyage & grand ménage",
+        "description": "Appartements, résidences, logements Airbnb, remise en état : un nettoyage en profondeur, ponctuel ou régulier.",
+        "bullets": [
+          "Appartements, résidences et Airbnb",
+          "Ponctuel ou régulier"
+        ]
+      }
+    },
+    "banners": {
+      "menage": "Femme de ménage souriante, tablier vert, un chiffon à la main dans un salon marocain lumineux et impeccable.",
+      "garde-enfants": "Nounou jouant avec un jeune enfant et des jouets en bois dans un coin jeu baigné de lumière naturelle.",
+      "personnes-agees": "Aide à domicile apportant un thé à la menthe à une personne âgée souriante, installée dans un fauteuil au soleil.",
+      "cuisine": "Cuisinière préparant des ingrédients marocains — menthe fraîche, huile d’olive, agrumes, tomates — sur un plan de travail clair.",
+      "gardiennage": "Gardien souriant devant l’entrée d’une villa marocaine de style riad, palmiers et lumière dorée de fin de journée.",
+      "chauffeurs": "Chauffeur souriant au volant d’une voiture à l’intérieur en cuir crème, vue depuis la fenêtre côté passager."
+    },
+    "grand": {
+      "eyebrow": "Le service le plus demandé",
+      "title": "Le grand ménage, en profondeur.",
+      "description": "Appartements, résidences, logements Airbnb, remise en état : un nettoyage en profondeur, ponctuel ou régulier.",
+      "intro": "Pour les résidences Airbnb, les appartements, les couples, les familles et les bureaux : ponctuel, ou 1, 2 ou 3 fois par semaine, selon la fréquence qui vous convient.",
+      "bullets": [
+        "Grand ménage complet",
+        "Remise en état",
+        "Nettoyage en profondeur",
+        "Parfait pour Airbnb, location courte durée et appartements privés"
+      ],
+      "cta": "Demander un grand ménage",
+      "posterServiceAlt": "Affiche : grand ménage ponctuel ou par semaine pour résidences Airbnb et appartements à Casablanca",
+      "posterNeedAlt": "Affiche : besoin d’un grand ménage à Casablanca, nettoyage en profondeur, remise en état Airbnb et entretien régulier"
+    }
+  },
+  "b2b": {
+    "eyebrow": "Solutions Entreprises (B2B)",
+    "title": "Du personnel fiable, quand votre activité en a besoin.",
+    "intro": "Un hôtel, un restaurant ou un chantier ne peut pas se permettre de rester en sous-effectif. Nous vous aidons à trouver le profil adapté à votre besoin.",
+    "sectorsHeading": "Secteurs accompagnés",
+    "sectorBullets": [
+      "Profils vérifiés & identifiés",
+      "Permanente, temporaire ou journalière"
+    ],
+    "askLabel": "Demander du personnel",
+    "sectors": {
+      "hotels": {
+        "title": "Hôtels",
+        "message": "je représente un hôtel et je recherche du personnel"
+      },
+      "riads": {
+        "title": "Riads",
+        "message": "je représente un riad et je recherche du personnel"
+      },
+      "restaurants": {
+        "title": "Restaurants",
+        "message": "je représente un restaurant et je recherche du personnel"
+      },
+      "chantiers": {
+        "title": "Chantiers",
+        "message": "j’ai un chantier et je recherche de la main-d’œuvre"
+      },
+      "commerces": {
+        "title": "Commerces",
+        "message": "je représente un commerce et je recherche du personnel"
+      },
+      "evenements": {
+        "title": "Événements",
+        "message": "j’organise un événement et je recherche du personnel"
+      }
+    },
+    "formulasHeading": "Main-d’œuvre, pour les entreprises et les porteurs de projets",
+    "formulas": {
+      "permanente": {
+        "title": "Permanente",
+        "description": "Un collaborateur durable, intégré à votre équipe."
+      },
+      "temporaire": {
+        "title": "Temporaire",
+        "description": "Un renfort pour une saison, un projet ou un remplacement."
+      },
+      "journalier": {
+        "title": "Renfort journalier",
+        "description": "Des bras en plus, à la journée, quand l’activité l’exige."
+      }
+    },
+    "prospection": {
+      "title": "Prospection B2B",
+      "description": "Yallah Services accompagne aussi les professionnels qui veulent structurer leur développement commercial.",
+      "cta": "En parler sur WhatsApp"
+    },
+    "mainCta": "Parler de mon besoin en personnel"
+  },
+  "process": {
+    "eyebrow": "Notre façon de travailler",
+    "title": "Un processus sérieux, un accompagnement humain.",
+    "intro": "Confier son foyer ou son activité demande de la confiance. Voici, simplement, comment nous procédons.",
+    "stepLabel": "Étape {numero} : ",
+    "steps": [
+      {
+        "id": "ecrit",
+        "title": "Vous nous écrivez",
+        "description": "Un message WhatsApp ou un appel : vous décrivez votre besoin, votre ville et vos horaires."
+      },
+      {
+        "id": "selection",
+        "title": "Nous sélectionnons",
+        "description": "Nous recherchons des profils qualifiés qui correspondent vraiment à votre besoin."
+      },
+      {
+        "id": "verification",
+        "title": "Nous vérifions",
+        "description": "Nous vérifions les profils retenus avant de vous les présenter."
+      },
+      {
+        "id": "mise-en-relation",
+        "title": "Nous vous mettons en relation",
+        "description": "Mise en contact, puis accompagnement : nous restons disponibles pour la suite."
+      }
+    ],
+    "noteStrong": "Tarifs et disponibilités sont confirmés directement lors de l’échange",
+    "noteRest": ", en fonction de votre ville, de vos horaires et du niveau de responsabilité attendu."
+  },
+  "pricing": {
+    "eyebrow": "Tarifs & Grille",
+    "title": "Des repères clairs pour préparer votre demande.",
+    "intro": "Voici la grille de nos principaux services à domicile. Elle donne un ordre d’idée ; le tarif adapté à votre situation est confirmé directement lors de l’échange.",
+    "disclaimer": "Tarifs donnés à titre indicatif, variables selon la ville, la durée, les horaires et le niveau de responsabilité.",
+    "captionSr": "Grille tarifaire des services à domicile. ",
+    "colService": "Service",
+    "colPrice": "Tarif indicatif (DH)",
+    "currency": "DH",
+    "groupsOrder": [
+      "menage",
+      "nounou",
+      "cuisine",
+      "garde-malade"
+    ],
+    "groupTitles": {
+      "menage": "Ménage",
+      "nounou": "Nounou (garde d’enfants)",
+      "cuisine": "Cuisine",
+      "garde-malade": "Garde-malade"
+    },
+    "rows": {
+      "menage-villa": "Ménage simple dans villa",
+      "menage-mini-villa": "Ménage simple dans mini villa",
+      "menage-appartement": "Ménage dans appartement",
+      "nounou-1": "Nounou d’un enfant",
+      "nounou-1-menage": "Nounou d’un enfant + ménage",
+      "nounou-2-menage": "Nounou de 2 enfants avec ménage",
+      "nounou-3": "Nounou de 3 enfants",
+      "nounou-3-menage": "Nounou de 3 enfants + ménage",
+      "cuisine-simple": "Cuisine simple",
+      "cuisine-menage": "Cuisine / ménage",
+      "cuisine-aide": "Aide cuisine",
+      "cuisine-aide-menage": "Aide cuisine / ménage",
+      "garde-malade-simple": "Garde malade simple",
+      "garde-malade-menage": "Garde malade et ménage"
+    },
+    "footnote": "La durée, les horaires et les modalités sont précisés lors de l’échange. Sans engagement : nous vous orientons honnêtement vers le profil qui correspond à votre besoin.",
+    "cta": "Recevoir une estimation adaptée"
+  },
+  "zones": {
+    "eyebrow": "Zones d’intervention",
+    "title": "Présents dans {villes} villes du Maroc, ancrés à {ville}.",
+    "intro": "Nous sommes basés à {ville} et nous intervenons dans les villes ci-dessous, avec une attention particulière à certains quartiers.",
+    "citiesHeading": "Villes couvertes",
+    "cities": {
+      "casablanca": "Casablanca",
+      "rabat": "Rabat",
+      "marrakech": "Marrakech",
+      "fes": "Fès",
+      "tanger": "Tanger",
+      "agadir": "Agadir",
+      "kenitra": "Kénitra",
+      "mohammedia": "Mohammedia",
+      "temara": "Témara",
+      "sale": "Salé"
+    },
+    "areasHeading": "Quartiers et secteurs prioritaires",
+    "zones": [
+      {
+        "id": "casablanca",
+        "label": "Casablanca et environs",
+        "areas": [
+          "Anfa",
+          "Aïn Diab",
+          "Californie",
+          "Bouskoura"
+        ]
+      },
+      {
+        "id": "rabat",
+        "label": "Rabat",
+        "areas": [
+          "Souissi",
+          "Hay Riad"
+        ]
+      },
+      {
+        "id": "marrakech",
+        "label": "Marrakech",
+        "areas": [
+          "Hivernage",
+          "Palmeraie"
+        ]
+      }
+    ],
+    "unlistedStrong": "Votre quartier n’est pas dans la liste ?",
+    "unlistedRest": " Écrivez-nous : nous confirmons la couverture de votre secteur lors de l’échange.",
+    "cta": "Vérifier mon secteur"
+  },
+  "videos": {
+    "eyebrow": "Vidéos",
+    "title": "Deux rendez-vous pour mieux nous connaître.",
+    "intro": "Des besoins concrets, et les coulisses de la mise en relation : des vidéos courtes, à regarder en quelques secondes.",
+    "durationLabel": "Durée {duree}",
+    "cta": "Écrire sur WhatsApp",
+    "playerUnsupported": "Votre navigateur ne peut pas lire cette vidéo.",
+    "playerDownload": "Télécharger la vidéo",
+    "questionTitle": "Une question ?",
+    "questionDescription": "Posez-la sur WhatsApp : nous y répondons en vidéo, de façon anonyme, sans jamais citer votre nom.",
+    "questionCta": "Poser ma question",
+    "rubriques": {
+      "bon-profil-du-jour": {
+        "kicker": "Rubrique 1",
+        "title": "Le bon profil du jour",
+        "description": "Un besoin concret, dans une ville ou un quartier : on part de votre situation, jamais d’une personne. Format court, vertical, pensé pour aller à l’essentiel.",
+        "example": "« Aujourd’hui, une aide-ménagère disponible à Aïn Diab. »"
+      },
+      "coulisses-et-questions": {
+        "kicker": "Rubrique 2",
+        "title": "Coulisses & Vos Questions",
+        "description": "Comment se passe la mise en relation, de votre premier message à la mise en contact, et des réponses en vidéo aux questions reçues sur WhatsApp, toujours de façon anonyme.",
+        "example": "« Comment vérifiez-vous les profils ? Que se passe-t-il après mon message ? »"
+      }
+    },
+    "entries": {
+      "besoin-femme-de-menage-casablanca": {
+        "title": "Besoin d’une femme de ménage à Casablanca ?",
+        "description": "Ménage à domicile, repassage, nettoyage après déménagement : des profils sélectionnés et une disponibilité flexible."
+      },
+      "plus-de-temps-pour-vous": {
+        "title": "Plus de temps pour vous.",
+        "description": "Nous prenons soin de votre maison avec sérieux et discrétion : ménage, repassage, nettoyage, à Casablanca et environs."
+      },
+      "commentez-ville-et-service": {
+        "title": "Commentez « ville + service », on vous répond en privé.",
+        "description": "Notre façon de travailler : une orientation honnête, sans engagement, puis la mise en relation avec le bon profil."
+      },
+      "vous-manquez-de-personnel": {
+        "title": "Vous manquez de personnel ?",
+        "description": "Hôtels, restaurants, chantiers, commerces, événements : du personnel permanent, temporaire ou journalier, adapté à votre besoin."
+      }
+    },
+    "commitments": [
+      "Jamais de nom ni de visage de candidat ou de client",
+      "Aucun tarif ferme : tarifs et disponibilités sont confirmés lors de l’échange",
+      "Toujours un accès direct à WhatsApp"
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Avis clients",
+    "title": "La confiance, message après message.",
+    "intro": "À Casablanca comme à Rabat, ce que nos clients retiennent d’abord : la réactivité, la clarté et le sentiment d’être bien accompagnés.",
+    "ratingSr": "Note : {note} sur {total}",
+    "items": [
+      {
+        "id": "nadia",
+        "quote": "J’ai écrit un dimanche soir sur WhatsApp et j’avais déjà des profils proposés le lendemain. La personne choisie est sérieuse, mon domicile est entre de bonnes mains.",
+        "name": "Nadia B.",
+        "city": "Casablanca",
+        "service": "Ménage à domicile"
+      },
+      {
+        "id": "karim",
+        "quote": "Nous cherchions une nounou de confiance à Rabat. L’équipe a pris le temps de comprendre notre rythme avant de nous présenter deux profils. Très réactifs sur WhatsApp.",
+        "name": "Karim E.",
+        "city": "Rabat",
+        "service": "Garde d’enfants"
+      },
+      {
+        "id": "sofia",
+        "quote": "Grand ménage avant l’arrivée de locataires Airbnb : communication claire, intervention rapide et résultat impeccable. Je recommande pour la réactivité.",
+        "name": "Sofia R.",
+        "city": "Casablanca",
+        "service": "Nettoyage & grand ménage"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Parlons de votre besoin.",
+    "intro": "Le plus simple : écrivez-nous sur WhatsApp. Nous vous répondons, nous posons les bonnes questions, puis nous vous présentons le bon profil.",
+    "chatLabel": "Aperçu d’un échange type",
+    "chatBrand": "Yallah Services",
+    "chatToday": "Aujourd’hui",
+    "chatVisitor": "Bonjour Yallah Services, j’aimerais échanger sur mon besoin. Je cherche une nounou à Casablanca.",
+    "chatCompany1": "Bonjour 👋 Merci pour votre message. Pouvez-vous préciser vos horaires et la fréquence souhaitée ?",
+    "chatCompany2": "Parfait. Nous revenons vers vous sous 24h avec des profils vérifiés, adaptés à votre besoin.",
+    "chatInputPlaceholder": "Message",
+    "chatDisclaimer": "Aperçu d’un échange type. Votre message s’ouvre ensuite dans WhatsApp : vous pouvez le modifier avant de l’envoyer.",
+    "whatsappChannelLabel": "WhatsApp, canal prioritaire",
+    "callAria": "Appeler Yallah Services : {numero}",
+    "emailLabel": "E-mail",
+    "baseLabel": "Basés à {ville}",
+    "baseDetail": "Au service de {villes} villes du Maroc",
+    "followLabel": "Suivez-nous",
+    "cta": "Écrire sur WhatsApp · {numero}"
+  },
+  "form": {
+    "title": "Décrivez votre besoin",
+    "intro": "Quelques précisions nous permettent de mieux vous répondre. Votre message s’ouvre ensuite dans WhatsApp, vous pouvez le modifier avant de l’envoyer.",
+    "tiktokConnected": "Connecté(e) avec TikTok",
+    "tiktokConnectedInfo": "Votre nom de profil sera mentionné dans votre message.",
+    "tiktokContinue": "Continuer avec TikTok",
+    "optional": "(facultatif)",
+    "learnMore": "En savoir plus",
+    "notices": {
+      "connected": "Connexion TikTok réussie : votre nom de profil sera mentionné dans votre message.",
+      "denied": "Connexion TikTok annulée. Vous pouvez continuer sans TikTok.",
+      "error": "La connexion TikTok n’a pas abouti. Vous pouvez réessayer, ou continuer sans TikTok.",
+      "unavailable": "La connexion TikTok n’est pas disponible pour le moment. Vous pouvez continuer sans TikTok."
+    },
+    "segmentLegend": "Vous êtes",
+    "segments": {
+      "particulier": "Un particulier",
+      "entreprise": "Une entreprise"
+    },
+    "serviceLabel": "Service recherché",
+    "needLabel": "Besoin",
+    "placeholderChoose": "Choisissez…",
+    "otherCity": "Autre ville",
+    "cityLabel": "Ville",
+    "districtLabel": "Quartier",
+    "districtPlaceholder": "Ex. Aïn Diab",
+    "detailsLabel": "Précisions",
+    "detailsPlaceholder": "Horaires, fréquence, situation particulière…",
+    "b2bNeeds": {
+      "hotel": "Personnel pour un hôtel",
+      "riad": "Personnel pour un riad",
+      "restaurant": "Personnel pour un restaurant",
+      "chantier": "Main-d’œuvre pour un chantier",
+      "commerce": "Personnel pour un commerce",
+      "evenement": "Personnel pour un événement",
+      "permanente-temporaire-journaliere": "Main-d’œuvre permanente, temporaire ou journalière",
+      "prospection": "Prospection B2B",
+      "autre": "Autre besoin"
+    },
+    "previewLabel": "Aperçu de votre message",
+    "submit": "Envoyer ma demande sur WhatsApp",
+    "footnote": "Tarifs et disponibilités confirmés directement lors de l’échange.",
+    "logout": "Se déconnecter",
+    "message": [
+      "Bonjour Yallah Services,",
+      "Je m’appelle {prenom} (profil TikTok).",
+      "{qui} et je recherche : {besoin}.",
+      "Ville / quartier : {ville}.",
+      "Merci de me recontacter."
+    ]
+  },
+  "wa": {
+    "hello": "Bonjour Yallah Services,",
+    "general": "{hello} j’aimerais échanger sur mon besoin.",
+    "particulier": "{hello} je suis un particulier et je cherche un profil pour mon domicile. Pouvez-vous me recontacter ? Ma ville : ",
+    "entreprise": "{hello} je représente une entreprise et j’aimerais échanger sur un besoin en personnel. Pouvez-vous me recontacter ?",
+    "tarifs": "{hello} j’ai consulté la grille indicative et j’aimerais une estimation adaptée à mon besoin (ville, durée, horaires).",
+    "zones": "{hello} pouvez-vous me confirmer que vous intervenez dans mon secteur ? Ville / quartier : ",
+    "question": "{hello} j’ai une question pour votre rubrique « Coulisses & Vos Questions » : ",
+    "service": "{hello} je suis intéressé(e) par le service « {service} ». Pouvez-vous me recontacter ? Ma ville : ",
+    "sector": "{hello} {besoin}. Pouvez-vous me recontacter ?",
+    "prospection": "{hello} je souhaite en savoir plus sur votre accompagnement en prospection B2B.",
+    "video": "{hello} j’ai vu votre vidéo « {video} » et j’aimerais en parler."
+  },
+  "footer": {
+    "navLabel": "Plan du site",
+    "contactLabel": "Contact",
+    "copyright": "© {annee} {marque} · {ville}, Maroc",
+    "followAria": "{label} : {identifiant}"
+  },
+  "legal": {
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d’utilisation"
+  },
+  "notFound": {
+    "eyebrow": "Erreur 404",
+    "title": "Page introuvable",
+    "description": "Cette page n’existe pas ou n’est plus disponible. Retrouvez nos services depuis l’accueil.",
+    "cta": "Retour à l’accueil",
+    "homeAria": "Yallah Services, retour à l’accueil"
+  },
+  "structured": {
+    "slogan": "Le bon profil, au bon endroit.",
+    "description": "Yallah Services recherche et met en relation des profils de personnel qualifiés pour les particuliers et les entreprises au Maroc."
+  }
+}
