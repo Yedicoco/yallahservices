@@ -161,6 +161,29 @@ export default function Page() {
                 ))}
               </div>
             </section>
+
+            <section aria-labelledby="salary-heading" className="mt-16">
+              <div className="mb-6 flex items-end justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">Repères de rémunération</p>
+                  <h2 id="salary-heading" className="font-serif text-3xl tracking-[-0.04em] sm:text-4xl">Une grille claire pour chaque service.</h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[#6f6a63]">Découvrez nos tarifs indicatifs au Maroc. Le montant final peut évoluer selon les horaires, la ville, la durée et les besoins spécifiques.</p>
+                </div>
+                <span className="hidden rounded-full bg-[#e9e2d8] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6f6a63] sm:block">À titre indicatif</span>
+              </div>
+              <div className="overflow-hidden rounded-[24px] border border-[#ded8cd] bg-white">
+                <div className="grid grid-cols-[1.5fr_1fr] bg-[#171717] px-5 py-4 text-[10px] font-black uppercase tracking-[0.16em] text-[#f6f1e8] sm:grid-cols-[1.5fr_1fr_1fr]">
+                  <span>Service</span><span>Unité</span><span className="hidden sm:block">À partir de</span>
+                </div>
+                {[['Ménage à domicile', 'Par heure', 'À partir de 35 DH'], ['Repassage', 'Par panier', 'À partir de 80 DH'], ['Garde d’enfants', 'Par heure', 'À partir de 40 DH'], ['Cuisine à domicile', 'Par prestation', 'Sur devis']].map(([service, unit, price], index) => (
+                  <div key={service} className={`grid grid-cols-[1.5fr_1fr] items-center px-5 py-4 text-sm sm:grid-cols-[1.5fr_1fr_1fr] ${index < 3 ? 'border-b border-[#eee9e1]' : ''}`}>
+                    <span className="font-semibold text-[#171717]">{service}</span><span className="text-[#6f6a63]">{unit}</span><span className="hidden font-bold text-[#fa5b48] sm:block">{price}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-[#8f897f]">Un devis personnalisé vous sera confirmé avant toute intervention.</p>
+            </section>
+
             <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white transition-transform hover:-translate-y-0.5">Démarrer maintenant</a></div>
           </div>
         </section>
