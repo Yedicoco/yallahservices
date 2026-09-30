@@ -187,7 +187,10 @@ export type Dictionary = {
     baseLabel: Template
     baseDetail: Template
     followLabel: Localizable
-    cta: Template
+    /** Libellé du bouton encadré d'or de l'encart « concierge » (réservation en quelques minutes). */
+    reserveCta: Localizable
+    /** Phrase d'appui de l'encart « concierge », sous le numéro affiché en or. */
+    reserveNote: Localizable
   }
   form: {
     title: Localizable

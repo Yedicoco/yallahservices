@@ -491,7 +491,8 @@
     "baseLabel": "Based in {ville}",
     "baseDetail": "Serving {villes} cities in Morocco",
     "followLabel": "Follow us",
-    "cta": "Write on WhatsApp · {numero}"
+    "reserveCta": "Reserve in a few minutes",
+    "reserveNote": "One conversation is enough: we ask the right questions, then introduce the right profile."
   },
   "form": {
     "title": "Describe your need",

@@ -17,26 +17,23 @@ import { t, type Dictionary } from '@/lib/i18n/dictionaries'
 import { useLocaleActions } from '@/lib/i18n/client'
 import { LOCALES_META, type Locale } from '@/lib/i18n/config'
 
-type Tone = 'light' | 'dark'
 
-export function LanguageSwitcher({ dict, tone = 'light', className = '' }: { dict: Dictionary; tone?: Tone; className?: string }) {
+export function LanguageSwitcher({ dict, className = '' }: { dict: Dictionary; className?: string }) {
   // `locale` vient du contexte client (et non d'une prop figée au rendu serveur) : la pastille active
   // doit réagir immédiatement au clic, pendant que le serveur renvoie la page dans la nouvelle langue.
   const { locale, setLocale, pending, options } = useLocaleActions()
-  const dark = tone === 'dark'
 
   const base = `min-h-9 rounded-full px-2.5 text-xs font-bold uppercase tracking-[0.08em] transition-colors focus-visible:outline-offset-2`
-  const inactive = dark
-    ? 'text-paper/70 hover:bg-white/10 hover:text-paper'
-    : 'text-stone hover:bg-mist hover:text-ink'
-  const active = dark ? 'bg-paper text-ink' : 'bg-ink text-paper'
+  // Le site est bleu nuit : la pastille active est l'unique aplat or, l'inactive reste discrète.
+  const inactive = 'text-stone hover:bg-navy-raised hover:text-gold-soft'
+  const active = 'bg-gold text-navy'
 
   return (
     <div
       role="group"
       aria-label={dict.lang.groupLabel}
       title={dict.lang.hint}
-      className={`inline-flex items-center gap-0.5 rounded-full border p-0.5 ${dark ? 'border-white/25' : 'border-line'} ${className}`.trim()}
+      className={`inline-flex items-center gap-0.5 rounded-full border border-gold/30 p-0.5 ${className}`.trim()}
     >
       {options.map((code: Locale) => {
         const meta = LOCALES_META[code]

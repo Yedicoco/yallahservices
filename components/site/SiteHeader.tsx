@@ -67,11 +67,12 @@ export function SiteHeader({ dict, locale }: Localized) {
 
   const linkClass = (id: string) =>
     `whitespace-nowrap rounded-full px-2 py-2 text-[0.8125rem] font-semibold transition-colors ${
-      active === id ? 'bg-ink text-paper' : 'text-stone hover:bg-mist hover:text-ink'
+      active === id ? 'bg-gold text-navy' : 'text-paper/85 hover:bg-navy-raised hover:text-gold-soft'
     }`
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper/90 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
+    // En-tête bleu nuit translucide, liseré or discret : la signature de la charte « Concierge ».
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-gold/30 bg-navy/90 backdrop-blur supports-[backdrop-filter]:bg-navy/80">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-5 sm:px-8 xl:gap-1">
         <a href="#accueil" aria-label={dict.header.homeAria} onClick={() => setOpen(false)} className="inline-flex min-h-11 shrink-0 items-center">
           <Logo />
@@ -101,7 +102,7 @@ export function SiteHeader({ dict, locale }: Localized) {
           </a>
           <button
             type="button"
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-ink hover:bg-mist 2xl:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold-soft hover:border-gold hover:bg-gold/10 2xl:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? dict.header.closeMenu : dict.header.openMenu}
@@ -113,7 +114,7 @@ export function SiteHeader({ dict, locale }: Localized) {
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label={dict.header.mobileNavLabel} className="border-t border-line bg-paper 2xl:hidden">
+        <nav id="menu-mobile" aria-label={dict.header.mobileNavLabel} className="border-t border-gold/20 bg-navy 2xl:hidden">
           <ul className="container-page flex flex-col gap-1 py-3">
             {NAV_IDS.map((id) => (
               <li key={id}>
@@ -122,7 +123,7 @@ export function SiteHeader({ dict, locale }: Localized) {
                   onClick={() => setOpen(false)}
                   aria-current={active === id ? 'location' : undefined}
                   className={`flex min-h-12 items-center rounded-xl px-4 text-base font-semibold ${
-                    active === id ? 'bg-ink text-paper' : 'text-ink hover:bg-mist'
+                    active === id ? 'bg-gold text-navy' : 'text-paper hover:bg-navy-raised hover:text-gold-soft'
                   }`}
                 >
                   {navLabel(id)}

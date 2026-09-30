@@ -66,8 +66,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#ffffff',
+  // Thème unique « bleu nuit & or » : la barre d'adresse mobile et les contrôles natifs
+  // (sélecteurs, barres de défilement) suivent la charte, pas le réglage du système.
+  colorScheme: 'dark',
+  themeColor: '#0A1128',
   width: 'device-width',
   initialScale: 1,
 }
@@ -81,7 +83,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const base = siteUrl()
 
   return (
-    <html lang={lang} dir={dir}>
+    // `dark` active les utilitaires `dark:` de shadcn ; la palette est identique à celle de `:root`.
+    <html lang={lang} dir={dir} className="dark">
       <head>
         {/* La langue étant résolue à la requête, c'est ici (et pas dans `generateMetadata`) que l'on
             garde la main sur l'orthographe exacte des attributs `hreflang`. */}

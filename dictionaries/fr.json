@@ -491,7 +491,8 @@
     "baseLabel": "Basés à {ville}",
     "baseDetail": "Au service de {villes} villes du Maroc",
     "followLabel": "Suivez-nous",
-    "cta": "Écrire sur WhatsApp · {numero}"
+    "reserveCta": "Réservez en quelques minutes",
+    "reserveNote": "Un échange suffit : nous posons les bonnes questions, puis nous vous présentons le bon profil."
   },
   "form": {
     "title": "Décrivez votre besoin",

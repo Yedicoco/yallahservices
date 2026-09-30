@@ -45,149 +45,139 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ------------------------------------------------------------------ */
+/* Thème de marque « Concierge » : bleu nuit profond + or chaud.       */
+/* Le site est sombre par conception (colorScheme: 'dark') : `:root`  */
+/* porte donc déjà la palette nuit, `.dark` la répète pour les        */
+/* utilitaires `dark:` de shadcn. Aucun repli clair n'est conservé :   */
+/* une interface « premium » ne doit jamais clignoter en mode clair.  */
+/* ------------------------------------------------------------------ */
 :root {
-  color-scheme: light;
-  --background: oklch(0.96 0.015 82);
-  --foreground: oklch(0.18 0.01 65);
-  --card: oklch(0.985 0.008 82);
-  --card-foreground: oklch(0.18 0.01 65);
-  --popover: oklch(0.985 0.008 82);
-  --popover-foreground: oklch(0.18 0.01 65);
-  --primary: oklch(0.18 0.01 65);
-  --primary-foreground: oklch(0.96 0.015 82);
-  --secondary: oklch(0.91 0.025 82);
-  --secondary-foreground: oklch(0.18 0.01 65);
-  --muted: oklch(0.91 0.025 82);
-  --muted-foreground: oklch(0.54 0.02 65);
-  --accent: oklch(0.67 0.19 30);
-  --accent-foreground: oklch(0.985 0.008 82);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  color-scheme: dark;
+  --background: #0a1128;
+  --foreground: #f8fafc;
+  --card: #111d37;
+  --card-foreground: #f8fafc;
+  --popover: #111d37;
+  --popover-foreground: #f8fafc;
+  --primary: #d4af37;
+  --primary-foreground: #0a1128;
+  --secondary: #17253f;
+  --secondary-foreground: #f8fafc;
+  --muted: #17253f;
+  --muted-foreground: #9aabc4;
+  --accent: #d4af37;
+  --accent-foreground: #0a1128;
+  --destructive: #f87171;
+  --border: #24334f;
+  --input: #24334f;
+  --ring: #d4af37;
+  --chart-1: #d4af37;
+  --chart-2: #e5c158;
+  --chart-3: #f3e5ab;
+  --chart-4: #9aabc4;
+  --chart-5: #25d366;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #111d37;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-foreground: #0a1128;
+  --sidebar-accent: #17253f;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #24334f;
+  --sidebar-ring: #d4af37;
 }
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    color-scheme: dark;
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-  }
+  --background: #0a1128;
+  --foreground: #f8fafc;
+  --card: #111d37;
+  --card-foreground: #f8fafc;
+  --popover: #111d37;
+  --popover-foreground: #f8fafc;
+  --primary: #d4af37;
+  --primary-foreground: #0a1128;
+  --secondary: #17253f;
+  --secondary-foreground: #f8fafc;
+  --muted: #17253f;
+  --muted-foreground: #9aabc4;
+  --accent: #d4af37;
+  --accent-foreground: #0a1128;
+  --destructive: #f87171;
+  --border: #24334f;
+  --input: #24334f;
+  --ring: #d4af37;
+  --sidebar: #111d37;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-foreground: #0a1128;
+  --sidebar-accent: #17253f;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #24334f;
+  --sidebar-ring: #d4af37;
 }
 
 /* ------------------------------------------------------------------ */
-/* Identité Yallah Services : blanc pur, sections gris très léger,      */
-/* vert émeraude vibrant (CTA & icônes), ambre chaud (badges & étoiles),*/
-/* corail conservé pour la marque. Contrastes conformes WCAG AA.        */
+/* Palette « Concierge & Professional Home Services »                  */
+/*                                                                     */
+/*  Fonds                                                              */
+/*   navy        #0A1128  bleu nuit principal (fond de page)           */
+/*   navy-deep   #060B1A  bleu nuit le plus sombre (dégradés, footer)  */
+/*   navy-soft   #111D37  surface secondaire (cartes, panneaux)        */
+/*   navy-raised #17253F  surface survolée / surélevée                 */
+/*   line        #24334F  filet fin (bordures discrètes)               */
+/*                                                                     */
+/*  Or                                                                  */
+/*   gold        #D4AF37  or chaud (accent principal)                  */
+/*   gold-soft   #E5C158  or clair (sous-titres, labels)               */
+/*   gold-bright #F3E5AB  or très clair (dégradés, reflets)            */
+/*   gold-deep   #8F7318  or sombre (fonds, ombres, texte sur clair)   */
+/*                                                                     */
+/*  Texte                                                               */
+/*   ink         #FFFFFF  titres et texte le plus contrasté            */
+/*   paper       #F8FAFC  texte principal (blanc à teinte chaude)      */
+/*   stone       #9AABC4  texte secondaire (7,6:1 sur navy)            */
+/*                                                                     */
+/*  WhatsApp (canal prioritaire)                                       */
+/*   wa          #25D366  vert officiel WhatsApp                       */
+/*   wa-ink      #04170B  texte sur aplat vert (10,4:1 — AA)          */
+/*   wa-deep     #16A34A  vert soutenu (survol)                        */
+/*                                                                     */
+/* Contrastes vérifiés WCAG AA (≥ 4,5:1) sur fond #0A1128 :           */
+/*   ink 18,4:1 · paper 17,6:1 · gold 8,9:1 · gold-soft 9,8:1 ·        */
+/*   gold-bright 13,1:1 · stone 7,6:1 · wa sur navy-soft 9,1:1.        */
+/* Le vert WhatsApp n'est jamais porteur de texte blanc (1,9:1) :      */
+/* il est toujours posé sur `wa-ink`, ou utilisé en glyphe sur nuit.    */
 /* ------------------------------------------------------------------ */
 @theme inline {
-  /* Fond principal : blanc pur ; sections alternées : gris très léger */
-  --color-paper: #ffffff;
-  --color-sand: #f8fafc;
-  --color-mist: #f1f5f9;
-  --color-line: #e2e8f0;
-  /* Encre : texte principal et blocs sombres */
-  --color-ink: #0f172a;
-  /* Texte secondaire : 7,4:1 sur blanc */
-  --color-stone: #475569;
-  /* Corail de marque : conservé pour l'identité (point du logo, accents) */
-  --color-coral: #fa5b48;
-  --color-coral-strong: #b43524;
-  --color-coral-deep: #98291a;
-  /* Vert émeraude / menthe : boutons d'action, icônes, emphase */
-  --color-mint: #10b981;
-  --color-mint-bright: #34d399;
-  --color-mint-deep: #047857;
-  --color-mint-deeper: #065f46;
-  --color-mint-soft: #ecfdf5;
-  /* Ambre chaud : étoiles de satisfaction, badges, éléments mis en avant */
-  --color-amber: #f59e0b;
-  --color-amber-deep: #b45309;
-  --color-amber-soft: #fffbeb;
-  /* Vert WhatsApp : boutons du canal prioritaire (5,4:1 avec du blanc) */
-  --color-wa: #0e7a3d;
-  --color-wa-deep: #0b6433;
-  /* Polices : Plus Jakarta Sans pour les titres (moderne, accueillant), Georgia pour le serif */
-  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
+  /* Fonds bleu nuit */
+  --color-navy: #0a1128;
+  --color-navy-deep: #060b1a;
+  --color-navy-soft: #111d37;
+  --color-navy-raised: #17253f;
+  --color-line: #24334f;
+  --color-line-soft: #18243c;
+  /* Or */
+  --color-gold: #d4af37;
+  --color-gold-soft: #e5c158;
+  --color-gold-bright: #f3e5ab;
+  --color-gold-deep: #8f7318;
+  /* Texte */
+  --color-ink: #ffffff;
+  --color-paper: #f8fafc;
+  --color-stone: #9aabc4;
+  /* Alerte (usage interne : erreurs de publication, compteurs de filtre) */
+  --color-danger: #f87171;
+  --color-danger-deep: #fca5a5;
+  /* WhatsApp */
+  --color-wa: #25d366;
+  --color-wa-ink: #04170b;
+  --color-wa-deep: #16a34a;
+  /* Dégradé d'or de marque (dégradé longitudinal des boutons) */
+  --color-gold-band: #c59b27;
+  /* Police d'affichage (titres) — conservée depuis la charte précédente */
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;  --font-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -196,7 +186,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    background: var(--color-paper);
+    background: var(--color-navy);
     /* Les ancres ne passent pas sous l'en-tête fixe */
     scroll-padding-top: 5rem;
   }
@@ -205,26 +195,27 @@
       scroll-behavior: smooth;
     }
   }
-  /* Le site est conçu en clair uniquement (colorScheme: light) : on neutralise le thème sombre hérité. */
+  /* Thème unique (colorScheme: 'dark') : le fond est le bleu nuit de marque partout. */
   body {
     margin: 0;
-    background-color: var(--color-paper);
-    color: var(--color-ink);
+    background-color: var(--color-navy);
+    color: var(--color-paper);
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
   }
   button {
     cursor: pointer;
   }
-  /* Double anneau (encre + liseré clair) : visible sur fond clair comme sombre, sans connotation d'erreur. */
+  /* Anneau de focus or : visible sur tous les aplats du site (or sur bleu nuit,
+     8,9:1 de contraste), avec un liseré nuit qui le détache du fond environnant. */
   :focus-visible {
-    outline: 3px solid var(--color-ink);
+    outline: 3px solid var(--color-gold);
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px var(--color-paper);
+    box-shadow: 0 0 0 2px var(--color-navy);
   }
-  .on-dark :focus-visible {
-    outline-color: var(--color-paper);
-    box-shadow: 0 0 0 2px var(--color-ink);
+  .on-deep :focus-visible {
+    outline-color: var(--color-gold-bright);
+    box-shadow: 0 0 0 2px var(--color-navy-deep);
   }
 
   /* ------------------------------------------------------------------
@@ -291,8 +282,8 @@
     unicode-bidi: isolate;
   }
   ::selection {
-    background: var(--color-mint-deep);
-    color: #fff;
+    background: var(--color-gold);
+    color: var(--color-navy);
   }
 }
 
@@ -300,14 +291,16 @@
   .container-page {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
+  /* Sur-titre : or clair, lettrage large — se lit sur toutes les sections du site. */
   .eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.22em] text-mint-deep;
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-gold-soft;
   }
+  /* Sur-titre des sections les plus sombres : or plein, plus présent. */
   .eyebrow-light {
-    @apply text-xs font-bold uppercase tracking-[0.22em] text-amber;
+    @apply text-xs font-bold uppercase tracking-[0.22em] text-gold;
   }
   .section-title {
-    @apply font-serif text-3xl leading-[1.12] tracking-[-0.02em] sm:text-4xl lg:text-[2.6rem];
+    @apply font-serif text-3xl leading-[1.12] tracking-[-0.02em] text-ink sm:text-4xl lg:text-[2.6rem];
   }
   .btn {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center text-sm font-semibold transition duration-200;
@@ -315,34 +308,42 @@
   .btn-sm {
     @apply min-h-10 px-4;
   }
+  /* Bouton d'or : dégradé de marque, texte bleu nuit (14,6:1). Réservé aux CTA de premier plan. */
+  .btn-gold {
+    @apply bg-gradient-to-r from-gold via-gold-bright to-gold-band text-navy shadow-[0_14px_34px_-14px_rgba(212,175,55,0.65)] hover:brightness-110;
+  }
+  /* WhatsApp : vert officiel dans un cadre or (exigence de la charte) ;
+     texte `wa-ink` sur le vert (10,4:1) — jamais de blanc sur #25D366 (1,9:1). */
   .btn-wa {
-    @apply bg-wa text-white hover:bg-wa-deep;
+    @apply border border-gold/70 bg-wa text-wa-ink hover:bg-[#45e081];
   }
-  /* Vert émeraude vibrant : CTA principal de la vitrine (5,9:1 avec du blanc) */
-  .btn-mint {
-    @apply bg-mint-deep text-white hover:bg-mint-deeper;
-  }
-  /* CTA secondaire « carte » : WhatsApp discret au repos, plein au survol */
+  /* WhatsApp discret : cadre or, fond transparent — pour les actions secondaires. */
   .btn-wa-ghost {
-    @apply mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-wa/30 bg-wa/10 px-4 text-sm font-bold text-wa transition hover:bg-wa hover:text-white;
+    @apply mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-gold/40 bg-wa/10 px-4 text-sm font-bold text-wa transition hover:border-wa hover:bg-wa hover:text-wa-ink;
+  }
+  /* Bouton or discret : filet or sur bleu nuit, pour un CTA secondaire. */
+  .btn-outline-gold {
+    @apply border border-gold/60 text-gold-soft hover:border-gold hover:bg-gold/10 hover:text-gold-bright;
   }
   .btn-ink {
-    @apply bg-ink text-paper hover:bg-black;
-  }
-  .btn-coral {
-    @apply bg-coral-strong text-white hover:bg-coral-deep;
+    @apply bg-navy-deep text-paper ring-1 ring-gold/40 hover:bg-navy-soft hover:ring-gold/70;
   }
   .btn-outline {
-    @apply border border-ink/30 text-ink hover:border-ink hover:bg-ink hover:text-paper;
+    @apply border border-gold/40 text-paper hover:border-gold hover:bg-gold/10;
   }
+  /* Aplat clair posé sur un fond nuit (bouton pleine page dans un encart sombre). */
   .btn-light {
-    @apply bg-paper text-ink hover:bg-white;
+    @apply bg-paper text-navy hover:bg-white;
   }
   .btn-outline-light {
-    @apply border border-white/35 text-paper hover:bg-white/10;
+    @apply border border-white/30 text-paper hover:border-gold hover:bg-gold/10 hover:text-gold-bright;
+  }
+  /* Carte de service : surface bleu nuit, filet or discret, montée + filet plein au survol. */
+  .card-surface {
+    @apply rounded-3xl border border-gold/20 bg-navy-soft transition duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-[0_28px_60px_-32px_rgba(0,0,0,0.9)];
   }
   .skip-link {
-    @apply fixed top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition-transform focus:translate-y-0;
+    @apply fixed top-4 z-[100] -translate-y-24 rounded-full border border-gold bg-gold px-5 py-3 text-sm font-semibold text-navy transition-transform focus:translate-y-0;
     inset-inline-start: 1rem;
   }
 }

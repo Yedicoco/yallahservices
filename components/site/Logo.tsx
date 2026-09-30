@@ -21,10 +21,11 @@ export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
 
   return (
     <span className="inline-flex items-center gap-2.5">
+      {/* Monogramme : pastille or cerclée d'or sur bleu nuit (repli si l'image officielle manque). */}
       <span
         aria-hidden="true"
-        className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-lg font-black leading-none ${
-          tone === 'light' ? 'bg-paper text-ink' : 'bg-ink text-paper'
+        className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-lg font-black leading-none ring-1 ring-gold/50 ${
+          tone === 'light' ? 'bg-gold text-navy' : 'bg-navy-soft text-gold'
         }`}
       >
         y
@@ -37,13 +38,17 @@ export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
             width={36}
             height={36}
             onError={() => setFailed(true)}
-            className="absolute inset-0 h-full w-full bg-sand object-cover"
+            className="absolute inset-0 h-full w-full bg-navy-soft object-cover"
           />
         )}
       </span>
-      <span className={`text-[1.3rem] font-black leading-none tracking-[-0.06em] ${tone === 'light' ? 'text-paper' : 'text-ink'}`}>
-        yallah<span className="text-coral">.</span>
-        <span className={`ms-0.5 ${tone === 'light' ? 'text-paper/70' : 'text-stone'}`}>services</span>
+      {/* Wordmark : « yallah » en or chaud, « .services » en blanc pur — signature de la charte.
+          Le site étant bleu nuit partout, les deux tons partagent le même rendu. */}
+      <span className="text-[1.3rem] font-black leading-none tracking-[-0.06em]">
+        <span className="text-gold">yallah</span>
+        <span className={tone === 'light' ? 'text-paper' : 'text-ink'}>
+          <span className="text-gold">.</span>services
+        </span>
       </span>
     </span>
   )

@@ -30,7 +30,7 @@ export function Particuliers({ dict, locale }: Localized) {
   const grand = dict.b2c.grand
 
   return (
-    <section id="particuliers" aria-labelledby="titre-particuliers" className="bg-sand py-16 sm:py-24">
+    <section id="particuliers" aria-labelledby="titre-particuliers" className="border-t border-gold/15 bg-navy-soft py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">{dict.b2c.eyebrow}</p>
@@ -51,7 +51,7 @@ export function Particuliers({ dict, locale }: Localized) {
             return (
               <li
                 key={id}
-                className="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-gold/20 bg-navy-deep transition duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-[0_32px_64px_-32px_rgba(0,0,0,0.95)]"
               >
                 {/* Fond décoratif discret : la photo des professionnels, très atténuée. */}
                 <Image
@@ -59,7 +59,7 @@ export function Particuliers({ dict, locale }: Localized) {
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="pointer-events-none object-cover opacity-15 backdrop-blur-sm"
+                  className="pointer-events-none object-cover opacity-[0.07] transition-opacity duration-300 group-hover:opacity-[0.12]"
                   aria-hidden="true"
                 />
 
@@ -86,16 +86,16 @@ export function Particuliers({ dict, locale }: Localized) {
                 <div className="relative flex flex-1 flex-col p-6">
                   <span
                     aria-hidden="true"
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold/10 text-gold ring-1 ring-gold/25"
                   >
                     <Icon size={24} />
                   </span>
-                  <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
+                  <h3 className="mt-5 font-serif text-xl leading-tight text-ink">{service.title}</h3>
                   <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
                   <ul className="mt-4 flex-1 space-y-2">
                     {service.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
-                        <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
+                      <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-paper/85">
+                        <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-gold" />
                         {bullet}
                       </li>
                     ))}
@@ -114,26 +114,26 @@ export function Particuliers({ dict, locale }: Localized) {
         </ul>
 
         {/* Nettoyage & grand ménage : le service le plus visuel, détaillé d'après les affiches officielles. */}
-        <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-line bg-white p-6 shadow-sm sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
+        <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-gold/25 bg-navy-deep p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
           <div>
             <p className="eyebrow">{grand.eyebrow}</p>
             <h3 className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] sm:text-4xl rtl:tracking-normal rtl:leading-tight">{grand.title}</h3>
-            <p className="mt-4 text-base leading-7 text-ink/85">{grandMenage.description}</p>
+            <p className="mt-4 text-base leading-7 text-paper/85">{grandMenage.description}</p>
             <p className="mt-3 text-base leading-7 text-stone">{grand.intro}</p>
             <ul className="mt-5 space-y-2.5">
               {grand.bullets.map((bullet) => (
-                <li key={bullet} className="flex items-start gap-3 text-[0.95rem] font-medium leading-6">
-                  <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-mint-deep" />
+                <li key={bullet} className="flex items-start gap-3 text-[0.95rem] font-medium leading-6 text-paper/90">
+                  <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
                   {bullet}
                 </li>
               ))}
             </ul>
-            <WhatsAppLink dict={dict} messageKey="service" params={{ service: grandMenage.title }} variant="mint" className="mt-7">
+            <WhatsAppLink dict={dict} messageKey="service" params={{ service: grandMenage.title }} variant="gold" className="mt-7">
               {grand.cta}
             </WhatsAppLink>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <figure className="overflow-hidden rounded-2xl border border-line bg-white shadow-md">
+            <figure className="overflow-hidden rounded-2xl border border-gold/20 bg-navy shadow-md">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/grand-menage-service.webp"
@@ -145,7 +145,7 @@ export function Particuliers({ dict, locale }: Localized) {
                 className="h-auto w-full"
               />
             </figure>
-            <figure className="mt-6 overflow-hidden rounded-2xl border border-line bg-white shadow-md">
+            <figure className="mt-6 overflow-hidden rounded-2xl border border-gold/20 bg-navy shadow-md">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/grand-menage-besoin.webp"

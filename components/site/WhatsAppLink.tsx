@@ -3,7 +3,16 @@ import { waMessage } from '@/lib/i18n/dictionaries'
 import { whatsappUrl } from '@/lib/whatsapp'
 import { WhatsAppIcon } from './icons'
 
-type Variant = 'wa' | 'mint' | 'ink' | 'coral' | 'outline' | 'light' | 'outline-light'
+/**
+ * Variants d'appel à l'action, alignés sur la charte « Concierge » (bleu nuit + or) :
+ *   wa             vert WhatsApp dans un cadre or — action prioritaire ;
+ *   gold           dégradé d'or, texte bleu nuit — CTA de premier plan ;
+ *   outline-gold   filet or sur fond nuit — CTA secondaire de la même famille ;
+ *   ink            aplat bleu nuit profond cerclé d'or — action tertiaire sur fond clair de carte ;
+ *   light          aplat clair posé sur une section sombre ;
+ *   outline-light  filet discret, pour un lien d'action sur fond sombre.
+ */
+type Variant = 'wa' | 'gold' | 'outline-gold' | 'ink' | 'light' | 'outline-light'
 
 /** Clé d'un message pré-rempli traduit (`dict.wa.*`). */
 export type WaMessageKey = keyof Dictionary['wa']

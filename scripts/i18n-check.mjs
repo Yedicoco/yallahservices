@@ -278,7 +278,8 @@ check('icônes directionnelles retournées en rtl (RtlArrow) et valeurs latines 
 
 // 7) câblage
 const layout = read('app/layout.tsx')
-check('layout racine : <html> rendu avec lang ET dir issus de la langue résolue', /const \{ htmlLang: lang, dir \} = LOCALES_META\[locale\]/.test(layout) && /<html lang=\{lang\} dir=\{dir\}>/.test(layout))
+// `className` est toléré après `dir` : le layout pose aussi la classe `dark` (thème unique bleu nuit).
+check('layout racine : <html> rendu avec lang ET dir issus de la langue résolue', /const \{ htmlLang: lang, dir \} = LOCALES_META\[locale\]/.test(layout) && /<html lang=\{lang\} dir=\{dir\}[^>]*>/.test(layout))
 check('layout racine : une seule source de vérité (cookie lu via resolveRequestLocale, repli rememberLocale)', /resolveRequestLocale\(\)/.test(layout) && /rememberLocale\(locale\)/.test(layout))
 check('layout racine : hreflang rendus dans le <head> (fr-MA/ar-MA/en-MA + x-default)', /rel="alternate"/.test(layout) && /x-default/.test(layout))
 const proxyFile = read('proxy.ts')
