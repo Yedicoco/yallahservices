@@ -34,6 +34,14 @@ export default function Page() {
   const [saved, setSaved] = useState<Record<number, boolean>>({})
   const [muted, setMuted] = useState(true)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [openPanel, setOpenPanel] = useState<'inbox' | 'profile' | 'signup' | null>(null)
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const openSignup = () => {
+    setSubmitted(false)
+    setOpenPanel('signup')
+  }
 
   return (
     <main className="min-h-screen bg-[#f6f1e8] text-[#171717] selection:bg-[#fa5b48] selection:text-white">
@@ -50,8 +58,8 @@ export default function Page() {
           <nav className="space-y-2" aria-label="Main navigation">
             <NavItem icon={<Home size={19} />} label="Home" active />
             <NavItem icon={<Compass size={19} />} label="Discover" />
-            <NavItem icon={<Bell size={19} />} label="Inbox" badge="3" />
-            <NavItem icon={<UserRound size={19} />} label="Profile" />
+            <NavItem icon={<Bell size={19} />} label="Inbox" badge="3" onClick={() => setOpenPanel('inbox')} />
+            <NavItem icon={<UserRound size={19} />} label="Profile" onClick={() => setOpenPanel('profile')} />
           </nav>
           <div className="mt-auto border-t border-[#ded8cd] pt-6">
             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#8f897f]">Your space</p>
@@ -110,7 +118,7 @@ export default function Page() {
                 <Music2 size={14} aria-hidden="true" />
                 Se connecter à TikTok
               </a>
-              <button className="rounded-full bg-[#fa5b48] px-4 py-2 text-xs font-bold text-white transition-transform hover:-translate-y-0.5">Sign up</button>
+              <button onClick={openSignup} className="rounded-full bg-[#fa5b48] px-4 py-2 text-xs font-bold text-white transition-transform hover:-translate-y-0.5">Sign up</button>
             </div>
           </header>
 
@@ -153,17 +161,18 @@ export default function Page() {
                 ))}
               </div>
             </section>
-            <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white">Nous contacter</a></div>
+            <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white transition-transform hover:-translate-y-0.5">Démarrer maintenant</a></div>
           </div>
         </section>
       </div>
-      <button className="fixed bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#fa5b48] text-white shadow-lg lg:hidden" aria-label="Create"><Plus size={22} /></button>
+      {openPanel && <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/25 p-4 sm:items-center" role="dialog" aria-modal="true" aria-label={openPanel === 'inbox' ? 'Inbox' : openPanel === 'profile' ? 'Profile' : 'Sign up'} onClick={() => setOpenPanel(null)}><section className="w-full max-w-md rounded-[24px] bg-[#f6f1e8] p-6 shadow-2xl" onClick={(event) => event.stopPropagation()}><div className="mb-6 flex items-center justify-between"><div><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#fa5b48]">Yallah Services</p><h2 className="mt-1 font-serif text-3xl">{openPanel === 'inbox' ? 'Votre inbox' : openPanel === 'profile' ? 'Votre profil' : 'Rejoignez-nous'}</h2></div><button onClick={() => setOpenPanel(null)} aria-label="Fermer" className="rounded-full p-2 hover:bg-[#e9e2d8]"><X size={18} /></button></div>{openPanel === 'inbox' && <div className="rounded-2xl bg-[#e9e2d8] p-4 text-sm leading-6 text-[#6f6a63]">Vous avez 3 nouvelles informations. Notre équipe est disponible pour répondre à vos besoins de services à domicile.</div>}{openPanel === 'profile' && <div className="flex flex-col gap-4"><p className="text-sm leading-6 text-[#6f6a63]">Créez votre espace pour retrouver vos demandes et vos services favoris.</p><button onClick={openSignup} className="rounded-full bg-[#171717] px-5 py-3 text-sm font-bold text-white">Créer mon espace</button></div>}{openPanel === 'signup' && <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }} className="flex flex-col gap-4"><p className="text-sm leading-6 text-[#6f6a63]">Laissez votre email et nous vous recontacterons rapidement.</p><input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="votre@email.com" className="rounded-xl border border-[#ded8cd] bg-white px-4 py-3 text-sm outline-none focus:border-[#fa5b48]" aria-label="Adresse email" />{submitted ? <p className="text-sm font-semibold text-[#fa5b48]">Merci, votre demande a bien été envoyée.</p> : <button type="submit" className="rounded-full bg-[#fa5b48] px-5 py-3 text-sm font-bold text-white">S&apos;inscrire</button>}</form>}</section></div>}
+      <button onClick={openSignup} className="fixed bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#fa5b48] text-white shadow-lg transition-transform hover:scale-105 lg:hidden" aria-label="Créer un espace"><Plus size={22} /></button>
     </main>
   )
 }
 
-function NavItem({ icon, label, active = false, badge }: { icon: React.ReactNode; label: string; active?: boolean; badge?: string }) {
-  return <button className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${active ? 'bg-[#171717] text-white' : 'text-[#6f6a63] hover:bg-[#e9e2d8]'}`}>{icon}<span>{label}</span>{badge && <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-[#fa5b48] px-1 text-[10px] text-white">{badge}</span>}</button>
+function NavItem({ icon, label, active = false, badge, onClick }: { icon: React.ReactNode; label: string; active?: boolean; badge?: string; onClick?: () => void }) {
+  return <button onClick={onClick} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${active ? 'bg-[#171717] text-white' : 'text-[#6f6a63] hover:bg-[#e9e2d8]'}`}>{icon}<span>{label}</span>{badge && <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-[#fa5b48] px-1 text-[10px] text-white">{badge}</span>}</button>
 }
 
 function SocialMark({ label, className }: { label: string; className: string }) {
