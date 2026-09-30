@@ -19,6 +19,45 @@ This repository is linked to a [v0](https://v0.app) project. You can continue de
 
 Les deux produits sont **strictement séparés** (routes, cookies, scopes, configuration) : aucun n'écrase l'autre.
 
+## Identité visuelle — « Concierge » (bleu nuit & or)
+
+La charte est **unique et sombre** : pas de thème clair ni de bascule — `colorScheme: 'dark'` est
+posé dans `app/layout.tsx`, donc la barre d'adresse mobile, les sélecteurs natifs et les barres de
+défilement suivent le même bleu nuit que la page.
+
+| Rôle | Jeton Tailwind | Valeur |
+| --- | --- | --- |
+| Fond principal | `navy` | `#0A1128` |
+| Fond le plus sombre (dégradés, pied de page) | `navy-deep` | `#060B1A` |
+| Surface secondaire (cartes, panneaux) | `navy-soft` | `#111D37` |
+| Surface survolée | `navy-raised` | `#17253F` |
+| Filet fin (bordures) | `line` | `#24334F` |
+| Or chaud (accent principal) | `gold` | `#D4AF37` |
+| Or clair (sous-titres, labels) | `gold-soft` | `#E5C158` |
+| Or très clair (dégradés, reflets) | `gold-bright` | `#F3E5AB` |
+| Titres, texte le plus contrasté | `ink` | `#FFFFFF` |
+| Texte courant | `paper` | `#F8FAFC` |
+| Texte secondaire | `stone` | `#9AABC4` |
+| Vert WhatsApp (canal prioritaire) | `wa` | `#25D366` |
+| Texte posé sur le vert WhatsApp | `wa-ink` | `#04170B` |
+
+- **Où sont déclarés les jetons** : Tailwind v4 est configuré **en CSS** (`@theme inline` dans
+  `app/globals.css`) ; il n'y a pas de `tailwind.config.js` — c'est la forme prévue par cette
+  version, et `components.json` le confirme (`"tailwind": { "config": "" }`). Ajouter une couleur
+  revient donc à ajouter une variable `--color-*` dans ce bloc, et une classe utilitaire
+  correspondante (`bg-navy`, `text-gold-soft`, `border-gold/20`…) est générée automatiquement.
+- **Classes de composition** (même fichier, `@layer components`) : `.btn`, `.btn-gold`, `.btn-wa`,
+  `.btn-wa-ghost`, `.btn-outline-gold`, `.card-surface`, `.eyebrow`, `.section-title`, `.skip-link`…
+  Les utiliser plutôt que de réécrire les mêmes utilitaires dans chaque composant.
+- **Contraste** : le vert WhatsApp `#25D366` ne porte **jamais** de texte blanc (1,9:1 seulement) ; il
+  est toujours associé à `wa-ink` (9,3:1) ou utilisé en glyphe sur fond bleu nuit. Les taux
+  vérifiés (WCAG AA ≥ 4,5:1) : titres 18,7:1 · texte courant 17,9:1 · or 8,9:1 · or clair 10,8:1 ·
+  texte secondaire 7,2:1 sur `navy-soft`.
+- **Répartition** : le vert WhatsApp est réservé aux boutons d'action (l'unique surface verte du
+  site) ; l'or est réservé aux accents, aux filets, aux pastilles et aux titres d'action. Une
+  section particulièrement sombre porte `on-deep` (contour de focus plus clair, lisible sur le fond
+  le plus profond).
+
 ## Architecture des routes TikTok
 
 ```

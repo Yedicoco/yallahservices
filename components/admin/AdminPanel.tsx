@@ -53,7 +53,7 @@ const STATUS_LABELS: Record<string, string> = {
 }
 
 const CUSTOM = 'custom'
-const FIELD = 'mt-1.5 block w-full rounded-xl border border-line bg-white px-4 py-3 text-base'
+const FIELD = 'mt-1.5 block w-full rounded-xl border border-gold/25 bg-navy-deep px-4 py-3 text-base'
 
 async function api<T>(path: string, init?: RequestInit): Promise<{ ok: boolean; status: number; data: T | null }> {
   try {
@@ -194,11 +194,11 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
   }
 
   return (
-    <div className="min-h-screen bg-paper pb-20">
+    <div className="min-h-screen bg-navy pb-20">
       {/* Remontés dans <head> par React 19 : présents uniquement une fois authentifié. */}
       <title>Espace interne | Yallah Services</title>
       <meta name="robots" content="noindex, nofollow, noarchive" />
-      <header className="border-b border-line bg-white">
+      <header className="border-b border-gold/20 bg-navy-soft">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-5 py-4">
           <div>
             <p className="eyebrow">Espace interne</p>
@@ -212,19 +212,19 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
 
       <main className="mx-auto max-w-3xl space-y-6 px-5 pt-6">
         {banner && (
-          <p role="status" className={`flex items-start gap-3 rounded-2xl border p-4 text-sm font-semibold ${banner.tone === 'ok' ? 'border-wa/30 bg-wa/10 text-wa-deep' : 'border-coral-strong/30 bg-coral/10 text-coral-deep'}`}>
+          <p role="status" className={`flex items-start gap-3 rounded-2xl border p-4 text-sm font-semibold ${banner.tone === 'ok' ? 'border-wa/30 bg-wa/10 text-wa-deep' : 'border-danger/30 bg-danger/10 text-danger-deep'}`}>
             {banner.tone === 'ok' ? <CheckCircle2 size={18} aria-hidden="true" className="mt-0.5 shrink-0" /> : <AlertTriangle size={18} aria-hidden="true" className="mt-0.5 shrink-0" />}
             {banner.text}
           </p>
         )}
 
         {/* Connexion du compte */}
-        <section aria-labelledby="compte" className="rounded-3xl border border-line bg-white p-6">
+        <section aria-labelledby="compte" className="rounded-3xl border border-gold/20 bg-navy-soft p-6">
           <h2 id="compte" className="font-serif text-xl">Compte TikTok</h2>
           {connection.kind === 'loading' && (
             <p className="mt-3 flex items-center gap-2 text-sm text-stone"><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Chargement…</p>
           )}
-          {connection.kind === 'error' && <p className="mt-3 text-sm font-semibold text-coral-deep">{connection.message}</p>}
+          {connection.kind === 'error' && <p className="mt-3 text-sm font-semibold text-danger-deep">{connection.message}</p>}
           {connection.kind === 'disconnected' && (
             <div className="mt-3">
               <p className="text-sm leading-6 text-stone">
@@ -240,7 +240,7 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={connection.creator.avatar_url} alt="" width={48} height={48} referrerPolicy="no-referrer" className="h-12 w-12 rounded-full bg-sand object-cover" />
+                <img src={connection.creator.avatar_url} alt="" width={48} height={48} referrerPolicy="no-referrer" className="h-12 w-12 rounded-full bg-navy-soft object-cover" />
                 <div>
                   <p className="font-semibold">{connection.creator.nickname}</p>
                   <p className="text-sm text-stone">@{connection.creator.username}</p>
@@ -259,7 +259,7 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
 
         {/* Publication */}
         {connection.kind === 'connected' && creator && (
-          <form onSubmit={(event) => { event.preventDefault(); if (blockers.length === 0) void publish() }} className="space-y-6 rounded-3xl border border-line bg-white p-6" aria-labelledby="publier">
+          <form onSubmit={(event) => { event.preventDefault(); if (blockers.length === 0) void publish() }} className="space-y-6 rounded-3xl border border-gold/20 bg-navy-soft p-6" aria-labelledby="publier">
             <h2 id="publier" className="font-serif text-xl">Publier une vidéo</h2>
 
             <div>
@@ -284,7 +284,7 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
             <div>
               <div className="flex items-end justify-between gap-3">
                 <label htmlFor="legende" className="text-sm font-semibold">Légende</label>
-                <span className={`text-xs ${caption.length > CAPTION_MAX_LENGTH ? 'font-bold text-coral-deep' : 'text-stone'}`}>{caption.length} / {CAPTION_MAX_LENGTH}</span>
+                <span className={`text-xs ${caption.length > CAPTION_MAX_LENGTH ? 'font-bold text-danger-deep' : 'text-stone'}`}>{caption.length} / {CAPTION_MAX_LENGTH}</span>
               </div>
               <textarea id="legende" rows={5} value={caption} onChange={(event) => setCaption(event.target.value)} className={FIELD} aria-describedby="regles" />
               <div className="mt-2 flex flex-wrap gap-2">
@@ -300,7 +300,7 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
                   <li className="flex items-center gap-2 font-semibold text-wa"><CheckCircle2 size={14} aria-hidden="true" /> Légende conforme : appel WhatsApp présent, aucun tarif ferme, aucune coordonnée tierce.</li>
                 ) : (
                   captionCheck.errors.map((error) => (
-                    <li key={error} className="flex items-start gap-2 font-semibold text-coral-deep"><AlertTriangle size={14} aria-hidden="true" className="mt-0.5 shrink-0" /> {error}</li>
+                    <li key={error} className="flex items-start gap-2 font-semibold text-danger-deep"><AlertTriangle size={14} aria-hidden="true" className="mt-0.5 shrink-0" /> {error}</li>
                   ))
                 )}
               </ul>
@@ -310,8 +310,8 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
               <legend className="text-sm font-semibold">Visibilité <span className="font-normal text-stone">(à choisir, aucune valeur par défaut)</span></legend>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 {creator.privacy_level_options.map((option) => (
-                  <label key={option} className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border px-4 text-sm font-semibold ${privacy === option ? 'border-ink bg-ink text-paper' : 'border-line bg-white'}`}>
-                    <input type="radio" name="privacy" value={option} checked={privacy === option} onChange={() => setPrivacy(option)} className="h-4 w-4 accent-coral-strong" />
+                  <label key={option} className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border px-4 text-sm font-semibold ${privacy === option ? 'border-gold bg-gold text-navy' : 'border-gold/25 bg-navy-deep text-paper'}`}>
+                    <input type="radio" name="privacy" value={option} checked={privacy === option} onChange={() => setPrivacy(option)} className="h-4 w-4 accent-danger" />
                     {PRIVACY_LABELS[option] ?? option}
                   </label>
                 ))}
@@ -332,7 +332,7 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
                   ] as const
                 ).map(([label, value, setter, disabled]) => (
                   <label key={label} className={`flex items-center gap-3 ${disabled ? 'opacity-50' : ''}`}>
-                    <input type="checkbox" checked={value && !disabled} disabled={disabled} onChange={(event) => setter(event.target.checked)} className="h-4 w-4 accent-coral-strong" />
+                    <input type="checkbox" checked={value && !disabled} disabled={disabled} onChange={(event) => setter(event.target.checked)} className="h-4 w-4 accent-danger" />
                     Autoriser : {label.toLowerCase()} {disabled && <span className="text-xs text-stone">(désactivé dans les réglages du compte)</span>}
                   </label>
                 ))}
@@ -343,25 +343,25 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
               <legend className="text-sm font-semibold">Déclaration de contenu</legend>
               <div className="mt-2 space-y-3 text-sm">
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" checked={commercialOn} onChange={(event) => { setCommercialOn(event.target.checked); if (!event.target.checked) setCommercialKind('') }} className="mt-1 h-4 w-4 accent-coral-strong" />
+                  <input type="checkbox" checked={commercialOn} onChange={(event) => { setCommercialOn(event.target.checked); if (!event.target.checked) setCommercialKind('') }} className="mt-1 h-4 w-4 accent-danger" />
                   <span>Cette vidéo est un contenu commercial <span className="text-stone">(recommandé : elle promeut Yallah Services)</span></span>
                 </label>
                 {commercialOn && (
                   <div className="ml-7 space-y-2">
-                    <label className="flex items-center gap-3"><input type="radio" name="commercial" checked={commercialKind === 'brand'} onChange={() => setCommercialKind('brand')} className="h-4 w-4 accent-coral-strong" /> Votre marque (promotion de votre propre activité)</label>
-                    <label className="flex items-center gap-3"><input type="radio" name="commercial" checked={commercialKind === 'branded'} onChange={() => setCommercialKind('branded')} className="h-4 w-4 accent-coral-strong" /> Contenu de marque (partenariat payé)</label>
+                    <label className="flex items-center gap-3"><input type="radio" name="commercial" checked={commercialKind === 'brand'} onChange={() => setCommercialKind('brand')} className="h-4 w-4 accent-danger" /> Votre marque (promotion de votre propre activité)</label>
+                    <label className="flex items-center gap-3"><input type="radio" name="commercial" checked={commercialKind === 'branded'} onChange={() => setCommercialKind('branded')} className="h-4 w-4 accent-danger" /> Contenu de marque (partenariat payé)</label>
                   </div>
                 )}
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" checked={isAigc} onChange={(event) => setIsAigc(event.target.checked)} className="mt-1 h-4 w-4 accent-coral-strong" />
+                  <input type="checkbox" checked={isAigc} onChange={(event) => setIsAigc(event.target.checked)} className="mt-1 h-4 w-4 accent-danger" />
                   <span>Cette vidéo contient des images réalistes générées ou retouchées par IA <span className="text-stone">(obligatoire à déclarer si c’est le cas)</span></span>
                 </label>
               </div>
             </fieldset>
 
-            <div className="rounded-2xl bg-sand/70 p-4">
+            <div className="rounded-2xl bg-navy-soft/70 p-4">
               <label className="flex items-start gap-3 text-sm leading-6">
-                <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} className="mt-1.5 h-4 w-4 accent-coral-strong" />
+                <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} className="mt-1.5 h-4 w-4 accent-danger" />
                 <span>Je confirme que cette vidéo <strong>n’affiche aucun tarif ferme</strong> et <strong>aucune donnée permettant d’identifier un client ou un candidat</strong> (nom, visage, téléphone, adresse).</span>
               </label>
               <p className="mt-3 text-xs leading-5 text-stone">
@@ -377,12 +377,12 @@ export function AdminPanel({ videos, origin }: { videos: readonly VideoEntry[]; 
               </ul>
             )}
 
-            <button type="submit" disabled={blockers.length > 0 || submitting} className="btn btn-coral w-full disabled:cursor-not-allowed disabled:opacity-50">
+            <button type="submit" disabled={blockers.length > 0 || submitting} className="btn btn-gold w-full disabled:cursor-not-allowed disabled:opacity-50">
               {submitting ? (<><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Envoi à TikTok…</>) : `Publier sur ${SITE.socials.tiktok.handle}`}
             </button>
 
             {result?.kind === 'error' && (
-              <p role="alert" className="flex items-start gap-3 rounded-2xl border border-coral-strong/30 bg-coral/10 p-4 text-sm font-semibold text-coral-deep">
+              <p role="alert" className="flex items-start gap-3 rounded-2xl border border-danger/30 bg-danger/10 p-4 text-sm font-semibold text-danger-deep">
                 <AlertTriangle size={18} aria-hidden="true" className="mt-0.5 shrink-0" /> {result.message}
               </p>
             )}

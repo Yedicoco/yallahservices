@@ -12,7 +12,8 @@ type Segment = 'particulier' | 'entreprise'
 type Visitor = { display_name: string; avatar_url?: string }
 type Notice = { tone: 'ok' | 'info'; text: string }
 
-const FIELD = 'mt-1.5 block w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-stone/70'
+const FIELD =
+  'mt-1.5 block w-full rounded-xl border border-gold/25 bg-navy-deep px-4 py-3 text-base text-ink placeholder:text-stone/70 focus-visible:border-gold'
 
 /**
  * Message WhatsApp composé à partir des modèles traduits (`dict.form.message`) : la demande ouverte
@@ -112,20 +113,20 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <div className="rounded-[2rem] border border-line bg-white p-6 shadow-sm sm:p-8">
-      <h3 className="font-serif text-2xl leading-tight">{dict.form.title}</h3>
+    <div className="rounded-[2rem] border border-gold/25 bg-navy-soft p-6 sm:p-8">
+      <h3 className="font-serif text-2xl leading-tight text-ink">{dict.form.title}</h3>
       <p className="mt-2 text-sm leading-6 text-stone">{dict.form.intro}</p>
 
       {/* Connexion TikTok : facultative */}
-      <div className="mt-5 rounded-2xl bg-mist p-4">
+      <div className="mt-5 rounded-2xl bg-navy-raised p-4">
         {visitor ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               {visitor.avatar_url && !avatarFailed ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={visitor.avatar_url} alt="" width={40} height={40} referrerPolicy="no-referrer" onError={() => setAvatarFailed(true)} className="h-10 w-10 rounded-full bg-paper object-cover" />
+                <img src={visitor.avatar_url} alt="" width={40} height={40} referrerPolicy="no-referrer" onError={() => setAvatarFailed(true)} className="h-10 w-10 rounded-full bg-navy object-cover" />
               ) : (
-                <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper">
+                <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-navy-deep text-paper">
                   <TikTokIcon className="h-4 w-4" />
                 </span>
               )}
@@ -144,7 +145,7 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
           </div>
         ) : (
           <div>
-            <a href="/api/tiktok/auth" className="btn btn-ink w-full">
+            <a href="/api/tiktok/auth" className="btn btn-outline-gold w-full">
               <TikTokIcon className="h-[1.05rem] w-[1.05rem]" />
               <span>
                 {dict.form.tiktokContinue} <span className="font-normal opacity-80">{dict.form.optional}</span>
@@ -160,7 +161,7 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
           </div>
         )}
         {notice && (
-          <p role="status" className={`mt-3 text-sm font-semibold ${notice.tone === 'ok' ? 'text-wa' : 'text-ink'}`}>
+          <p role="status" className={`mt-3 text-sm font-semibold ${notice.tone === 'ok' ? 'text-wa' : 'text-gold-soft'}`}>
             {notice.text}
           </p>
         )}
@@ -169,7 +170,7 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
       <form ref={formRef} onSubmit={(event) => event.preventDefault()} className="mt-5 space-y-4" noValidate={false}>
         <fieldset>
           <legend className="text-sm font-semibold">{dict.form.segmentLegend}</legend>
-          <div className="mt-1.5 grid grid-cols-2 gap-2 rounded-full bg-mist p-1">
+          <div className="mt-1.5 grid grid-cols-2 gap-2 rounded-full border border-gold/20 bg-navy-deep p-1">
             {(
               [
                 ['particulier', dict.form.segments.particulier],
@@ -188,7 +189,7 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
                   }}
                   className="peer sr-only"
                 />
-                <span className="flex min-h-11 cursor-pointer items-center justify-center rounded-full px-3 text-sm font-semibold text-stone transition peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink">
+                <span className="flex min-h-11 cursor-pointer items-center justify-center rounded-full px-3 text-sm font-semibold text-stone transition peer-checked:bg-gold peer-checked:text-navy peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold">
                   {label}
                 </span>
               </label>
@@ -264,7 +265,7 @@ export function LeadForm({ dict }: { dict: Dictionary }) {
         <div>
           <p className="text-sm font-semibold">{dict.form.previewLabel}</p>
           {/* Le message garde le sens de lecture de la langue choisie, même si le visiteur saisit du latin. */}
-          <pre dir="auto" className="mt-1.5 whitespace-pre-wrap rounded-xl bg-mist p-4 font-sans text-sm leading-6 text-ink/90">
+          <pre dir="auto" className="mt-1.5 whitespace-pre-wrap rounded-xl bg-navy-raised p-4 font-sans text-sm leading-6 text-paper/90">
             {message}
           </pre>
         </div>

@@ -28,7 +28,11 @@ export function Entreprises({ dict, locale }: Localized) {
   const [video] = videosByRubrique('entreprises')
 
   return (
-    <section id="entreprises" aria-labelledby="titre-entreprises" className="on-dark bg-ink py-16 text-paper sm:py-24">
+    <section
+      id="entreprises"
+      aria-labelledby="titre-entreprises"
+      className="on-deep border-t border-gold/20 bg-navy-deep py-16 text-paper sm:py-24"
+    >
       <div className="container-page grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
         <div>
           <p className="eyebrow-light">{dict.b2b.eyebrow}</p>
@@ -36,9 +40,9 @@ export function Entreprises({ dict, locale }: Localized) {
             {dict.b2b.title}
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-paper/75">{dict.b2b.intro}</p>
-          <ServicesTabs dict={dict} current="entreprises" tone="dark" />
+          <ServicesTabs dict={dict} current="entreprises" />
 
-          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-paper/60">{dict.b2b.sectorsHeading}</h3>
+          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-gold-soft/80">{dict.b2b.sectorsHeading}</h3>
           {/* Cartes secteurs : icône, titre, puces et action WhatsApp pré-remplie. */}
           <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {B2B_SECTOR_IDS.map((id) => {
@@ -50,21 +54,24 @@ export function Entreprises({ dict, locale }: Localized) {
                     href={whatsappUrl(waMessage(dict, 'sector', { besoin: sector.message }))}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-0.5 hover:border-amber/60 hover:bg-white/10"
+                    className="flex h-full flex-col rounded-2xl border border-gold/20 bg-navy-soft p-5 transition duration-300 hover:-translate-y-1 hover:border-gold hover:bg-navy-raised"
                   >
-                    <span aria-hidden="true" className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber/15 text-amber">
+                    <span
+                      aria-hidden="true"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/15 text-gold-soft ring-1 ring-gold/30"
+                    >
                       <Icon size={22} />
                     </span>
-                    <h4 className="mt-4 font-serif text-lg leading-tight">{sector.title}</h4>
+                    <h4 className="mt-4 font-serif text-lg leading-tight text-ink">{sector.title}</h4>
                     <ul className="mt-2.5 flex-1 space-y-1.5">
                       {dict.b2b.sectorBullets.map((bullet) => (
-                        <li key={bullet} className="flex items-start gap-2 text-xs leading-5 text-paper/75">
-                          <Check size={13} aria-hidden="true" className="mt-1 shrink-0 text-mint-bright" />
+                        <li key={bullet} className="flex items-start gap-2 text-xs leading-5 text-stone">
+                          <Check size={13} aria-hidden="true" className="mt-1 shrink-0 text-gold" />
                           {bullet}
                         </li>
                       ))}
                     </ul>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-mint-bright">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-wa">
                       <WhatsAppIcon className="h-4 w-4" />
                       {dict.b2b.askLabel}
                       <span className="sr-only">{dict.common.onWhatsAppSuffix}</span>
@@ -76,29 +83,29 @@ export function Entreprises({ dict, locale }: Localized) {
             })}
           </ul>
 
-          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-paper/60">{dict.b2b.formulasHeading}</h3>
+          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-gold-soft/80">{dict.b2b.formulasHeading}</h3>
           <ul className="mt-4 grid gap-3 sm:grid-cols-3">
             {B2B_FORMULA_IDS.map((id) => {
               const formula = dict.b2b.formulas[id]
               return (
-                <li key={id} className="rounded-2xl border border-t-2 border-t-amber border-white/10 bg-white/5 p-5">
-                  <p className="font-serif text-xl">{formula.title}</p>
-                  <p className="mt-2 text-sm leading-6 text-paper/70">{formula.description}</p>
+                <li key={id} className="rounded-2xl border border-gold/20 border-t-2 border-t-gold bg-navy-soft p-5">
+                  <p className="font-serif text-xl text-ink">{formula.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-stone">{formula.description}</p>
                 </li>
               )
             })}
           </ul>
 
-          <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-gold/20 bg-navy-soft p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-serif text-xl">{dict.b2b.prospection.title}</p>
-              <p className="mt-1 max-w-md text-sm leading-6 text-paper/70">{dict.b2b.prospection.description}</p>
+              <p className="font-serif text-xl text-ink">{dict.b2b.prospection.title}</p>
+              <p className="mt-1 max-w-md text-sm leading-6 text-stone">{dict.b2b.prospection.description}</p>
             </div>
             <a
               href={whatsappUrl(waMessage(dict, 'prospection'))}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-amber hover:text-paper"
+              className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-gold-soft hover:text-gold-bright"
             >
               {dict.b2b.prospection.cta} <RtlArrow dict={dict} size={16} />
             </a>

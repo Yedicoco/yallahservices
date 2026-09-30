@@ -18,23 +18,26 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#ffffff',
-          color: '#0f172a',
+          // Charte « Concierge » : bleu nuit profond, or chaud, texte blanc.
+          background: 'linear-gradient(135deg, #0A1128 0%, #060B1A 100%)',
+          color: '#F8FAFC',
           padding: '72px 80px',
         }}
       >
         <div style={{ display: 'flex', fontSize: 52, fontWeight: 900, letterSpacing: -3 }}>
-          <span>yallah</span>
-          <span style={{ color: '#fa5b48' }}>.</span>
-          <span style={{ color: '#475569', marginLeft: 6 }}>services</span>
+          <span style={{ color: '#D4AF37' }}>yallah</span>
+          <span style={{ color: '#FFFFFF' }}>.</span>
+          <span style={{ color: '#FFFFFF', marginLeft: 6 }}>services</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif' }}>Le bon profil,</div>
-          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif', fontStyle: 'italic', color: '#047857' }}>
+          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif', color: '#FFFFFF' }}>
+            Le bon profil,
+          </div>
+          <div style={{ display: 'flex', fontSize: 92, lineHeight: 1.05, letterSpacing: -3, fontFamily: 'serif', color: '#E5C158' }}>
             au bon endroit.
           </div>
-          <div style={{ display: 'flex', marginTop: 28, fontSize: 34, color: '#475569' }}>
+          <div style={{ display: 'flex', marginTop: 28, fontSize: 34, color: '#9AABC4' }}>
             Personnel qualifié pour particuliers et entreprises au Maroc
           </div>
         </div>
@@ -44,8 +47,8 @@ export default function OpengraphImage() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              background: '#0e7a3d',
-              color: '#ffffff',
+              background: '#D4AF37',
+              color: '#0A1128',
               borderRadius: 999,
               padding: '16px 34px',
               fontSize: 34,
@@ -54,7 +57,7 @@ export default function OpengraphImage() {
           >
             WhatsApp · +212 691 733 585
           </div>
-          <div style={{ display: 'flex', fontSize: 30, color: '#475569' }}>Casablanca · Rabat · Marrakech · Fès · Tanger…</div>
+          <div style={{ display: 'flex', fontSize: 30, color: '#9AABC4' }}>Casablanca · Rabat · Marrakech · Fès · Tanger…</div>
         </div>
       </div>
     ),

@@ -18,7 +18,7 @@ import type { Localized } from '@/lib/i18n/props'
 export function Videos({ dict, locale }: Localized) {
 
   return (
-    <section id="videos" aria-labelledby="titre-videos" className="bg-sand py-16 sm:py-24">
+    <section id="videos" aria-labelledby="titre-videos" className="border-t border-gold/15 bg-navy-soft py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
           <p className="eyebrow">{dict.videos.eyebrow}</p>
@@ -36,16 +36,19 @@ export function Videos({ dict, locale }: Localized) {
               <article key={rubrique.id} aria-labelledby={`rubrique-${rubrique.id}`} className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
                 <div>
                   <p className="eyebrow">{copy.kicker}</p>
-                  <h3 id={`rubrique-${rubrique.id}`} className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] sm:text-4xl rtl:tracking-normal rtl:leading-tight">
+                  <h3
+                    id={`rubrique-${rubrique.id}`}
+                    className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] text-ink sm:text-4xl rtl:tracking-normal rtl:leading-tight"
+                  >
                     {copy.title}
                   </h3>
-                  <p className="mt-4 text-base leading-7 text-ink/85">{copy.description}</p>
+                  <p className="mt-4 text-base leading-7 text-paper/85">{copy.description}</p>
                   {/* Le liseré d'une citation suit le sens de lecture. */}
-                  <blockquote className="mt-5 border-s-4 border-amber ps-4 font-serif text-lg italic leading-7 text-ink/85">{copy.example}</blockquote>
+                  <blockquote className="mt-5 border-s-4 border-gold ps-4 font-serif text-lg italic leading-7 text-paper/85">{copy.example}</blockquote>
                   <ul className="mt-6 space-y-2.5">
                     {dict.videos.commitments.map((commitment) => (
-                      <li key={commitment} className="flex items-start gap-3 text-sm font-medium leading-6">
-                        <ShieldCheck size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-mint-deep" />
+                      <li key={commitment} className="flex items-start gap-3 text-sm font-medium leading-6 text-paper/90">
+                        <ShieldCheck size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
                         {commitment}
                       </li>
                     ))}
@@ -59,11 +62,13 @@ export function Videos({ dict, locale }: Localized) {
                     </div>
                   ))}
                   {rubrique.id === 'coulisses-et-questions' && (
-                    <div className="on-dark mx-auto flex w-full max-w-[20rem] flex-col justify-center gap-8 rounded-3xl bg-ink p-6 text-paper sm:max-w-none">
+                    <div
+                      className="on-deep mx-auto flex w-full max-w-[20rem] flex-col justify-center gap-8 rounded-3xl border border-gold/25 bg-navy-deep p-6 text-paper sm:max-w-none"
+                    >
                       <div>
-                        <MessagesSquare size={28} aria-hidden="true" className="text-amber" />
-                        <h3 className="mt-4 font-serif text-2xl leading-tight">{dict.videos.questionTitle}</h3>
-                        <p className="mt-2 text-sm leading-6 text-paper/75">{dict.videos.questionDescription}</p>
+                        <MessagesSquare size={28} aria-hidden="true" className="text-gold-soft" />
+                        <h3 className="mt-4 font-serif text-2xl leading-tight text-ink">{dict.videos.questionTitle}</h3>
+                        <p className="mt-2 text-sm leading-6 text-stone">{dict.videos.questionDescription}</p>
                       </div>
                       <WhatsAppLink dict={dict} messageKey="question" variant="light">
                         {dict.videos.questionCta}

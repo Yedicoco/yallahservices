@@ -19,7 +19,7 @@ export default async function NotFound() {
 
   // Aucun composant de cette page ne lit le contexte : le dictionnaire est lu directement.
   return (
-    <main className="grid min-h-screen place-items-center px-6 py-16 text-center">
+    <main className="grid min-h-screen place-items-center bg-navy px-6 py-16 text-center">
       <div className="max-w-md">
         <a href="/" aria-label={dict.notFound.homeAria} className="inline-block">
           <Logo />
@@ -27,7 +27,7 @@ export default async function NotFound() {
         <p className="eyebrow mt-10">{dict.notFound.eyebrow}</p>
         <h1 className="mt-3 font-serif text-4xl leading-tight tracking-[-0.02em] rtl:tracking-normal">{dict.notFound.title}</h1>
         <p className="mt-4 text-base leading-7 text-stone">{dict.notFound.description}</p>
-        <a href="/" className="btn btn-ink mt-8">
+        <a href="/" className="btn btn-gold mt-8">
           {dict.notFound.cta}
         </a>
       </div>
