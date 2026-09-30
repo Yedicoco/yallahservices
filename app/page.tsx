@@ -34,7 +34,6 @@ export default function Page() {
   const [saved, setSaved] = useState<Record<number, boolean>>({})
   const [muted, setMuted] = useState(true)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [activeVideo, setActiveVideo] = useState(0)
 
   return (
     <main className="min-h-screen bg-[#f6f1e8] text-[#171717] selection:bg-[#fa5b48] selection:text-white">
@@ -124,19 +123,34 @@ export default function Page() {
               <div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">Yallah Services · Maroc</p><h1 className="font-serif text-4xl font-medium tracking-[-0.04em] sm:text-5xl">Le bon profil, au bon endroit.</h1></div>
               <button aria-label="More options" className="mb-1 rounded-full p-2 hover:bg-[#e9e2d8]"><Ellipsis size={20} /></button>
             </div>
-            <section className="overflow-hidden rounded-[28px] bg-[#171717] text-[#f6f1e8] shadow-[0_24px_60px_rgba(39,31,22,0.16)]" aria-label="Vidéos Yallah Services">
-              <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-                <div className="relative aspect-video min-h-[280px] bg-black lg:aspect-auto">
-                  <video key={videos[activeVideo].source} className="h-full w-full object-cover" src={videos[activeVideo].source} controls playsInline muted={muted} preload="metadata" aria-label={videos[activeVideo].title} />
-                  <div className="pointer-events-none absolute left-5 top-5 rounded-full bg-[#fa5b48] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em]">À découvrir</div>
+            <section aria-labelledby="videos-heading">
+              <div className="mb-6 flex items-end justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#fa5b48]">Nos vidéos</p>
+                  <h2 id="videos-heading" className="font-serif text-3xl tracking-[-0.04em] sm:text-4xl">Découvrez nos solutions, une vidéo à la fois.</h2>
                 </div>
-                <div className="flex flex-col justify-between p-6 sm:p-9">
-                  <div><div className="mb-5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-[#b7afa4]"><span>{videos[activeVideo].tag}</span><span>{String(activeVideo + 1).padStart(2, '0')} / 04</span></div><h2 className="max-w-[460px] font-serif text-3xl leading-[1.04] tracking-[-0.04em] sm:text-4xl">{videos[activeVideo].title}</h2><p className="mt-5 max-w-[420px] text-sm leading-6 text-[#b7afa4]">{videos[activeVideo].description}</p></div>
-                  <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-5"><span className="text-xs font-semibold text-[#b7afa4]">{videos[activeVideo].meta}</span><button onClick={() => setMuted(!muted)} aria-label={muted ? 'Activer le son' : 'Couper le son'} className="rounded-full border border-white/20 p-2.5 hover:bg-white/10">{muted ? <VolumeX size={15} /> : <Volume2 size={15} />}</button></div>
-                </div>
+                <span className="hidden rounded-full bg-[#e9e2d8] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6f6a63] sm:block">04 sujets</span>
               </div>
-              <div className="grid border-t border-white/15 sm:grid-cols-4">
-                {videos.map((video, index) => <button key={video.source} onClick={() => setActiveVideo(index)} className={`group flex items-center gap-3 border-b border-white/10 p-4 text-left transition-colors last:border-0 sm:border-b-0 sm:border-r sm:last:border-r-0 ${index === activeVideo ? 'bg-[#fa5b48]' : 'hover:bg-white/10'}`}><span className="font-serif text-2xl text-white/50">0{index + 1}</span><span className="min-w-0"><span className="block truncate text-xs font-bold">{video.tag}</span><span className="mt-1 block truncate text-[11px] text-white/55">{video.meta}</span></span></button>)}
+              <div className="grid gap-5 md:grid-cols-2">
+                {videos.map((video, index) => (
+                  <article key={video.source} className="overflow-hidden rounded-[24px] bg-[#171717] text-[#f6f1e8] shadow-[0_18px_40px_rgba(39,31,22,0.12)]">
+                    <div className="relative aspect-video bg-black">
+                      <video className="h-full w-full object-cover" src={video.source} controls playsInline muted={muted} preload="metadata" aria-label={video.title} />
+                      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-[#fa5b48] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em]">0{index + 1}</span>
+                    </div>
+                    <div className="flex flex-col gap-5 p-5 sm:p-6">
+                      <div>
+                        <div className="mb-3 flex items-center justify-between gap-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#b7afa4]"><span>{video.tag}</span><span className="truncate">{video.meta}</span></div>
+                        <h3 className="font-serif text-2xl leading-[1.05] tracking-[-0.03em]">{video.title}</h3>
+                        <p className="mt-3 text-sm leading-6 text-[#b7afa4]">{video.description}</p>
+                      </div>
+                      <div className="flex items-center justify-between border-t border-white/15 pt-4">
+                        <span className="text-xs font-semibold text-[#b7afa4]">Yallah Services</span>
+                        <button onClick={() => setMuted(!muted)} aria-label={muted ? 'Activer le son' : 'Couper le son'} className="rounded-full border border-white/20 p-2.5 hover:bg-white/10">{muted ? <VolumeX size={15} /> : <Volume2 size={15} />}</button>
+                      </div>
+                    </div>
+                  </article>
+                ))}
               </div>
             </section>
             <div className="mt-16 flex items-center justify-between rounded-2xl bg-[#e9e2d8] p-5 sm:p-7"><div><p className="font-serif text-2xl">Vous avez un besoin ?</p><p className="mt-1 text-xs text-[#777066]">Écrivez-nous sur WhatsApp au +212 691733585.</p></div><a href="https://wa.me/212691733585" target="_blank" rel="noreferrer" className="rounded-full bg-[#fa5b48] px-5 py-3 text-xs font-bold text-white">Nous contacter</a></div>
