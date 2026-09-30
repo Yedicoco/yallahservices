@@ -89,6 +89,11 @@ export type Dictionary = {
     intro: Localizable
     askLabel: Localizable
     services: Record<B2CServiceId, Bulleted>
+    /**
+     * Description de la bannière de chaque carte (`alt`). Chemin d'image, lui, technique :
+     * il reste dans `SERVICE_BANNERS` (lib/content.ts).
+     */
+    banners: Partial<Record<B2CServiceId, Localizable>>
     grand: { eyebrow: Localizable; title: Localizable; description: Localizable; intro: Localizable; bullets: readonly Localizable[]; cta: Localizable; posterServiceAlt: Localizable; posterNeedAlt: Localizable }
   }
   b2b: {

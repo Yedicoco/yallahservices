@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Baby, Car, Check, ChefHat, HeartHandshake, Home, ShieldCheck, SprayCan } from 'lucide-react'
-import { B2C_SERVICE_IDS, GRAND_MENAGE_ID, type B2CServiceId } from '@/lib/content'
+import { B2C_SERVICE_IDS, GRAND_MENAGE_ID, SERVICE_BANNERS, type B2CServiceId } from '@/lib/content'
 import { RtlArrow } from '@/lib/i18n/react'
 import { whatsappUrl } from '@/lib/whatsapp'
 import { ServicesTabs } from './ServicesTabs'
@@ -45,11 +45,15 @@ export function Particuliers({ dict, locale }: Localized) {
           {cards.map((id) => {
             const service = dict.b2c.services[id]
             const Icon = ICONS[id]
+            // Bannière et son `alt` voyagent ensemble : une carte sans légende traduite n'affiche
+            // pas l'image (mieux vaut aucune bannière qu'une bannière muette pour un lecteur d'écran).
+            const banner = SERVICE_BANNERS[id] ? { ...SERVICE_BANNERS[id]!, alt: dict.b2c.banners[id] ?? '' } : null
             return (
               <li
                 key={id}
-                className="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
               >
+                {/* Fond décoratif discret : la photo des professionnels, très atténuée. */}
                 <Image
                   src="/images/hero-professionals.jpg"
                   alt=""
@@ -58,29 +62,52 @@ export function Particuliers({ dict, locale }: Localized) {
                   className="pointer-events-none object-cover opacity-15 backdrop-blur-sm"
                   aria-hidden="true"
                 />
-                <span
-                  aria-hidden="true"
-                  className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
-                >
-                  <Icon size={24} />
-                </span>
-                <h3 className="relative mt-5 font-serif text-xl leading-tight">{service.title}</h3>
-                <p className="relative mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
-                <ul className="relative mt-4 flex-1 space-y-2">
-                  {service.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
-                      <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-                {/* Action rapide : WhatsApp, message pré-rempli nommant le service dans la langue du visiteur. */}
-                <a href={whatsappUrl(waMessage(dict, 'service', { service: service.title }))} target="_blank" rel="noopener noreferrer" className="btn-wa-ghost relative">
-                  <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
-                  {dict.b2c.askLabel}
-                  <span className="sr-only">{dict.common.onWhatsAppSuffix}</span>
-                  <RtlArrow dict={dict} className="shrink-0" />
-                </a>
+
+                {/* Bannière du service : 16:9, bord à bord, coins suivis par le rounded-3xl de la carte.
+                    `relative` la place au-dessus du fond décoratif, posé en position absolue. */}
+                {banner ? (
+                  <picture className="relative block">
+                    <source srcSet={SERVICE_BANNERS[id]!.webp} type="image/webp" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={SERVICE_BANNERS[id]!.jpg}
+                      alt={banner.alt}
+                      width={1408}
+                      height={792}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-video w-full object-cover object-center"
+                    />
+                  </picture>
+                ) : null}
+
+                {/* Le rembourrage vit dans ce conteneur, et non sur le <li>, pour que la bannière reste
+                    bord à bord ; `relative` garde tout le texte au-dessus du fond décoratif. */}
+                <div className="relative flex flex-1 flex-col p-6">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint-soft text-mint-deep ring-1 ring-mint/25"
+                  >
+                    <Icon size={24} />
+                  </span>
+                  <h3 className="mt-5 font-serif text-xl leading-tight">{service.title}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-7 text-stone">{service.description}</p>
+                  <ul className="mt-4 flex-1 space-y-2">
+                    {service.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-ink/85">
+                        <Check size={16} aria-hidden="true" className="mt-1 shrink-0 text-mint-deep" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                  {/* Action rapide : WhatsApp, message pré-rempli nommant le service dans la langue du visiteur. */}
+                  <a href={whatsappUrl(waMessage(dict, 'service', { service: service.title }))} target="_blank" rel="noopener noreferrer" className="btn-wa-ghost">
+                    <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
+                    {dict.b2c.askLabel}
+                    <span className="sr-only">{dict.common.onWhatsAppSuffix}</span>
+                    <RtlArrow dict={dict} className="shrink-0" />
+                  </a>
+                </div>
               </li>
             )
           })}

@@ -134,6 +134,8 @@ Trois langues, un seul chemin d'URL (`/`) : la langue est une **préférence**, 
   `{ville}`, `{count}`, … et sont appliqués par `t()` ; les trois langues doivent employer les mêmes.
 - Nouveau message WhatsApp → une clé dans `dict.wa.*`, et `waMessage(dict, 'cle', params)` ; ne jamais
   concaténer de texte traduit à la main.
+- Nouvelle image de carte → le chemin reste dans `lib/content.ts` (technique), sa description `alt`
+  va dans `b2c.banners.<id>` des trois dictionnaires (c'est du texte destiné au lecteur d'écran).
 - L'espace interne (`/connect`, API TikTok) reste **en français** : ce n'est pas une interface publique.
 
 ### Vérifier

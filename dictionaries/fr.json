@@ -191,6 +191,14 @@
         ]
       }
     },
+    "banners": {
+      "menage": "Femme de ménage souriante, tablier vert, un chiffon à la main dans un salon marocain lumineux et impeccable.",
+      "garde-enfants": "Nounou jouant avec un jeune enfant et des jouets en bois dans un coin jeu baigné de lumière naturelle.",
+      "personnes-agees": "Aide à domicile apportant un thé à la menthe à une personne âgée souriante, installée dans un fauteuil au soleil.",
+      "cuisine": "Cuisinière préparant des ingrédients marocains — menthe fraîche, huile d’olive, agrumes, tomates — sur un plan de travail clair.",
+      "gardiennage": "Gardien souriant devant l’entrée d’une villa marocaine de style riad, palmiers et lumière dorée de fin de journée.",
+      "chauffeurs": "Chauffeur souriant au volant d’une voiture à l’intérieur en cuir crème, vue depuis la fenêtre côté passager."
+    },
     "grand": {
       "eyebrow": "Le service le plus demandé",
       "title": "Le grand ménage, en profondeur.",

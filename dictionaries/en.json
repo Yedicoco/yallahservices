@@ -191,6 +191,14 @@
         ]
       }
     },
+    "banners": {
+      "menage": "Smiling housekeeper in a green apron, a cloth in hand, in a bright and spotless Moroccan living room.",
+      "garde-enfants": "Nanny playing with a young child and wooden toys in a play corner filled with daylight.",
+      "personnes-agees": "Home helper bringing mint tea to a smiling older person seated in an armchair in the sun.",
+      "cuisine": "Cook preparing Moroccan ingredients — fresh mint, olive oil, citrus, tomatoes — on a bright worktop.",
+      "gardiennage": "Smiling guard at the entrance of a riad-style Moroccan villa, palm trees and golden late-day light.",
+      "chauffeurs": "Smiling driver behind the wheel of a car with cream leather interior, seen from the passenger window."
+    },
     "grand": {
       "eyebrow": "Our most requested service",
       "title": "The deep clean, done properly.",

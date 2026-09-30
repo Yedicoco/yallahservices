@@ -286,10 +286,18 @@ check('/connect de nouveau 404 après fermeture', r.status === 404)
 /* ------------------------------------------------------------------ */
 section('MULTI-LANGUE — résolution, persistance, RTL et hreflang (bout en bout, vrai HTTP)')
 const jarLang = new Jar()
-// Requête en suivant les redirections avec les cookies d'un bocal : c'est le comportement d'un navigateur.
+// Suit les redirections en mettant le bocal à jour à chaque saut — le comportement exact d'un
+// navigateur (et de `curl -L -b jar -c jar`) : sans cela, un `Set-Cookie` posé sur une 307 serait
+// perdu pour la requête suivante et la page rendue ne correspondrait à rien de réel.
 const followAs = async (j, path, opts = {}) => {
-  const res = await fetch(BASE + path, { ...opts, headers: { ...(opts.headers || {}), cookie: j.header() } })
-  return { res, html: await res.text() }
+  let res = await req(j, path, opts)
+  let hops = 0
+  while ([301, 302, 303, 307, 308].includes(res.status) && hops < 4) {
+    hops++
+    const next = new URL(loc(res), BASE).pathname + new URL(loc(res), BASE).search
+    res = await req(j, next, { ...opts, headers: { ...(opts.headers || {}), cookie: j.header() } })
+  }
+  return { res, html: await res.text(), hops }
 }
 const htmlLang = (h) => (h.match(/<html[^>]*lang="([^"]+)"[^>]*>/) || [])[1] || ''
 const htmlDir = (h) => (h.match(/<html[^>]*dir="([^"]+)"[^>]*>/) || [])[1] || ''
@@ -312,9 +320,13 @@ const enByHeader = await fetch(BASE + '/', { headers: { 'accept-language': 'en-U
 const enFreshHtml = await enByHeader.text()
 check('première visite : langue devinée depuis Accept-Language (sans cookie)', htmlLang(enFreshHtml) === 'en-MA' && enFreshHtml.includes('The right profile, in the right place.'), htmlLang(enFreshHtml))
 check('… et la devinette est mémorisée dans le cookie pour la visite suivante', (enByHeader.headers.get('set-cookie') || '').includes('yallah_locale=en'), enByHeader.headers.get('set-cookie'))
+// Un visiteur deviné « en » par Accept-Language, qui suit ensuite un lien arabe : la demande
+// explicite passe avant la préférence mémorisée, et le cookie est mis à jour au passage.
 const jarEn = new Jar(); await req(jarEn, '/', { headers: { 'accept-language': 'en-US,en;q=0.8' } })
+check('… la devinette Accept-Language est bien enregistrée comme préférence', jarEn.get('yallah_locale') === 'en', String(jarEn.get('yallah_locale')))
 const enThenAr = await followAs(jarEn, '/?lang=ar')
-check('la préférence explicite prime sur Accept-Language à la requête suivante', htmlLang(enThenAr.html) === 'ar-MA' && htmlDir(enThenAr.html) === 'rtl', htmlLang(enThenAr.html))
+check('un lien explicite vers une autre langue prime sur la préférence mémorisée', htmlLang(enThenAr.html) === 'ar-MA' && htmlDir(enThenAr.html) === 'rtl', htmlLang(enThenAr.html))
+check('… et devient la nouvelle préférence (le lien partagé ne reste pas un one-shot)', jarEn.get('yallah_locale') === 'ar' && htmlLang((await followAs(jarEn, '/')).html) === 'ar-MA', String(jarEn.get('yallah_locale')))
 
 r = await req(new Jar(), '/?lang=xx')
 check('langue inconnue (?lang=xx) → aucune redirection ni erreur', r.status === 200, String(r.status))
