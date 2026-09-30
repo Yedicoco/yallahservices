@@ -1,72 +1,74 @@
 import { MapPin } from 'lucide-react'
-import { CITIES, PRIORITY_AREAS } from '@/lib/content'
+import { CITY_IDS, PRIORITY_ZONE_IDS, CITIES_COUNT } from '@/lib/content'
 import { SITE } from '@/lib/site'
-import { WA } from '@/lib/whatsapp'
+import { t } from '@/lib/i18n/dictionaries'
 import { WhatsAppLink } from './WhatsAppLink'
+import type { Localized } from '@/lib/i18n/props'
 
 /** Ancrage local : les villes couvertes et les quartiers prioritaires, en badges lisibles. */
-export function Zones() {
+export function Zones({ dict, locale }: Localized) {
+  const baseCity = dict.zones.cities[SITE.baseCity]
+  const cityLabel = (id: (typeof CITY_IDS)[number]) => dict.zones.cities[id]
+
   return (
     <section id="zones" aria-labelledby="titre-zones" className="bg-white py-16 sm:py-24">
       <div className="container-page">
         <header className="max-w-2xl">
-          <p className="eyebrow">Zones d’intervention</p>
+          <p className="eyebrow">{dict.zones.eyebrow}</p>
           <h2 id="titre-zones" className="section-title mt-3">
-            Présents dans {CITIES.length} villes du Maroc, ancrés à {SITE.baseCity}.
+            {t(dict.zones.title, { villes: CITIES_COUNT, ville: baseCity })}
           </h2>
-          <p className="mt-4 text-lg leading-8 text-stone">
-            Nous sommes basés à {SITE.baseCity} et nous intervenons dans les villes ci-dessous, avec une attention particulière à certains
-            quartiers.
-          </p>
+          <p className="mt-4 text-lg leading-8 text-stone">{t(dict.zones.intro, { ville: baseCity })}</p>
         </header>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone">Villes couvertes</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone">{dict.zones.citiesHeading}</h3>
             <ul className="mt-4 flex flex-wrap gap-2.5">
-              {CITIES.map((city) => (
+              {CITY_IDS.map((id) => (
                 <li
-                  key={city}
+                  key={id}
                   className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-semibold ${
-                    city === SITE.baseCity ? 'border-mint-deep bg-mint-deep text-white' : 'border-line bg-sand text-ink'
+                    id === SITE.baseCity ? 'border-mint-deep bg-mint-deep text-white' : 'border-line bg-sand text-ink'
                   }`}
                 >
-                  {city === SITE.baseCity && <MapPin size={14} aria-hidden="true" />}
-                  {city}
+                  {id === SITE.baseCity && <MapPin size={14} aria-hidden="true" />}
+                  {cityLabel(id)}
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone">Quartiers et secteurs prioritaires</h3>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone">{dict.zones.areasHeading}</h3>
             <ul className="mt-4 grid gap-3">
-              {PRIORITY_AREAS.map((zone) => (
-                <li key={zone.city} className="rounded-2xl border border-line bg-sand p-4">
-                  <p className="font-serif text-lg">{zone.label}</p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {zone.areas.map((area) => (
-                      <li
-                        key={area}
-                        className="rounded-full border border-amber/30 bg-amber-soft px-3 py-1.5 text-sm font-semibold text-amber-deep"
-                      >
-                        {area}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
+              {PRIORITY_ZONE_IDS.map((zoneId) => {
+                const zone = dict.zones.zones.find((candidate) => candidate.id === zoneId)
+                if (!zone) return null
+                return (
+                  <li key={zoneId} className="rounded-2xl border border-line bg-sand p-4">
+                    <p className="font-serif text-lg">{zone.label}</p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {zone.areas.map((area) => (
+                        <li key={area} className="rounded-full border border-amber/30 bg-amber-soft px-3 py-1.5 text-sm font-semibold text-amber-deep">
+                          {area}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-line bg-sand p-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-[0.95rem] leading-7">
-            <strong>Votre quartier n’est pas dans la liste ?</strong> Écrivez-nous : nous confirmons la couverture de votre secteur lors de
-            l’échange.
+            <strong>{dict.zones.unlistedStrong}</strong>
+            {dict.zones.unlistedRest}
           </p>
-          <WhatsAppLink message={WA.zones} className="shrink-0">
-            Vérifier mon secteur
+          <WhatsAppLink dict={dict} messageKey="zones" className="shrink-0">
+            {dict.zones.cta}
           </WhatsAppLink>
         </div>
       </div>

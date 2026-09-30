@@ -12,7 +12,8 @@ This repository is linked to a [v0](https://v0.app) project. You can continue de
 
 ## Ce que fait le site
 
-- **Vitrine publique** (`/`) : navigation fixe *Accueil → Services Particuliers → Services Entreprises → Tarifs & Grille → Zones d'intervention → Vidéos → Contact*, offre B2C et offre B2B visuellement séparées, grille tarifaire en tableau HTML indexable, zones et quartiers, vidéos, contact. Des boutons **WhatsApp** avec message pré-rempli sont présents partout.
+- **Vitrine publique** (`/`) : navigation fixe *Accueil → Services Particuliers → Services Entreprises → Tarifs & Grille → Zones d'intervention → Vidéos → Contact*, offre B2C et offre B2B visuellement séparées, grille tarifaire en tableau HTML indexable, zones et quartiers, vidéos, contact. Des boutons **WhatsApp** avec message pré-rempli sont présents partout — **dans la langue choisie**.
+- **Multi-langue** : français (par défaut), anglais, et darija marocaine en écriture arabe avec mise en page RTL complète. Voir [Langues](#langues-fr--ar--en).
 - **Produit 1 : Login Kit TikTok public** : un visiteur peut (facultativement) se connecter avec TikTok dans le formulaire de contact ; le site lit son nom de profil public pour personnaliser le message WhatsApp. Scope demandé : `user.info.basic` **uniquement**.
 - **Produit 2 : Direct Post TikTok interne** : publication de vidéos sur `@yallah.services.m` depuis un espace réservé (`/connect`), invisible du public. Scopes : `user.info.basic` + `video.publish`.
 
@@ -92,16 +93,68 @@ Le volet Entreprises a sa propre vidéo, dans la section Entreprises (jamais mé
 
 Le catalogue (`lib/videos.ts`) est la source unique de la vitrine et du formulaire de publication. Pour ajouter une vidéo : déposez le fichier dans `public/videos/` en **kebab-case strict** (minuscules, chiffres et tirets : pas d'espace, d'accent ni d'apostrophe), ajoutez une image de couverture `public/images/video-posters/<id>.jpg`, puis déclarez-la dans `lib/videos.ts`.
 
+## Langues (FR · AR · EN)
+
+Trois langues, un seul chemin d'URL (`/`) : la langue est une **préférence**, pas une arborescence.
+
+| Langue | Code | Sens | Locale HTML | hreflang |
+| --- | --- | --- | --- | --- |
+| Français (défaut) | `fr` | LTR | `fr-MA` | `fr-MA` |
+| Darija marocaine | `ar` | **RTL** | `ar-MA` | `ar-MA` |
+| English | `en` | LTR | `en-MA` | `en-MA` |
+
+### Comment ça marche
+
+1. **Résolution** — dans `proxy.ts`, la langue demandée est normalisée **avant** le rendu, dans cet ordre :
+   `?lang=xx` (lien partageable, converti en cookie puis adresse canonique sans paramètre) → cookie
+   `yallah_locale` → en-tête `Accept-Language` → `fr`. Layout, page et métadonnées relisent tous le
+   **même cookie** : `<html lang dir>` et le contenu ne peuvent donc pas diverger.
+2. **Textes** — trois dictionnaires JSON (`dictionaries/fr.json`, `ar.json`, `en.json`), typés par
+   `lib/i18n/schema.ts`. `fr.json` est la **référence** : les deux autres doivent avoir exactement le
+   même arbre de clés (contrôlé). Les chaînes sont servies **côté serveur** et passées en prop
+   (`{ dict, locale }`, type `Localized`) à chaque section ; aucun dictionnaire n'est embarqué dans le
+   bundle client.
+3. **Bascule** — trois pastilles `FR | AR | EN` dans l'en-tête (`components/site/LanguageSwitcher.tsx`) :
+   elles écrivent le cookie **et** `localStorage`, puis redemandent un rendu serveur. Le choix survit
+   donc au rechargement, même 6 mois plus tard, et fonctionne aussi bien sans JavaScript (liens + cookie).
+4. **RTL** — uniquement des **utilitaires logiques** Tailwind (`ms-*`, `me-*`, `ps-*`, `pe-*`,
+   `text-start`/`text-end`, `border-s-*`, `rounded-ss-*`, `inset-inline-*`) : le mise en page se retourne
+   sans `dir`-specific classes. Les icônes directionnelles sont retournées (`RtlArrow`), les valeurs
+   latines (téléphone, e-mail, durées, prix) sont isolées en `dir="ltr"` (`LtrValue`) pour que le
+   bidi ne les casse pas, et la typographie arabe (interlignage, graisses, italique neutralisé, pile de
+   polices) est portée par `html[lang^='ar']` dans `app/globals.css`.
+5. **SEO** — titre, description, `og:locale` et canonique par langue ; liens `hreflang` (`fr-MA`,
+   `ar-MA`, `en-MA`, `x-default`) dans le `<head>` **et** dans `app/sitemap.xml/route.ts` (trois adresses
+   qui se déclarent mutuellement). Les pages légales, publiées en français, restent hors du système.
+
+### Où ajouter un texte
+
+- Nouvelle chaîne → `dictionaries/fr.json`, puis `ar.json` et `en.json` avec les **mêmes clés** ; si la
+  forme change le type, ajoutez-la dans `lib/i18n/schema.ts`. Les jetons dynamiques s'écrivent
+  `{ville}`, `{count}`, … et sont appliqués par `t()` ; les trois langues doivent employer les mêmes.
+- Nouveau message WhatsApp → une clé dans `dict.wa.*`, et `waMessage(dict, 'cle', params)` ; ne jamais
+  concaténer de texte traduit à la main.
+- L'espace interne (`/connect`, API TikTok) reste **en français** : ce n'est pas une interface publique.
+
+### Vérifier
+
+```bash
+pnpm check:i18n     # ~40 contrôles : parité des clés et des jetons, textes de la spécification,
+                    # absence d'utilitaires directionnels figés, câblage layout/proxy/sitemap, etc.
+```
+
 ## Vérifications
 
 ```bash
 pnpm install            # ou npm install
 pnpm typecheck          # tsc --noEmit (le build ignore les erreurs de types : ceci les révèle)
 pnpm check              # audit statique : médias, noms de vidéos, liens, pages légales, routes TikTok
+pnpm check:i18n         # audit des langues : parité des dictionnaires, RTL, hreflang, câblage
+pnpm check:all          # les deux audits d'un coup
 pnpm test:e2e           # build + une centaine de contrôles de bout en bout (faux TikTok + faux Upstash, aucun vrai secret)
 ```
 
-`pnpm test:e2e` démarre ses propres faux services et n'utilise jamais vos identifiants : il vérifie la séparation public/interne, l'invisibilité de l'espace interne, le chiffrement des jetons, le rafraîchissement et la rotation du `refresh_token`, et les règles éditoriales.
+`pnpm test:e2e` démarre ses propres faux services et n'utilise jamais vos identifiants : il vérifie la séparation public/interne, l'invisibilité de l'espace interne, le chiffrement des jetons, le rafraîchissement et la rotation du `refresh_token`, les règles éditoriales, **et le multi-langue en HTTP réel** (résolution `?lang=` → cookie, persistance, `lang`/`dir` cohérents avec le contenu, messages WhatsApp traduits, hreflang du sitemap).
 
 ## Pages légales
 

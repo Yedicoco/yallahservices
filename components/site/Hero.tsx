@@ -1,61 +1,75 @@
 import { BadgeCheck, Clock, HeartHandshake, MapPin, Wifi } from 'lucide-react'
-import { CITIES } from '@/lib/content'
-import { SITE } from '@/lib/site'
-import { WA } from '@/lib/whatsapp'
+import { CITIES_COUNT } from '@/lib/content'
+import { t } from '@/lib/i18n/dictionaries'
 import { WhatsAppIcon } from './icons'
 import { WhatsAppLink } from './WhatsAppLink'
+import type { Localized } from '@/lib/i18n/props'
 
-/** Puces de réassurance sous le titre : bénéfices vérifiables, sans promesse exagérée. */
-const TRUST = [
-  { icon: BadgeCheck, label: 'Profils vérifiés et sélectionnés' },
-  { icon: Clock, label: 'Réponse sous 2h · 7j/7' },
-  { icon: MapPin, label: `${CITIES.length} villes couvertes au Maroc` },
-  { icon: HeartHandshake, label: 'Accompagnement humain et personnalisé' },
-] as const
+export function Hero({ dict, locale }: Localized) {
+  // Les deux aplats décoratifs sont disposés aux deux extrémités : en `rtl`, on les échange pour que
+  // la composition reste équilibrée par rapport au texte (le CSS logique ne couvre pas `inset-*`).
+  const flip = locale === 'ar'
+  const side = (start: string, end: string) => (flip ? end : start)
 
-export function Hero() {
+  /** Puces de réassurance sous le titre : bénéfices vérifiables, sans promesse exagérée. */
+  const trust = dict.hero.trust.map((item, index) => ({
+    key: item.id ?? `trust-${index}`,
+    label: t(item.label, { villes: CITIES_COUNT }),
+  }))
+  // Les icônes suivent l'ordre des puces du dictionnaire (BadgeCheck, horloge, carte, main/cura).
+  const trustIcons = [BadgeCheck, Clock, MapPin, HeartHandshake] as const
+
   return (
     <section id="accueil" aria-labelledby="titre-accueil" className="relative overflow-hidden bg-white pb-20 pt-28 sm:pt-32 lg:pb-28">
-      {/* Nappes de couleur : émeraude à droite, ambre à gauche — l'aplat blanc reste dominant. */}
-      <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-32 h-[32rem] w-[32rem] rounded-full bg-mint/20 blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-1/2 h-72 w-72 rounded-full bg-amber/20 blur-3xl" />
+      {/* Nappes de couleur : émeraude et ambre aux deux extrémités — l'aplat blanc reste dominant. */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute -top-32 h-[32rem] w-[32rem] rounded-full bg-mint/20 blur-3xl ${side('[inset-inline-end:-10rem]', '[inset-inline-start:-10rem]')}`}
+      />
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute top-1/2 h-72 w-72 rounded-full bg-amber/20 blur-3xl ${side('[inset-inline-start:-8rem]', '[inset-inline-end:-8rem]')}`}
+      />
 
       <div className="container-page relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         <div>
-          <p className="eyebrow">Yallah Services · Maroc</p>
-          <h1 id="titre-accueil" className="mt-4 font-serif text-[2.65rem] leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
-            Personnel qualifié & services à domicile au Maroc
+          <p className="eyebrow">{dict.hero.eyebrow}</p>
+          {/* Titre principal = devise de la marque (exigence de la spécification) ; la formulation
+              riche en mots-clés reste présente, sous le titre, pour la lecture comme pour l'indexation. */}
+          <h1 id="titre-accueil" className="mt-4 font-serif text-[2.65rem] leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-7xl rtl:tracking-normal rtl:leading-[1.2]">
+            {dict.hero.tagline}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-ink/85">{SITE.description}</p>
-          <p className="mt-3 max-w-xl text-base leading-7 text-stone">
-            Un échange simple sur WhatsApp, une sélection attentive, un accompagnement humain : nous prenons le temps de comprendre votre
-            besoin avant de vous présenter le bon profil.
-          </p>
+          <p className="mt-4 text-xl font-semibold leading-7 text-ink/90 sm:text-2xl">{dict.hero.title}</p>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-ink/85">{dict.hero.lead}</p>
+          <p className="mt-3 max-w-xl text-base leading-7 text-stone">{dict.hero.detail}</p>
 
-          {/* CTA d'orientation rapide : particuliers / entreprises, avec message pré-rempli. */}
+          {/* CTA d'orientation rapide : particuliers / entreprises, avec message WhatsApp pré-rempli dans la langue. */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <WhatsAppLink message={WA.particulier} variant="mint" className="sm:min-w-[15.5rem]">
-              Je suis un particulier
+            <WhatsAppLink dict={dict} messageKey="particulier" variant="mint" className="sm:min-w-[15.5rem]">
+              {dict.hero.ctaParticulier}
             </WhatsAppLink>
-            <WhatsAppLink message={WA.entreprise} variant="ink" className="sm:min-w-[15.5rem]">
-              Je représente une entreprise
+            <WhatsAppLink dict={dict} messageKey="entreprise" variant="ink" className="sm:min-w-[15.5rem]">
+              {dict.hero.ctaEntreprise}
             </WhatsAppLink>
           </div>
-          <p className="mt-3 text-sm text-stone">Réponse sur WhatsApp · Tarifs et disponibilités confirmés lors de l’échange.</p>
+          <p className="mt-3 text-sm text-stone">{dict.hero.responseNote}</p>
 
           {/* Badges de réassurance : puces stylisées à icône ambre. */}
           <ul className="mt-9 grid gap-3 sm:grid-cols-2">
-            {TRUST.map(({ icon: Icon, label }) => (
-              <li
-                key={label}
-                className="flex items-center gap-3 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-semibold leading-snug shadow-sm"
-              >
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-soft text-amber-deep">
-                  <Icon size={16} />
-                </span>
-                {label}
-              </li>
-            ))}
+            {trust.map(({ key, label }, index) => {
+              const Icon = trustIcons[index % trustIcons.length]
+              return (
+                <li
+                  key={key}
+                  className="flex items-center gap-3 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-semibold leading-snug shadow-sm"
+                >
+                  <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-soft text-amber-deep">
+                    <Icon size={16} />
+                  </span>
+                  {label}
+                </li>
+              )
+            })}
           </ul>
         </div>
 
@@ -66,7 +80,7 @@ export function Hero() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/hero-professionals.jpg"
-              alt="Illustration : des professionnels des services à domicile et en entreprise au Maroc — personnel de maison, hôtelier, cuisinier et chef d’entreprise."
+              alt={dict.hero.imageAlt}
               width={1408}
               height={768}
               loading="eager"
@@ -76,22 +90,21 @@ export function Hero() {
           </figure>
 
           {/* Bulle d'aperçu WhatsApp : prépare le bloc conversation de la section Contact. */}
-          <div className="absolute -bottom-6 -left-4 hidden max-w-[17.5rem] rounded-2xl border border-line bg-white p-4 shadow-xl sm:block">
+          <div className="absolute -bottom-6 [inset-inline-start:-1rem] hidden max-w-[17.5rem] rounded-2xl border border-line bg-white p-4 shadow-xl sm:block">
             <div className="flex items-center gap-2.5">
               <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-wa text-white">
                 <WhatsAppIcon className="h-4 w-4" />
               </span>
               <div className="leading-tight">
-                <p className="text-xs font-bold">Yallah Services</p>
+                <p className="text-xs font-bold">{dict.hero.chatPreviewHeader}</p>
                 <p className="flex items-center gap-1 text-[11px] text-wa">
-                  <Wifi size={11} aria-hidden="true" /> en ligne
+                  <Wifi size={11} aria-hidden="true" /> {dict.common.online}
                 </p>
               </div>
             </div>
-            <p className="mt-3 rounded-xl rounded-tl-sm bg-mist px-3 py-2 text-xs leading-5 text-ink/90">
-              Bonjour Yallah Services, j’aimerais échanger sur mon besoin.
-            </p>
-            <p className="mt-2 text-[11px] font-semibold text-stone">Réponse sous 2h · 7j/7</p>
+            {/* L'encoche de bulle se met du côté de l'expéditeur : `rounded-ss` suit le sens de lecture. */}
+            <p className="mt-3 rounded-xl rounded-ss-sm bg-mist px-3 py-2 text-xs leading-5 text-ink/90">{dict.hero.chatPreviewMessage}</p>
+            <p className="mt-2 text-[11px] font-semibold text-stone">{dict.hero.chatPreviewFooter}</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-// Tests de bout en bout du backend TikTok : Login Kit public + espace interne Direct Post.
+// Tests de bout en bout : backend TikTok (Login Kit public + espace interne Direct Post) et i18n.
 // Lancés par tests/e2e/run.mjs (npm run test:e2e) contre le site en mode production, avec un faux TikTok
 // et un faux Upstash : aucun vrai compte, aucun vrai secret. Ils couvrent notamment :
 //  - séparation public / interne, scopes demandés, alias d'URI historiques, absence de stockage côté visiteur ;
@@ -282,6 +282,53 @@ r = await req(admin, '/api/tiktok/admin/session', { method: 'DELETE' })
 check('DELETE admin/session ferme la session (cookie supprimé)', r.status === 200 && !admin.has('yallah_admin'))
 r = await req(admin, '/connect'); await r.text()
 check('/connect de nouveau 404 après fermeture', r.status === 404)
+
+/* ------------------------------------------------------------------ */
+section('MULTI-LANGUE — résolution, persistance, RTL et hreflang (bout en bout, vrai HTTP)')
+const jarLang = new Jar()
+// Requête en suivant les redirections avec les cookies d'un bocal : c'est le comportement d'un navigateur.
+const followAs = async (j, path, opts = {}) => {
+  const res = await fetch(BASE + path, { ...opts, headers: { ...(opts.headers || {}), cookie: j.header() } })
+  return { res, html: await res.text() }
+}
+const htmlLang = (h) => (h.match(/<html[^>]*lang="([^"]+)"[^>]*>/) || [])[1] || ''
+const htmlDir = (h) => (h.match(/<html[^>]*dir="([^"]+)"[^>]*>/) || [])[1] || ''
+const arabicSentence = 'البروفيل المناسب، فالمكان المناسب.'
+
+r = await req(jarLang, '/?lang=ar')
+check('?lang=ar → renvoi vers l\'adresse canonique (URL propre, sans paramètre)', r.status === 307 && loc(r) === '/', `${r.status} ${loc(r)}`)
+check('… avec le cookie de langue posé par le serveur', jarLang.get('yallah_locale') === 'ar' && jarLang.attrs.get('yallah_locale').path === '/', JSON.stringify([...jarLang.c]))
+const ar = await followAs(jarLang, '/')
+check('la page rendue est arabe ET en RTL (lang et dir cohérents avec le contenu)', htmlLang(ar.html) === 'ar-MA' && htmlDir(ar.html) === 'rtl' && ar.html.includes(arabicSentence) && !/Discuter sur WhatsApp|Ménage à domicile/.test(ar.html), `${htmlLang(ar.html)} / ${htmlDir(ar.html)}`)
+const arWa = decodeURIComponent((ar.html.match(/href="https:\/\/wa\.me\/[^"]+"/) || [''])[0])
+check('message WhatsApp pré-rempli dans la langue choisie', arWa.includes('السلام عليكم يالاح سيفيس'), arWa.slice(0, 90))
+check('bouton CTA et aria-label traduits en arabe', ar.html.includes('تواصل معنا على واتساب') && /aria-label="[^"]*واتساب[^"]*"/.test(ar.html))
+const arLtr = await followAs(new Jar(), '/?lang=fr')
+const frHtml = arLtr.html
+check('le même titre français est bien rendu en LTR avec une devise non arabophone', htmlLang(frHtml) === 'fr-MA' && htmlDir(frHtml) === 'ltr' && frHtml.includes('Le bon profil, au bon endroit.'), `${htmlLang(frHtml)} / ${htmlDir(frHtml)}`)
+check('les trois langues partagent le même squelette (mêmes ancres, mêmes sections)', (frHtml.match(/<section id="/g) || []).length === (ar.html.match(/<section id="/g) || []).length && (ar.html.match(/<section id="/g) || []).length > 8, `${(frHtml.match(/<section id="/g) || []).length} vs ${(ar.html.match(/<section id="/g) || []).length}`)
+
+const enByHeader = await fetch(BASE + '/', { headers: { 'accept-language': 'en-US,en;q=0.8,fr;q=0.5' } })
+const enFreshHtml = await enByHeader.text()
+check('première visite : langue devinée depuis Accept-Language (sans cookie)', htmlLang(enFreshHtml) === 'en-MA' && enFreshHtml.includes('The right profile, in the right place.'), htmlLang(enFreshHtml))
+check('… et la devinette est mémorisée dans le cookie pour la visite suivante', (enByHeader.headers.get('set-cookie') || '').includes('yallah_locale=en'), enByHeader.headers.get('set-cookie'))
+const jarEn = new Jar(); await req(jarEn, '/', { headers: { 'accept-language': 'en-US,en;q=0.8' } })
+const enThenAr = await followAs(jarEn, '/?lang=ar')
+check('la préférence explicite prime sur Accept-Language à la requête suivante', htmlLang(enThenAr.html) === 'ar-MA' && htmlDir(enThenAr.html) === 'rtl', htmlLang(enThenAr.html))
+
+r = await req(new Jar(), '/?lang=xx')
+check('langue inconnue (?lang=xx) → aucune redirection ni erreur', r.status === 200, String(r.status))
+const jarOk = new Jar(); await req(jarOk, '/?lang=fr'); await req(jarOk, '/?lang=fr')
+const jarTwice = new Jar(); await req(jarTwice, '/?lang=fr')
+r = await req(jarTwice, '/?lang=fr')
+check('langue déjà conforme au cookie → pas de redirection de trop', r.status === 200, `${r.status} ${loc(r)}`)
+
+const sm = await (await fetch(BASE + '/sitemap.xml')).text()
+check('sitemap.xml déclare les trois adresses et leurs hreflang', sm.includes('?lang=ar') && sm.includes('hreflang="ar-MA"') && sm.includes('hreflang="x-default"') && sm.includes('xmlns:xhtml'))
+check('robots.txt pointe vers le sitemap', /sitemap.*\.xml/.test(await (await fetch(BASE + '/robots.txt')).text()))
+check('sélecteur de langue rendu accessible (aria-pressed) et dans le sens RTL', /aria-pressed="true"/.test(ar.html) && /aria-pressed="false"/.test(ar.html) && ar.html.includes('>AR<'))
+const headConnect = await req(null, '/connect?lang=ar')
+check('espace interne : la normalisation de langue ne le touche pas (ni cookie, ni redirection)', [200, 404].includes(headConnect.status) && !(headConnect.headers.get('set-cookie') || '').includes('yallah_locale') && !loc(headConnect), `${headConnect.status} loc=${loc(headConnect) || '—'} cookie=${headConnect.headers.get('set-cookie') || '—'}`)
 
 console.log(`\n==== ${pass} contrôles réussis, ${failures.length} échec(s) ====`)
 if (failures.length) { console.log('ÉCHECS:\n - ' + failures.join('\n - ')); process.exit(1) }

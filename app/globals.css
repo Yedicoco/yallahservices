@@ -224,6 +224,70 @@
     outline-color: var(--color-paper);
     box-shadow: 0 0 0 2px var(--color-ink);
   }
+
+  /* ------------------------------------------------------------------
+     Darija / arabe marocain : la langue change de sens ET de typographie.
+     Les styles portent la langue (`[lang^="ar"]` sur <html>, posé par le
+     serveur) et non une classe : le texte traduit est stylé correctement
+     dès le premier octet, avant toute hydratation.
+       - empâtements négatifs retirés (les ligatures arabes ne se serrent pas) ;
+       - interlignage augmenté (diacritiques et harakat) ;
+       - l'italique n'existe pas en arabe : une synthèse serait illisible ;
+       - pile de polices arabe explicite, composée UNIQUEMENT de familles présentes sur les OS visés
+         (Android/ChromeOS portent Noto Sans Arabic, Windows Tahoma et Segoe UI, macOS/iOS Geeza Pro).
+         Aucune police n'est embarquée : la vitrine reste à zéro requête de plus et le rendu est
+         correct même hors-ligne ; si une identité typographique arabe sur-mesure devient nécessaire,
+         charger `Noto Naskh Arabic` via `next/font` en `app/layout.tsx` suffirait — les sélecteurs
+         ci-dessous sont déjà prêts à le précéder dans la pile.
+     ------------------------------------------------------------------ */
+  html[lang^='ar'] body {
+    font-family: 'Noto Naskh Arabic', 'Gadeer Arabic', 'Cairo', Tahoma, 'Segoe UI', 'Noto Sans Arabic', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.75;
+  }
+  html[lang^='ar'] .section-title,
+  html[lang^='ar'] .eyebrow,
+  html[lang^='ar'] .eyebrow-light {
+    letter-spacing: normal;
+  }
+  html[lang^='ar'] h1,
+  html[lang^='ar'] h2,
+  html[lang^='ar'] h3,
+  /* `font-serif` (Georgia) ne couvre aucun glyphe arabe : on remplace la variable elle-même pour
+     que les titres gardent une pile cohérente au lieu de dépendre d'un replat de dernière minute. */
+  html[lang^='ar'] {
+    --font-serif: 'Noto Naskh Arabic', 'Amiri', 'Scheherazade New', 'Geeza Pro', Tahoma, serif;
+  }
+  html[lang^='ar'] h1,
+  html[lang^='ar'] h2,
+  html[lang^='ar'] h3 {
+    letter-spacing: normal;
+    line-height: 1.5;
+  }
+  html[lang^='ar'] blockquote,
+  html[lang^='ar'] [class*=' italic'],
+  html[lang^='ar'] [class^='italic'] {
+    font-style: normal;
+  }
+  /* Voile posé par la bascule de langue pendant que le serveur renvoie la page traduite
+     (`.locale-switching` est ajoutée sur <html> par LocaleRefreshVeil). Purement cosmétique. */
+  html.locale-switching body {
+    opacity: 0.55;
+    transition: opacity 160ms ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.locale-switching body {
+      opacity: 1;
+      transition: none;
+    }
+  }
+  /* Isolations bidi (bilingue latin dans une phrase arabe) — sans dépendre de l'ordre des classes. */
+  .bidi-isolate {
+    unicode-bidi: isolate;
+  }
+  .ltr-only {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
   ::selection {
     background: var(--color-mint-deep);
     color: #fff;
@@ -276,6 +340,7 @@
     @apply border border-white/35 text-paper hover:bg-white/10;
   }
   .skip-link {
-    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition-transform focus:translate-y-0;
+    @apply fixed top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition-transform focus:translate-y-0;
+    inset-inline-start: 1rem;
   }
 }

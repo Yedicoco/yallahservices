@@ -2,18 +2,23 @@
 
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { NAV_ITEMS } from '@/lib/nav'
-import { WA, whatsappUrl } from '@/lib/whatsapp'
+import { NAV_IDS, navHref } from '@/lib/nav'
+import { whatsappUrl } from '@/lib/whatsapp'
 import { Logo } from './Logo'
 import { WhatsAppIcon } from './icons'
+import { LanguageSwitcher } from './LanguageSwitcher'
+import type { Localized } from '@/lib/i18n/props'
+import { waMessage } from '@/lib/i18n/dictionaries'
 
-export function SiteHeader() {
+export function SiteHeader({ dict, locale }: Localized) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<string>('accueil')
+  // Libellés et aria-labels viennent du dictionnaire de la langue servie.
+  const navLabel = (id: (typeof NAV_IDS)[number]) => dict.nav[id]
 
   // Met en évidence la section qui traverse le milieu de l'écran.
   useEffect(() => {
-    const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter((el): el is HTMLElement => el !== null)
+    const sections = NAV_IDS.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id)
@@ -39,42 +44,45 @@ export function SiteHeader() {
   }, [open])
 
   const linkClass = (id: string) =>
-    `whitespace-nowrap rounded-full px-2.5 py-2 text-[0.8125rem] font-semibold transition-colors ${
+    `whitespace-nowrap rounded-full px-2 py-2 text-[0.8125rem] font-semibold transition-colors ${
       active === id ? 'bg-ink text-paper' : 'text-stone hover:bg-mist hover:text-ink'
     }`
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper/90 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-5 sm:px-8">
-        <a href="#accueil" aria-label="Yallah Services, retour à l’accueil" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-5 sm:px-8 xl:gap-1">
+        <a href="#accueil" aria-label={dict.header.homeAria} onClick={() => setOpen(false)} className="inline-flex min-h-11 shrink-0 items-center">
           <Logo />
         </a>
 
-        <nav aria-label="Navigation principale" className="hidden items-center gap-0.5 xl:flex">
-          {NAV_ITEMS.map((item) => (
-            <a key={item.id} href={`#${item.id}`} aria-current={active === item.id ? 'location' : undefined} className={linkClass(item.id)}>
-              {item.label}
+        <nav aria-label={dict.header.navLabel} className="hidden items-center gap-0.5 2xl:flex">
+          {NAV_IDS.map((id) => (
+            <a key={id} href={navHref(id)} aria-current={active === id ? 'location' : undefined} className={linkClass(id)}>
+              {navLabel(id)}
             </a>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Bascule de langue : FR | AR | EN. Le choix est persisté (cookie + localStorage). */}
+          <LanguageSwitcher dict={dict} className="shrink-0" />
           <a
-            href={whatsappUrl(WA.general)}
+            href={whatsappUrl(waMessage(dict, 'general'))}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Écrire à Yallah Services sur WhatsApp"
+            aria-label={dict.common.whatsappAria}
+            lang={dict.meta.languageCode}
             className="btn btn-wa btn-sm max-sm:w-11 max-sm:px-0"
           >
             <WhatsAppIcon className="h-[1.15rem] w-[1.15rem]" />
-            <span className="hidden sm:inline">WhatsApp</span>
+            <span className="hidden sm:inline">{dict.common.whatsapp}</span>
           </a>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink hover:bg-mist xl:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-ink hover:bg-mist 2xl:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
-            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-label={open ? dict.header.closeMenu : dict.header.openMenu}
             onClick={() => setOpen((value) => !value)}
           >
             {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
@@ -83,19 +91,19 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label="Menu mobile" className="border-t border-line bg-paper xl:hidden">
+        <nav id="menu-mobile" aria-label={dict.header.mobileNavLabel} className="border-t border-line bg-paper 2xl:hidden">
           <ul className="container-page flex flex-col gap-1 py-3">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
+            {NAV_IDS.map((id) => (
+              <li key={id}>
                 <a
-                  href={`#${item.id}`}
+                  href={navHref(id)}
                   onClick={() => setOpen(false)}
-                  aria-current={active === item.id ? 'location' : undefined}
+                  aria-current={active === id ? 'location' : undefined}
                   className={`flex min-h-12 items-center rounded-xl px-4 text-base font-semibold ${
-                    active === item.id ? 'bg-ink text-paper' : 'text-ink hover:bg-mist'
+                    active === id ? 'bg-ink text-paper' : 'text-ink hover:bg-mist'
                   }`}
                 >
-                  {item.label}
+                  {navLabel(id)}
                 </a>
               </li>
             ))}
@@ -105,3 +113,4 @@ export function SiteHeader() {
     </header>
   )
 }
+

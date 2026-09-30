@@ -1,9 +1,13 @@
-import { CITIES } from '@/lib/content'
-import { NAV_ITEMS } from '@/lib/nav'
+import { CITIES_COUNT } from '@/lib/content'
+import { t } from '@/lib/i18n/dictionaries'
+import { LtrValue } from '@/lib/i18n/react'
+import { NAV_IDS, navHref } from '@/lib/nav'
 import { LEGAL, SITE } from '@/lib/site'
-import { WA, whatsappUrl } from '@/lib/whatsapp'
+import { whatsappUrl } from '@/lib/whatsapp'
 import { FacebookIcon, InstagramIcon, LinkedInIcon, TikTokIcon, WhatsAppIcon } from './icons'
 import { Logo } from './Logo'
+import type { Localized } from '@/lib/i18n/props'
+import { waMessage } from '@/lib/i18n/dictionaries'
 
 const SOCIALS = [
   { ...SITE.socials.tiktok, Icon: TikTokIcon },
@@ -14,27 +18,28 @@ const SOCIALS = [
 
 /**
  * Pied de page. Les liens vers la politique de confidentialité et les conditions d'utilisation
- * y sont toujours présents et visibles (exigence de conformité TikTok).
+ * y sont toujours présents et visibles (exigence de conformité TikTok) ; leurs adresses restent
+ * les pages publiées en français, leurs libellés sont traduits.
  */
-export function SiteFooter() {
+export function SiteFooter({ dict, locale }: Localized) {
+  const baseCity = dict.zones.cities[SITE.baseCity]
+
   return (
     <footer className="on-dark bg-ink text-paper">
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo tone="light" />
-          <p className="mt-4 max-w-sm text-sm leading-6 text-paper/75">{SITE.description}</p>
-          <p className="mt-3 text-sm text-paper/75">
-            Basés à {SITE.baseCity} · {CITIES.length} villes au Maroc
-          </p>
+          <p className="mt-4 max-w-sm text-sm leading-6 text-paper/75">{dict.structured.description}</p>
+          <p className="mt-3 text-sm text-paper/75">{t(dict.brand.cityLine, { ville: baseCity, villes: CITIES_COUNT })}</p>
         </div>
 
-        <nav aria-label="Plan du site">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-paper/60">Naviguer</h2>
+        <nav aria-label={dict.footer.navLabel}>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-paper/60">{dict.footer.navLabel}</h2>
           <ul className="mt-4 space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <a href={`#${item.id}`} className="inline-flex min-h-9 items-center text-sm font-medium text-paper/85 hover:text-amber hover:underline">
-                  {item.label}
+            {NAV_IDS.map((id) => (
+              <li key={id}>
+                <a href={navHref(id)} className="inline-flex min-h-9 items-center text-sm font-medium text-paper/85 hover:text-amber hover:underline">
+                  {dict.nav[id]}
                 </a>
               </li>
             ))}
@@ -42,33 +47,34 @@ export function SiteFooter() {
         </nav>
 
         <div>
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-paper/60">Contact</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-paper/60">{dict.footer.contactLabel}</h2>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a
-                href={whatsappUrl(WA.general)}
+                href={whatsappUrl(waMessage(dict, 'general'))}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={dict.common.whatsappAria}
                 className="inline-flex min-h-9 items-center gap-2 font-semibold text-paper hover:text-amber"
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                {SITE.phoneDisplay}
+                <LtrValue>{SITE.phoneDisplay}</LtrValue>
               </a>
             </li>
             <li>
               <a href={`mailto:${SITE.email}`} className="inline-flex min-h-9 items-center text-paper/85 hover:text-amber hover:underline">
-                {SITE.email}
+                <LtrValue>{SITE.email}</LtrValue>
               </a>
             </li>
           </ul>
           <ul className="mt-4 flex gap-3">
-            {SOCIALS.map(({ label, handle, url, Icon }) => (
-              <li key={label}>
+            {SOCIALS.map(({ id, label, handle, url, Icon }) => (
+              <li key={id}>
                 <a
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${label} : ${handle}`}
+                  aria-label={t(dict.footer.followAria, { label, identifiant: handle })}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-paper hover:border-amber hover:text-amber"
                 >
                   <Icon className="h-[1.05rem] w-[1.05rem]" />
@@ -81,18 +87,16 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col gap-3 py-6 text-sm text-paper/75 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {SITE.name} · {SITE.baseCity}, Maroc
-          </p>
+          <p>{t(dict.footer.copyright, { annee: new Date().getFullYear(), marque: dict.brand.name, ville: baseCity })}</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
             <li>
               <a href={LEGAL.privacy.href} className="inline-flex min-h-9 items-center font-medium text-paper underline-offset-4 hover:underline">
-                {LEGAL.privacy.label}
+                {dict.legal.privacy}
               </a>
             </li>
             <li>
               <a href={LEGAL.terms.href} className="inline-flex min-h-9 items-center font-medium text-paper underline-offset-4 hover:underline">
-                {LEGAL.terms.label}
+                {dict.legal.terms}
               </a>
             </li>
           </ul>

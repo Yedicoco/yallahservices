@@ -1,34 +1,35 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { B2B_NEEDS, B2C_SERVICES, CITIES } from '@/lib/content'
+import { B2B_NEED_IDS, B2C_SERVICE_IDS, CITY_IDS } from '@/lib/content'
+import { t } from '@/lib/i18n/dictionaries'
 import { LEGAL } from '@/lib/site'
 import { whatsappUrl } from '@/lib/whatsapp'
 import { TikTokIcon, WhatsAppIcon } from './icons'
+import type { Dictionary } from '@/lib/i18n/dictionaries'
 
 type Segment = 'particulier' | 'entreprise'
 type Visitor = { display_name: string; avatar_url?: string }
 type Notice = { tone: 'ok' | 'info'; text: string }
 
-const NOTICES: Record<string, Notice> = {
-  connected: { tone: 'ok', text: 'Connexion TikTok réussie : votre nom de profil sera mentionné dans votre message.' },
-  denied: { tone: 'info', text: 'Connexion TikTok annulée. Vous pouvez continuer sans TikTok.' },
-  error: { tone: 'info', text: 'La connexion TikTok n’a pas abouti. Vous pouvez réessayer, ou continuer sans TikTok.' },
-  unavailable: { tone: 'info', text: 'La connexion TikTok n’est pas disponible pour le moment. Vous pouvez continuer sans TikTok.' },
-}
-
 const FIELD = 'mt-1.5 block w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-stone/70'
 
-function buildMessage(input: { segment: Segment; need: string; city: string; district: string; details: string; name?: string }): string {
-  const lines = ['Bonjour Yallah Services,']
-  if (input.name) lines.push(`Je m’appelle ${input.name} (profil TikTok).`)
-  const who = input.segment === 'particulier' ? 'Je suis un particulier' : 'Je représente une entreprise'
-  lines.push(`${who} et je recherche : ${input.need || '…'}.`)
-  const where = [input.city, input.district.trim()].filter(Boolean).join(', ')
-  lines.push(`Ville / quartier : ${where || '…'}.`)
-  if (input.details.trim()) lines.push(input.details.trim())
-  lines.push('Merci de me recontacter.')
-  return lines.join('\n')
+/**
+ * Message WhatsApp composé à partir des modèles traduits (`dict.form.message`) : la demande ouverte
+ * dans WhatsApp est donc écrite dans la langue que le visiteur est en train de lire.
+ * Les lignes sont dans l'ordre du dictionnaire ; la ligne nominative saute si TikTok n'est pas connecté.
+ */
+function composeMessage(
+  lines: readonly string[],
+  values: { prenom: string; qui: string; besoin: string; ville: string },
+): string {
+  const [greeting, nameLine, needLine, cityLine, closing] = lines
+  const out = [greeting]
+  if (values.prenom) out.push(t(nameLine, values))
+  out.push(t(needLine, values))
+  out.push(t(cityLine, { ...values, ville: values.ville || '…' }))
+  if (closing) out.push(closing)
+  return out.filter(Boolean).join('\n')
 }
 
 /**
@@ -37,8 +38,11 @@ function buildMessage(input: { segment: Segment; need: string; city: string; dis
  *
  * Connexion TikTok (Login Kit, facultative) : lit uniquement le nom de profil public, pour
  * personnaliser le message. Aucun accès au compte n'est conservé.
+ *
+ * Les libellés sont dans la langue du visiteur, les données (ville, service choisi) sont transmises
+ * au WhatsApp de l'équipe telles que le visiteur les lit — un seul texte à traduire, le message lui-même.
  */
-export function LeadForm() {
+export function LeadForm({ dict }: { dict: Dictionary }) {
   const formRef = useRef<HTMLFormElement>(null)
   const [segment, setSegment] = useState<Segment>('particulier')
   const [need, setNeed] = useState('')
@@ -48,6 +52,16 @@ export function LeadForm() {
   const [visitor, setVisitor] = useState<Visitor | null>(null)
   const [notice, setNotice] = useState<Notice | null>(null)
   const [avatarFailed, setAvatarFailed] = useState(false)
+
+  const NOTICES: Record<string, Notice> = useMemo(
+    () => ({
+      connected: { tone: 'ok', text: dict.form.notices.connected },
+      denied: { tone: 'info', text: dict.form.notices.denied },
+      error: { tone: 'info', text: dict.form.notices.error },
+      unavailable: { tone: 'info', text: dict.form.notices.unavailable },
+    }),
+    [dict],
+  )
 
   useEffect(() => {
     // Résultat du retour TikTok (?tiktok=…) : on l'annonce puis on nettoie l'adresse.
@@ -64,10 +78,32 @@ export function LeadForm() {
         if (data?.connected && data.profile) setVisitor(data.profile)
       })
       .catch(() => undefined)
+    // Le nettoyage d'URL et la lecture de session ne se font qu'une fois ; les libellés de notification
+    // sont lus au moment du `setNotice` (d'où `NOTICES` volontairement absent des dépendances).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const needs = useMemo<readonly string[]>(() => (segment === 'particulier' ? B2C_SERVICES.map((service) => service.title) : B2B_NEEDS), [segment])
-  const message = buildMessage({ segment, need, city, district, details, name: visitor?.display_name })
+  // Besoins proposés : libellés traduits, valeur = libellé traduit (c'est ce que l'équipe lira dans WhatsApp).
+  const needs = useMemo<readonly { id: string; label: string }[]>(
+    () =>
+      segment === 'particulier'
+        ? B2C_SERVICE_IDS.map((id) => ({ id, label: dict.b2c.services[id].title }))
+        : B2B_NEED_IDS.map((id) => ({ id, label: dict.form.b2bNeeds[id] })), 
+    [segment, dict],
+  )
+
+  const cityOptions = useMemo(() => CITY_IDS.map((id) => ({ id, label: dict.zones.cities[id] })), [dict])
+
+  const message = useMemo(
+    () =>
+      composeMessage(dict.form.message, {
+        prenom: visitor?.display_name ?? '',
+        qui: segment === 'particulier' ? dict.form.segments.particulier : dict.form.segments.entreprise,
+        besoin: need || '…',
+        ville: [city, district.trim()].filter(Boolean).join(', '),
+      }) + (details.trim() ? `\n${details.trim()}` : ''),
+    [dict, visitor, segment, need, city, district, details],
+  )
 
   async function logout() {
     await fetch('/api/tiktok/auth/logout', { method: 'POST' }).catch(() => undefined)
@@ -77,11 +113,8 @@ export function LeadForm() {
 
   return (
     <div className="rounded-[2rem] border border-line bg-white p-6 shadow-sm sm:p-8">
-      <h3 className="font-serif text-2xl leading-tight">Décrivez votre besoin</h3>
-      <p className="mt-2 text-sm leading-6 text-stone">
-        Quelques précisions nous permettent de mieux vous répondre. Votre message s’ouvre ensuite dans WhatsApp, vous pouvez le modifier avant de
-        l’envoyer.
-      </p>
+      <h3 className="font-serif text-2xl leading-tight">{dict.form.title}</h3>
+      <p className="mt-2 text-sm leading-6 text-stone">{dict.form.intro}</p>
 
       {/* Connexion TikTok : facultative */}
       <div className="mt-5 rounded-2xl bg-mist p-4">
@@ -97,13 +130,16 @@ export function LeadForm() {
                 </span>
               )}
               <p className="text-sm leading-5">
-                Connecté(e) avec TikTok
+                {dict.form.tiktokConnected}
                 <br />
-                <strong className="text-base">{visitor.display_name}</strong>
+                {/* Un nom de profil TikTok est une donnée tierce, non traduite : on la marque dans son écriture. */}
+                <strong className="text-base" lang="en" dir="ltr">
+                  {visitor.display_name}
+                </strong>
               </p>
             </div>
             <button type="button" onClick={logout} className="btn btn-outline btn-sm">
-              Se déconnecter
+              {dict.form.logout}
             </button>
           </div>
         ) : (
@@ -111,13 +147,13 @@ export function LeadForm() {
             <a href="/api/tiktok/auth" className="btn btn-ink w-full">
               <TikTokIcon className="h-[1.05rem] w-[1.05rem]" />
               <span>
-                Continuer avec TikTok <span className="font-normal opacity-80">(facultatif)</span>
+                {dict.form.tiktokContinue} <span className="font-normal opacity-80">{dict.form.optional}</span>
               </span>
             </a>
             <p className="mt-3 text-xs leading-5 text-stone">
-              Nous lisons uniquement votre nom de profil public, pour personnaliser votre message. Aucun accès à votre compte n’est conservé.{' '}
+              {dict.form.tiktokConnectedInfo}{' '}
               <a href={LEGAL.privacy.href} className="font-semibold underline underline-offset-2">
-                En savoir plus
+                {dict.form.learnMore}
               </a>
               .
             </p>
@@ -132,12 +168,12 @@ export function LeadForm() {
 
       <form ref={formRef} onSubmit={(event) => event.preventDefault()} className="mt-5 space-y-4" noValidate={false}>
         <fieldset>
-          <legend className="text-sm font-semibold">Vous êtes</legend>
+          <legend className="text-sm font-semibold">{dict.form.segmentLegend}</legend>
           <div className="mt-1.5 grid grid-cols-2 gap-2 rounded-full bg-mist p-1">
             {(
               [
-                ['particulier', 'Un particulier'],
-                ['entreprise', 'Une entreprise'],
+                ['particulier', dict.form.segments.particulier],
+                ['entreprise', dict.form.segments.entreprise],
               ] as const
             ).map(([value, label]) => (
               <label key={value} className="relative">
@@ -162,15 +198,15 @@ export function LeadForm() {
 
         <div>
           <label htmlFor="besoin" className="text-sm font-semibold">
-            {segment === 'particulier' ? 'Service recherché' : 'Besoin'}
+            {segment === 'particulier' ? dict.form.serviceLabel : dict.form.needLabel}
           </label>
           <select id="besoin" required value={need} onChange={(event) => setNeed(event.target.value)} className={FIELD}>
             <option value="" disabled>
-              Choisissez…
+              {dict.form.placeholderChoose}
             </option>
             {needs.map((item) => (
-              <option key={item} value={item}>
-                {item}
+              <option key={item.id} value={item.label}>
+                {item.label}
               </option>
             ))}
           </select>
@@ -179,23 +215,23 @@ export function LeadForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="ville" className="text-sm font-semibold">
-              Ville
+              {dict.form.cityLabel}
             </label>
             <select id="ville" required value={city} onChange={(event) => setCity(event.target.value)} className={FIELD}>
               <option value="" disabled>
-                Choisissez…
+                {dict.form.placeholderChoose}
               </option>
-              {CITIES.map((item) => (
-                <option key={item} value={item}>
-                  {item}
+              {cityOptions.map((item) => (
+                <option key={item.id} value={item.label}>
+                  {item.label}
                 </option>
               ))}
-              <option value="Autre ville">Autre ville</option>
+              <option value={dict.form.otherCity}>{dict.form.otherCity}</option>
             </select>
           </div>
           <div>
             <label htmlFor="quartier" className="text-sm font-semibold">
-              Quartier <span className="font-normal text-stone">(facultatif)</span>
+              {dict.form.districtLabel} <span className="font-normal text-stone">{dict.form.optional}</span>
             </label>
             <input
               id="quartier"
@@ -203,7 +239,7 @@ export function LeadForm() {
               value={district}
               maxLength={60}
               onChange={(event) => setDistrict(event.target.value)}
-              placeholder="Ex. Aïn Diab"
+              placeholder={dict.form.districtPlaceholder}
               autoComplete="off"
               className={FIELD}
             />
@@ -212,7 +248,7 @@ export function LeadForm() {
 
         <div>
           <label htmlFor="precisions" className="text-sm font-semibold">
-            Précisions <span className="font-normal text-stone">(facultatif)</span>
+            {dict.form.detailsLabel} <span className="font-normal text-stone">{dict.form.optional}</span>
           </label>
           <textarea
             id="precisions"
@@ -220,14 +256,17 @@ export function LeadForm() {
             maxLength={500}
             value={details}
             onChange={(event) => setDetails(event.target.value)}
-            placeholder="Horaires, fréquence, situation particulière…"
+            placeholder={dict.form.detailsPlaceholder}
             className={FIELD}
           />
         </div>
 
         <div>
-          <p className="text-sm font-semibold">Aperçu de votre message</p>
-          <pre className="mt-1.5 whitespace-pre-wrap rounded-xl bg-mist p-4 font-sans text-sm leading-6 text-ink/90">{message}</pre>
+          <p className="text-sm font-semibold">{dict.form.previewLabel}</p>
+          {/* Le message garde le sens de lecture de la langue choisie, même si le visiteur saisit du latin. */}
+          <pre dir="auto" className="mt-1.5 whitespace-pre-wrap rounded-xl bg-mist p-4 font-sans text-sm leading-6 text-ink/90">
+            {message}
+          </pre>
         </div>
 
         <a
@@ -244,9 +283,9 @@ export function LeadForm() {
           className="btn btn-wa w-full"
         >
           <WhatsAppIcon className="h-[1.15rem] w-[1.15rem]" />
-          Envoyer ma demande sur WhatsApp
+          {dict.form.submit}
         </a>
-        <p className="text-center text-xs leading-5 text-stone">Tarifs et disponibilités confirmés directement lors de l’échange.</p>
+        <p className="text-center text-xs leading-5 text-stone">{dict.form.footnote}</p>
       </form>
     </div>
   )

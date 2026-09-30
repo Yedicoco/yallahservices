@@ -3,8 +3,21 @@
 /**
  * Lecteur vidéo vertical (9:16), léger pour le mobile : rien n'est téléchargé avant l'appui sur
  * lecture (preload="none" + image de couverture). Une seule vidéo joue à la fois.
+ * Les deux textes affichés (refus de lecture, téléchargement) sont passés traduits par l'appelant.
  */
-export function VideoPlayer({ src, poster, title }: { src: string; poster: string; title: string }) {
+export function VideoPlayer({
+  src,
+  poster,
+  title,
+  unsupportedText,
+  downloadText,
+}: {
+  src: string
+  poster: string
+  title: string
+  unsupportedText: string
+  downloadText: string
+}) {
   return (
     <video
       className="aspect-[9/16] w-full rounded-2xl bg-black object-cover"
@@ -20,7 +33,7 @@ export function VideoPlayer({ src, poster, title }: { src: string; poster: strin
       }}
     >
       <source src={src} type="video/mp4" />
-      Votre navigateur ne peut pas lire cette vidéo. <a href={src}>Télécharger la vidéo</a>.
+      {unsupportedText} <a href={src}>{downloadText}</a>.
     </video>
   )
 }
