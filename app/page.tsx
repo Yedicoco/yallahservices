@@ -133,7 +133,13 @@ export default function Page() {
             <div className="flex items-center gap-3">
               {searchOpen && <input autoFocus placeholder="Search yallah" className="w-36 border-b border-[#171717] bg-transparent py-1 text-sm outline-none sm:w-48" />}
               <button aria-label="Search" onClick={() => setSearchOpen(!searchOpen)} className="rounded-full p-2 transition-colors hover:bg-[#e9e2d8]"><Search size={19} /></button>
-              <button className="hidden rounded-full border border-[#cfc8bc] px-4 py-2 text-xs font-bold sm:block">Log in</button>
+              <a
+                href="/api/tiktok/connect"
+                className="hidden items-center gap-2 rounded-full border border-[#171717] px-4 py-2 text-xs font-bold transition-colors hover:bg-[#171717] hover:text-white sm:flex"
+              >
+                <Music2 size={14} aria-hidden="true" />
+                Se connecter à TikTok
+              </a>
               <button className="rounded-full bg-[#fa5b48] px-4 py-2 text-xs font-bold text-white transition-transform hover:-translate-y-0.5">Sign up</button>
             </div>
           </header>
