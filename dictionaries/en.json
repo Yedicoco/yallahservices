@@ -60,9 +60,11 @@
     "accueil": "Home",
     "particuliers": "Home Services",
     "entreprises": "Business Services",
-    "tarifs": "Pricing & Rates",
+    "tarifs": "Packs & Pricing",
+    "garantie": "Follow-up & Guarantee",
     "zones": "Service Areas",
     "videos": "Videos",
+    "faq": "FAQ",
     "contact": "Contact"
   },
   "hero": {
@@ -75,7 +77,7 @@
     "ctaEntreprise": "I represent a company",
     "ctaDevis": "Request a free quote",
     "ctaDevisAria": "Request a free quote for my services",
-    "responseNote": "Reply on WhatsApp · Rates and availability confirmed during the conversation.",
+    "responseNote": "Reply on WhatsApp within 2h · Firm pack pricing and agency fee payable only after profile validation.",
     "imageAlt": "Illustration: service professionals in Morocco, at home and in business — household staff, hotel worker, cook and business owner.",
     "chatPreviewHeader": "Yallah Services",
     "chatPreviewMessage": "Hello Yallah Services, I'd like to discuss my need.",
@@ -106,9 +108,9 @@
     "items": [
       {
         "id": "villes",
-        "value": "+10",
+        "value": "11",
         "label": "Cities covered",
-        "detail": "Casablanca, Rabat, Marrakech, and more"
+        "detail": "Casablanca, Rabat, Marrakech, Fez, Tangier…"
       },
       {
         "id": "profils",
@@ -133,7 +135,7 @@
   "b2c": {
     "eyebrow": "Home Services (B2C)",
     "title": "Home services designed around your daily life.",
-    "intro": "Cleaning, children, elderly relatives, meals, the house: tell us what you need and we present a profile suited to your household.",
+    "intro": "Cleaning, children, elderly relatives, meals, the house: tell us what you need and we present a profile suited to your household (live-in or live-out).",
     "askLabel": "Request this service",
     "services": {
       "menage": {
@@ -191,6 +193,27 @@
           "Apartments, residences and Airbnb",
           "One-off or regular"
         ]
+      }
+    },
+    "accommodation": {
+      "heading": "Available attendance options",
+      "logeeBadge": "Live-in (Logée)",
+      "logeeSchedule": "24/7 · 1 weekly day off",
+      "nonLogeeBadge": "Live-out (Non logée)",
+      "nonLogeeSchedule": "Daytime hours · Working days",
+      "services": {
+        "menage": {
+          "logeeDetail": "24/7 live-in presence at home with 1 weekly day off [À CONFIRMER : standard rest day].",
+          "nonLogeeDetail": "Daytime schedule (standard hours [À CONFIRMER : e.g. 08:30–17:30]) on working days [À CONFIRMER : 5 or 6 days/week]."
+        },
+        "garde-enfants": {
+          "logeeDetail": "24/7 live-in nanny caring for your children with 1 weekly day off [À CONFIRMER : standard rest day].",
+          "nonLogeeDetail": "Daytime live-out nanny (standard hours [À CONFIRMER : e.g. 08:00–18:00]) on working days [À CONFIRMER : 5 or 6 days/week]."
+        },
+        "cuisine": {
+          "logeeDetail": "24/7 live-in cook preparing daily household meals with 1 weekly day off [À CONFIRMER : standard rest day].",
+          "nonLogeeDetail": "Daytime live-out cook (standard hours [À CONFIRMER : e.g. 09:00–17:00]) on working days [À CONFIRMER : 5 or 6 days/week]."
+        }
       }
     },
     "banners": {
@@ -302,18 +325,111 @@
         "description": "Introduction, then support: we stay available for what comes next."
       }
     ],
-    "noteStrong": "Rates and availability are confirmed directly during the conversation",
-    "noteRest": ", based on your city, your schedule and the level of responsibility expected."
+    "noteStrong": "Firm pack rates and a written placement contract",
+    "noteRest": ": our grid clearly separates live-in and live-out options, and agency fees are only paid after you validate the selected profile."
   },
   "pricing": {
-    "eyebrow": "Pricing & Rates",
-    "title": "Clear landmarks to prepare your request.",
-    "intro": "Here is the rate card for our main home services. It gives an order of magnitude; the rate for your situation is confirmed directly during the conversation. Indicative amounts in Moroccan dirhams (MAD / DH).",
-    "disclaimer": "Rates are indicative and vary with the city, duration, schedule and level of responsibility.",
-    "captionSr": "Rate card for home services. ",
-    "colService": "Service",
-    "colPrice": "Indicative rate (DH)",
+    "eyebrow": "Firm Pack Pricing",
+    "title": "Household Packs & Business Offers.",
+    "intro": "Each need matches a named pack with a clear service scope, explicit choice between Live-in (24/7, 1 weekly day off) and Live-out (daytime hours, working days), and a transparent salary grid in DH/month or DH/week.",
+    "disclaimer": "Firm pack schedule (in Moroccan dirhams — DH/month or DH/week). Every placement is covered by a written contract and no agency fee is charged before you validate the profile.",
+    "captionSr": "Firm pricing schedule for household packs. ",
+    "colService": "Pack & service scope",
+    "colPrice": "Firm rate (DH)",
+    "colComposition": "Service scope",
+    "colMode": "Live-in / Live-out",
+    "colPriceLogee": "Live-in salary (DH/month)",
+    "colPriceNonLogee": "Live-out salary (DH/month or wk)",
+    "logeeLabel": "Live-in · 24/7 (1 day off/wk)",
+    "nonLogeeLabel": "Live-out · Daytime hours (working days)",
     "currency": "DH",
+    "b2cBadge": "Households (B2C)",
+    "b2cTitle": "Home & Family Packs — Live-in and Live-out Grids",
+    "b2cSubtitle": "Select your pack according to your home configuration and preferred attendance mode (live-in at home or live-out during daytime hours).",
+    "agencyFeeTitle": "Agency placement fee (Households)",
+    "agencyFeeNote": "Payable exclusively after validation of the selected profile and signature of the placement contract — never in advance.",
+    "packs": {
+      "menage-villa": {
+        "name": "Villa Cleaning Pack",
+        "composition": "Complete villa upkeep, daily cleaning of living spaces, laundry care and ironing."
+      },
+      "menage-mini-villa": {
+        "name": "Mini-Villa Cleaning Pack",
+        "composition": "Regular mini-villa upkeep, room cleaning, dusting, floor washing and ironing."
+      },
+      "menage-appartement": {
+        "name": "Apartment Cleaning Pack",
+        "composition": "Daily or regular apartment upkeep, tidying, surface cleaning and ironing."
+      },
+      "nounou-1": {
+        "name": "1-Child Nanny Pack",
+        "composition": "Dedicated care for one child: safety, early learning, meals, hygiene and daily routine."
+      },
+      "nounou-1-menage": {
+        "name": "1-Child Nanny + Cleaning Pack",
+        "composition": "Care for one child combined with routine household upkeep and ironing."
+      },
+      "nounou-2-menage": {
+        "name": "2-Children Nanny + Cleaning Pack",
+        "composition": "Attentive care for 2 children, daily routine follow-up and household cleaning."
+      },
+      "nounou-3": {
+        "name": "3-Children Nanny Pack",
+        "composition": "Dedicated care for 3 children: daily schedule, meals, activities and outings."
+      },
+      "nounou-3-menage": {
+        "name": "3-Children Nanny + Cleaning Pack",
+        "composition": "Care for 3 children combined with full daily household upkeep."
+      },
+      "cuisine-simple": {
+        "name": "Home Cooking Pack",
+        "composition": "Daily preparation of meals (Moroccan and family cuisine) and spotless kitchen upkeep."
+      },
+      "cuisine-menage": {
+        "name": "Cooking & Cleaning Pack",
+        "composition": "Complete meal preparation for the household combined with full home cleaning."
+      },
+      "cuisine-aide": {
+        "name": "Kitchen Helper Pack",
+        "composition": "Ingredient preparation, kitchen assistance, table service and tidying up."
+      },
+      "cuisine-aide-menage": {
+        "name": "Kitchen Helper & Cleaning Pack",
+        "composition": "Daily kitchen assistance combined with regular cleaning of living areas."
+      },
+      "garde-malade-simple": {
+        "name": "Patient & Elderly Care Pack",
+        "composition": "Caring presence for an elderly or vulnerable person, daily assistance and companionship."
+      },
+      "garde-malade-menage": {
+        "name": "Patient Care & Cleaning Pack",
+        "composition": "Daily patient or elderly care combined with routine upkeep of the home."
+      }
+    },
+    "b2bBadge": "Businesses (B2B)",
+    "b2bTitle": "Business Offers & Packs",
+    "b2bSubtitle": "Dedicated formulas for professionals (hotels, riads, restaurants, construction sites, shops and events), separate from household packs.",
+    "b2bColPack": "Business Offer",
+    "b2bColMode": "Attendance mode",
+    "b2bColPrice": "Firm B2B rate",
+    "b2bCta": "Request a Business pack",
+    "b2bPacks": {
+      "b2b-permanent": {
+        "name": "B2B Permanent Placement Pack",
+        "composition": "Long-term recruitment and placement of qualified staff for hotels, riads, restaurants, clinics and shops.",
+        "mode": "Live-out (business hours) or On-site live-in"
+      },
+      "b2b-temporaire": {
+        "name": "B2B Seasonal & Temporary Pack",
+        "composition": "Verified staff for peak tourist season, leave replacement or activity spikes.",
+        "mode": "Live-out or Live-in depending on venue"
+      },
+      "b2b-journalier": {
+        "name": "B2B Weekly & Event Reinforcement Pack",
+        "composition": "Operational teams for construction sites, corporate events, trade shows and deep resets.",
+        "mode": "Live-out · Defined shift hours per mission"
+      }
+    },
     "groupsOrder": [
       "menage",
       "nounou",
@@ -321,29 +437,99 @@
       "garde-malade"
     ],
     "groupTitles": {
-      "menage": "Cleaning",
-      "nounou": "Nanny (childcare)",
-      "cuisine": "Cooking",
-      "garde-malade": "Patient care"
+      "menage": "Home Cleaning Packs",
+      "nounou": "Nanny & Childcare Packs",
+      "cuisine": "Home Cooking Packs",
+      "garde-malade": "Patient & Elderly Care Packs"
     },
     "rows": {
-      "menage-villa": "Standard cleaning in a villa",
-      "menage-mini-villa": "Standard cleaning in a mini villa",
-      "menage-appartement": "Cleaning in an apartment",
-      "nounou-1": "Nanny for one child",
-      "nounou-1-menage": "Nanny for one child + cleaning",
-      "nounou-2-menage": "Nanny for 2 children with cleaning",
-      "nounou-3": "Nanny for 3 children",
-      "nounou-3-menage": "Nanny for 3 children + cleaning",
-      "cuisine-simple": "Simple cooking",
-      "cuisine-menage": "Cooking / cleaning",
-      "cuisine-aide": "Kitchen helper",
-      "cuisine-aide-menage": "Kitchen helper / cleaning",
-      "garde-malade-simple": "Simple patient care",
-      "garde-malade-menage": "Patient care and cleaning"
+      "menage-villa": "Villa Cleaning Pack",
+      "menage-mini-villa": "Mini-Villa Cleaning Pack",
+      "menage-appartement": "Apartment Cleaning Pack",
+      "nounou-1": "1-Child Nanny Pack",
+      "nounou-1-menage": "1-Child Nanny + Cleaning Pack",
+      "nounou-2-menage": "2-Children Nanny + Cleaning Pack",
+      "nounou-3": "3-Children Nanny Pack",
+      "nounou-3-menage": "3-Children Nanny + Cleaning Pack",
+      "cuisine-simple": "Home Cooking Pack",
+      "cuisine-menage": "Cooking & Cleaning Pack",
+      "cuisine-aide": "Kitchen Helper Pack",
+      "cuisine-aide-menage": "Kitchen Helper & Cleaning Pack",
+      "garde-malade-simple": "Patient & Elderly Care Pack",
+      "garde-malade-menage": "Patient Care & Cleaning Pack"
     },
-    "footnote": "Duration, schedule and terms are settled during the conversation. No commitment: we honestly guide you towards the profile that matches your need.",
-    "cta": "Get a tailored estimate"
+    "footnote": "Pack amounts and attendance terms (24/7 live-in or daytime live-out) are stated in the written placement contract signed with the agency.",
+    "cta": "Select my pack on WhatsApp"
+  },
+  "guarantee": {
+    "eyebrow": "Follow-up & Guarantee (optional)",
+    "title": "Two follow-up and replacement formulas to hire with complete peace of mind.",
+    "intro": "In addition to our rigorous screening, you can subscribe to a paid follow-up and guarantee option providing free replacement in case of mismatch during the covered period.",
+    "recommendedBadge": "Maximum peace of mind",
+    "priceLabel": "Option price",
+    "durationLabel": "Free replacement period",
+    "followUpLabel": "Follow-up level",
+    "contractNote": "Every subscribed formula is explicitly written into your Yallah Services placement contract. Payment only takes place after you validate the selected profile.",
+    "cta": "Add this guarantee to my request",
+    "formulas": {
+      "essentielle": {
+        "name": "Essential Guarantee Formula",
+        "summary": "An ideal safety net to support the first weeks of integration within your household.",
+        "bullets": [
+          "WhatsApp follow-up check-in after starting at your home",
+          "Free replacement during the covered period if the profile does not fit",
+          "Guidance on setting schedules and daily duties"
+        ]
+      },
+      "serenite": {
+        "name": "Serenity Guarantee Formula",
+        "summary": "Extended support with dedicated follow-up and priority replacement for seamless continuity.",
+        "bullets": [
+          "Regular dedicated follow-up with a Yallah Services advisor on WhatsApp",
+          "Extended free replacement period in case of dissatisfaction or unforeseen change",
+          "Priority handling of your file for any new shortlist"
+        ]
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "Frequently Asked Questions (FAQ)",
+    "title": "Everything you need to know before entrusting your search to Yallah Services.",
+    "intro": "Clear answers on our timeframes, replacement policy, placement contract and payment after validation.",
+    "ctaTitle": "Another question about your situation?",
+    "ctaText": "Our Casablanca-based team replies directly on WhatsApp within 2 hours, 7 days a week.",
+    "ctaButton": "Ask my question on WhatsApp",
+    "items": {
+      "delai-profil": {
+        "question": "How long does it take to receive a profile?",
+        "answer": "As soon as we receive your request on WhatsApp, our team replies within 2 hours (7 days a week) to confirm the details of your need (chosen pack, live-in or live-out option, schedule, city). We then present verified, available profiles within an average of less than 24 hours."
+      },
+      "politique-remplacement": {
+        "question": "What is your replacement policy in case of dissatisfaction?",
+        "answer": "If, despite our screening, the selected person does not adapt to your household routine or job requirements, we arrange a replacement under the “Follow-up & Guarantee” formula chosen at placement ([À CONFIRMER : guarantee duration under Essential or Serenity formula]), with no additional search fees during the covered period."
+      },
+      "paiement-apres-validation": {
+        "question": "When are the agency fees paid?",
+        "answer": "No payment is ever requested in advance. Reviewing your need and presenting profiles is free of commitment. Agency placement fees are paid exclusively after you have validated the selected profile, never before."
+      },
+      "contrat-placement": {
+        "question": "Is there a placement contract between the agency and the client?",
+        "answer": "Yes. Every validated placement is formalized by a written placement contract signed between Yallah Services and the client (household or company). It specifies the chosen pack, attendance mode (live-in or live-out), agreed salary, schedule and the subscribed follow-up and guarantee terms."
+      },
+      "langues-parlees": {
+        "question": "What languages are spoken by the proposed staff?",
+        "answer": "Depending on the profile and position, shortlisted candidates speak Moroccan Arabic (Darija), French and/or English. During our initial chat on WhatsApp, simply tell us your preferred everyday language so we can present profiles who communicate comfortably with your household."
+      },
+      "zones-couvertes": {
+        "question": "Which areas and cities are covered in Morocco?",
+        "answer": "Based in Casablanca, Yallah Services operates across 11 cities in Morocco: Casablanca, Rabat, Marrakech, Fez, Tangier, Agadir, Meknes, Oujda, Kenitra, Sale and Tetouan, as well as their residential neighbourhoods and surrounding towns (Bouskoura, Anfa, Souissi, Hay Riad, Hivernage, Palmeraie…)."
+      }
+    }
+  },
+  "employerFilter": {
+    "badge": "Reserved for households & companies looking to hire",
+    "formBanner": "This channel is exclusively reserved for private households and businesses looking to recruit staff. Job applications are not processed through this form.",
+    "footerNotice": "Website exclusively reserved for households and businesses looking to recruit staff — job applications are not processed through this channel."
   },
   "zones": {
     "eyebrow": "Service areas",
@@ -357,10 +543,11 @@
       "fes": "Fez",
       "tanger": "Tanger",
       "agadir": "Agadir",
+      "meknes": "Meknès",
+      "oujda": "Oujda",
       "kenitra": "Kénitra",
-      "mohammedia": "Mohammedia",
-      "temara": "Témara",
-      "sale": "Salé"
+      "sale": "Salé",
+      "tetouan": "Tétouan"
     },
     "areasHeading": "Priority neighbourhoods and areas",
     "zones": [
@@ -440,7 +627,7 @@
     },
     "commitments": [
       "Never a candidate or client name or face",
-      "No fixed rates: rates and availability are confirmed during the conversation",
+      "Strict confidentiality for households and candidates",
       "Always a direct line to WhatsApp"
     ]
   },
@@ -476,13 +663,13 @@
   "contact": {
     "eyebrow": "Contact",
     "title": "Let's talk about your need.",
-    "intro": "The simplest way: write to us on WhatsApp. We reply, ask the right questions, then present the right profile.",
+    "intro": "The simplest way: write to us on WhatsApp or complete the form to generate your file reference. We reply within 2h and present the right profile.",
     "chatLabel": "Example conversation",
     "chatBrand": "Yallah Services",
     "chatToday": "Today",
     "chatVisitor": "Hello Yallah Services, I'd like to discuss my need. I am looking for a nanny in Casablanca.",
-    "chatCompany1": "Hello 👋 Thank you for your message. Could you specify your schedule and the frequency you want?",
-    "chatCompany2": "Perfect. We come back to you within 24h with verified profiles, suited to your need.",
+    "chatCompany1": "Hello 👋 Thank you for your message. Would you like a live-in (24/7) or daytime live-out option?",
+    "chatCompany2": "Perfect. We come back to you within 24h with verified profiles matching your pack.",
     "chatInputPlaceholder": "Message",
     "chatDisclaimer": "Example conversation. Your message then opens in WhatsApp: you can edit it before sending.",
     "whatsappChannelLabel": "WhatsApp, priority channel",
@@ -496,7 +683,7 @@
   },
   "form": {
     "title": "Describe your need",
-    "intro": "A few details help us answer you better. Your message then opens in WhatsApp — you can edit it before sending.",
+    "intro": "Submit this form to get your file number (YAL-XXXXXX) and open your pre-filled request directly in WhatsApp.",
     "tiktokConnected": "Signed in with TikTok",
     "tiktokConnectedInfo": "Your profile name will be mentioned in your message.",
     "tiktokContinue": "Continue with TikTok",
@@ -513,15 +700,21 @@
       "particulier": "An individual",
       "entreprise": "A company"
     },
-    "serviceLabel": "Service needed",
+    "serviceLabel": "Service / Pack needed",
     "needLabel": "Need",
+    "accommodationLabel": "Preferred attendance mode (Live-in / Live-out)",
+    "accommodationOptions": {
+      "logee": "Live-in option (24/7 · 1 weekly day off)",
+      "nonLogee": "Live-out option (daytime hours · working days)",
+      "aDefinir": "To be defined with advisor (Live-in or Live-out)"
+    },
     "placeholderChoose": "Choose…",
     "otherCity": "Another city",
     "cityLabel": "City",
     "districtLabel": "Neighbourhood",
     "districtPlaceholder": "e.g. Aïn Diab",
     "detailsLabel": "Details",
-    "detailsPlaceholder": "Schedule, frequency, special situation…",
+    "detailsPlaceholder": "Preferred hours, household details, guarantee option…",
     "b2bNeeds": {
       "hotel": "Staff for a hotel",
       "riad": "Staff for a riad",
@@ -534,8 +727,8 @@
       "autre": "Another need"
     },
     "previewLabel": "Your message preview",
-    "submit": "Send my request on WhatsApp",
-    "footnote": "Rates and availability are confirmed directly during the conversation.",
+    "submit": "Validate my request & get my file number",
+    "footnote": "No payment before validating the selected profile · Written placement contract.",
     "logout": "Sign out",
     "message": [
       "Hello Yallah Services,",
@@ -543,14 +736,36 @@
       "{qui} and I am looking for: {besoin}.",
       "City / neighbourhood: {ville}.",
       "Please get back to me."
-    ]
+    ],
+    "confirmation": {
+      "badge": "Request ready to send",
+      "title": "Your search file has been created",
+      "subtitle": "Keep your reference number below and click the WhatsApp button to send your summary directly to our team.",
+      "dossierLabel": "File number",
+      "summaryTitle": "Summary of your request",
+      "summarySegment": "Client type",
+      "summaryNeed": "Service / need",
+      "summaryAccommodation": "Chosen mode",
+      "summaryLocation": "City / neighbourhood",
+      "summaryDetails": "Additional details",
+      "stepsTitle": "Next steps",
+      "steps": [
+        "Click the button below to open the pre-filled WhatsApp conversation with your file number.",
+        "A Yallah Services advisor replies within 2h (7 days a week) to confirm the pack, Live-in/Live-out option and schedule.",
+        "You receive within 24h a shortlist of verified profiles matching your request.",
+        "After you validate the selected profile, we sign the placement contract and start (no agency fee is ever paid before validation)."
+      ],
+      "whatsappCta": "Open WhatsApp with my file {dossier}",
+      "editButton": "Edit my information"
+    }
   },
   "wa": {
     "hello": "Hello Yallah Services,",
-    "general": "{hello} I'd like to discuss my need.",
+    "general": "{hello} I'd like to discuss my recruitment need.",
     "particulier": "{hello} I am a private individual looking for a profile for my home. Could you get back to me? My city: ",
     "entreprise": "{hello} I represent a company and I would like to discuss a staffing need. Could you get back to me?",
-    "tarifs": "{hello} I looked at the indicative rate card and would like an estimate tailored to my need (city, duration, schedule).",
+    "tarifs": "{hello} I reviewed your pack pricing and would like to select the formula suited to my need (live-in / live-out, city, schedule).",
+    "garantie": "{hello} I would like to subscribe to a Follow-up & Guarantee formula for my recruitment.",
     "zones": "{hello} could you confirm that you cover my area? City / neighbourhood: ",
     "question": "{hello} I have a question for your “Behind the scenes & Your Questions” format: ",
     "service": "{hello} I am interested in the service “{service}”. Could you get back to me? My city: ",

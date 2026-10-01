@@ -1,5 +1,6 @@
+import { ShieldAlert } from 'lucide-react'
 import { CITIES_COUNT } from '@/lib/content'
-import { t } from '@/lib/i18n/dictionaries'
+import { t, waMessage } from '@/lib/i18n/dictionaries'
 import { LtrValue } from '@/lib/i18n/react'
 import { NAV_IDS, navHref } from '@/lib/nav'
 import { LEGAL, SITE } from '@/lib/site'
@@ -7,7 +8,6 @@ import { whatsappUrl } from '@/lib/whatsapp'
 import { FacebookIcon, InstagramIcon, LinkedInIcon, TikTokIcon, WhatsAppIcon } from './icons'
 import { Logo } from './Logo'
 import type { Localized } from '@/lib/i18n/props'
-import { waMessage } from '@/lib/i18n/dictionaries'
 
 const SOCIALS = [
   { ...SITE.socials.tiktok, Icon: TikTokIcon },
@@ -17,16 +17,26 @@ const SOCIALS = [
 ] as const
 
 /**
- * Pied de page. Les liens vers la politique de confidentialité et les conditions d'utilisation
- * y sont toujours présents et visibles (exigence de conformité TikTok) ; leurs adresses restent
- * les pages publiées en français, leurs libellés sont traduits.
+ * Pied de page avec rappel visible « Réservé aux foyers et entreprises souhaitant recruter » (Tâche 4).
+ * Les liens vers la politique de confidentialité et les conditions d'utilisation y sont toujours
+ * présents et visibles (exigence de conformité TikTok).
  */
 export function SiteFooter({ dict, locale }: Localized) {
+  void locale
   const baseCity = dict.zones.cities[SITE.baseCity]
 
   return (
-    // Pied de page : le bleu nuit le plus sombre du site, couronné d'un filet or.
     <footer className="on-deep border-t border-gold/25 bg-navy-deep text-paper">
+      {/* Tâche 4 — Mention visible « Réservé aux foyers / entreprises souhaitant recruter » dans le footer */}
+      <div className="border-b border-gold/20 bg-navy-soft/80">
+        <div className="container-page flex items-center gap-3 py-3.5 text-xs font-medium leading-5 text-paper/90 sm:text-sm">
+          <ShieldAlert size={18} aria-hidden="true" className="shrink-0 text-gold" />
+          <p>
+            <strong className="text-gold-soft">{dict.employerFilter.badge} :</strong> {dict.employerFilter.footerNotice}
+          </p>
+        </div>
+      </div>
+
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo tone="light" />
@@ -39,7 +49,10 @@ export function SiteFooter({ dict, locale }: Localized) {
           <ul className="mt-4 space-y-1">
             {NAV_IDS.map((id) => (
               <li key={id}>
-                <a href={navHref(id)} className="inline-flex min-h-9 items-center text-sm font-medium text-stone transition hover:text-gold-soft hover:underline">
+                <a
+                  href={navHref(id)}
+                  className="inline-flex min-h-9 items-center text-sm font-medium text-stone transition hover:text-gold-soft hover:underline"
+                >
                   {dict.nav[id]}
                 </a>
               </li>

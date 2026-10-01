@@ -60,9 +60,11 @@
     "accueil": "Accueil",
     "particuliers": "Services Particuliers",
     "entreprises": "Services Entreprises",
-    "tarifs": "Tarifs & Grille",
+    "tarifs": "Tarifs & Packs",
+    "garantie": "Suivi & Garantie",
     "zones": "Zones d’intervention",
     "videos": "Vidéos",
+    "faq": "FAQ",
     "contact": "Contact"
   },
   "hero": {
@@ -75,7 +77,7 @@
     "ctaEntreprise": "Je représente une entreprise",
     "ctaDevis": "Demander un devis gratuit",
     "ctaDevisAria": "Demander un devis gratuit pour mes services",
-    "responseNote": "Réponse sur WhatsApp · Tarifs et disponibilités confirmés lors de l’échange.",
+    "responseNote": "Réponse sur WhatsApp sous 2h · Packs à tarifs fermes et paiement des frais d’agence uniquement après validation.",
     "imageAlt": "Illustration : des professionnels des services à domicile et en entreprise au Maroc — personnel de maison, hôtelier, cuisinier et chef d’entreprise.",
     "chatPreviewHeader": "Yallah Services",
     "chatPreviewMessage": "Bonjour Yallah Services, j’aimerais échanger sur mon besoin.",
@@ -106,9 +108,9 @@
     "items": [
       {
         "id": "villes",
-        "value": "+10",
+        "value": "11",
         "label": "Villes couvertes",
-        "detail": "Casablanca, Rabat, Marrakech, etc."
+        "detail": "Casablanca, Rabat, Marrakech, Fès, Tanger…"
       },
       {
         "id": "profils",
@@ -133,7 +135,7 @@
   "b2c": {
     "eyebrow": "Services Particuliers (B2C)",
     "title": "Des services à domicile, pensés pour votre quotidien.",
-    "intro": "Ménage, enfants, proches, repas, maison : dites-nous ce dont vous avez besoin, nous vous présentons un profil adapté à votre foyer.",
+    "intro": "Ménage, enfants, proches, repas, maison : dites-nous ce dont vous avez besoin, nous vous présentons un profil adapté à votre foyer (en option logée ou non logée).",
     "askLabel": "Demander ce service",
     "services": {
       "menage": {
@@ -191,6 +193,27 @@
           "Appartements, résidences et Airbnb",
           "Ponctuel ou régulier"
         ]
+      }
+    },
+    "accommodation": {
+      "heading": "Modalités d’intervention au choix",
+      "logeeBadge": "Option Logée",
+      "logeeSchedule": "24h/24 · 1 jour de repos hebdomadaire",
+      "nonLogeeBadge": "Option Non logée",
+      "nonLogeeSchedule": "Plage horaire type · Jours ouvrés",
+      "services": {
+        "menage": {
+          "logeeDetail": "Présence 24h/24 au domicile (hébergée sur place) avec 1 jour de repos hebdomadaire fixe [À CONFIRMER : jour de repos type].",
+          "nonLogeeDetail": "Horaires de journée (plage horaire type [À CONFIRMER : ex. 08h30–17h30]) sur les jours ouvrés [À CONFIRMER : 5j/7 ou 6j/7]."
+        },
+        "garde-enfants": {
+          "logeeDetail": "Nounou logée 24h/24 à domicile auprès des enfants avec 1 jour de repos hebdomadaire [À CONFIRMER : jour de repos type].",
+          "nonLogeeDetail": "Nounou non logée en journée (plage horaire type [À CONFIRMER : ex. 08h00–18h00]) sur les jours ouvrés [À CONFIRMER : 5j/7 ou 6j/7]."
+        },
+        "cuisine": {
+          "logeeDetail": "Cuisinière logée 24h/24 assurant les repas quotidiens du foyer avec 1 jour de repos hebdomadaire [À CONFIRMER : jour de repos type].",
+          "nonLogeeDetail": "Cuisinière non logée en journée (plage horaire type [À CONFIRMER : ex. 09h00–17h00]) sur les jours ouvrés [À CONFIRMER : 5j/7 ou 6j/7]."
+        }
       }
     },
     "banners": {
@@ -302,18 +325,111 @@
         "description": "Mise en contact, puis accompagnement : nous restons disponibles pour la suite."
       }
     ],
-    "noteStrong": "Tarifs et disponibilités sont confirmés directement lors de l’échange",
-    "noteRest": ", en fonction de votre ville, de vos horaires et du niveau de responsabilité attendu."
+    "noteStrong": "Packs à tarifs fermes et contrat de placement écrit",
+    "noteRest": " : la grille distingue clairement les formules Logée et Non logée, et le paiement des frais d’agence n’intervient qu’après validation du profil retenu."
   },
   "pricing": {
-    "eyebrow": "Tarifs & Grille",
-    "title": "Des repères clairs pour préparer votre demande.",
-    "intro": "Voici la grille de nos principaux services à domicile. Elle donne un ordre d’idée ; le tarif adapté à votre situation est confirmé directement lors de l’échange.",
-    "disclaimer": "Tarifs donnés à titre indicatif, variables selon la ville, la durée, les horaires et le niveau de responsabilité.",
-    "captionSr": "Grille tarifaire des services à domicile. ",
-    "colService": "Service",
-    "colPrice": "Tarif indicatif (DH)",
+    "eyebrow": "Tarifs fermes par pack",
+    "title": "Nos packs Particuliers et nos offres Entreprises.",
+    "intro": "Chaque besoin correspond à un pack nommé avec une composition précise, le choix explicite entre option Logée (24h/24, 1 jour de repos hebdomadaire) et Non logée (plage horaire journée, jours ouvrés), et une grille salariale claire en DH/mois ou DH/semaine.",
+    "disclaimer": "Grille des packs fermes (en dirhams marocains — DH/mois ou DH/semaine). Tout placement est formalisé par un contrat écrit et aucun frais d’agence n’est facturé avant validation du profil.",
+    "captionSr": "Grille tarifaire ferme des packs Particuliers. ",
+    "colService": "Pack & composition du service",
+    "colPrice": "Tarif ferme (DH)",
+    "colComposition": "Composition du service",
+    "colMode": "Logée / Non logée",
+    "colPriceLogee": "Salaire Logée (DH/mois)",
+    "colPriceNonLogee": "Salaire Non logée (DH/mois ou sem.)",
+    "logeeLabel": "Logée · 24h/24 (1j repos/sem.)",
+    "nonLogeeLabel": "Non logée · Horaires journée (jours ouvrés)",
     "currency": "DH",
+    "b2cBadge": "Particuliers (B2C)",
+    "b2cTitle": "Packs Domicile & Famille — Grilles Logée et Non logée",
+    "b2cSubtitle": "Sélectionnez votre pack selon la configuration de votre foyer et le mode de présence souhaité (logée à domicile ou non logée en horaires de journée).",
+    "agencyFeeTitle": "Frais de placement agence (Particuliers)",
+    "agencyFeeNote": "Règlement uniquement après validation du profil retenu et signature du contrat de placement — jamais d’avance.",
+    "packs": {
+      "menage-villa": {
+        "name": "Pack Ménage Villa",
+        "composition": "Entretien complet de villa, ménage quotidien des espaces de vie, soin du linge et repassage."
+      },
+      "menage-mini-villa": {
+        "name": "Pack Ménage Mini-Villa",
+        "composition": "Ménage régulier de mini-villa, entretien des pièces, dépoussiérage, lavage des sols et repassage."
+      },
+      "menage-appartement": {
+        "name": "Pack Ménage Appartement",
+        "composition": "Entretien quotidien ou régulier d’appartement, rangement, nettoyage des surfaces et repassage."
+      },
+      "nounou-1": {
+        "name": "Pack Nounou 1 Enfant",
+        "composition": "Garde dédiée d’un enfant : sécurité, éveil, prise des repas, hygiène et rythme quotidien."
+      },
+      "nounou-1-menage": {
+        "name": "Pack Nounou 1 Enfant + Ménage",
+        "composition": "Garde d’un enfant combinée à l’entretien courant du domicile et au repassage."
+      },
+      "nounou-2-menage": {
+        "name": "Pack Nounou 2 Enfants + Ménage",
+        "composition": "Garde attentive de 2 enfants, suivi des routines quotidiennes et ménage du foyer."
+      },
+      "nounou-3": {
+        "name": "Pack Nounou 3 Enfants",
+        "composition": "Garde dédiée de 3 enfants : organisation de la journée, repas, activités et sorties."
+      },
+      "nounou-3-menage": {
+        "name": "Pack Nounou 3 Enfants + Ménage",
+        "composition": "Garde de 3 enfants et prise en charge de l’entretien ménager quotidien de la maison."
+      },
+      "cuisine-simple": {
+        "name": "Pack Cuisine Simple",
+        "composition": "Préparation quotidienne des repas (cuisine marocaine et familiale) et tenue irréprochable de la cuisine."
+      },
+      "cuisine-menage": {
+        "name": "Pack Cuisine & Ménage",
+        "composition": "Préparation complète des repas du foyer combinée au ménage intégral du domicile."
+      },
+      "cuisine-aide": {
+        "name": "Pack Aide-Cuisine",
+        "composition": "Préparation des ingrédients, assistance en cuisine, dressage et remise en ordre après service."
+      },
+      "cuisine-aide-menage": {
+        "name": "Pack Aide-Cuisine & Ménage",
+        "composition": "Assistance quotidienne en cuisine combinée au ménage régulier des pièces de vie."
+      },
+      "garde-malade-simple": {
+        "name": "Pack Garde-Malade Simple",
+        "composition": "Présence bienveillante auprès d’une personne âgée ou fragilisée, aide aux gestes du quotidien et compagnie."
+      },
+      "garde-malade-menage": {
+        "name": "Pack Garde-Malade & Ménage",
+        "composition": "Accompagnement garde-malade au quotidien combiné à l’entretien courant du logement."
+      }
+    },
+    "b2bBadge": "Entreprises (B2B)",
+    "b2bTitle": "Offres & Packs Entreprises",
+    "b2bSubtitle": "Des formules dédiées aux professionnels (hôtels, riads, restaurants, chantiers, commerces et événements), distinctes des packs particuliers.",
+    "b2bColPack": "Offre Entreprise",
+    "b2bColMode": "Modalité",
+    "b2bColPrice": "Tarif ferme B2B",
+    "b2bCta": "Demander un pack Entreprise",
+    "b2bPacks": {
+      "b2b-permanent": {
+        "name": "Pack B2B Placement Permanent",
+        "composition": "Recrutement et intégration durable de personnel qualifié pour hôtels, riads, restaurants, cliniques et commerces.",
+        "mode": "Non logée (horaires établissement) ou Logée sur site"
+      },
+      "b2b-temporaire": {
+        "name": "Pack B2B Renfort Saisonnier & Temporaire",
+        "composition": "Mise à disposition de profils vérifiés pour haute saison touristique, remplacement de congé ou pic d’activité.",
+        "mode": "Non logée ou Logée selon établissement"
+      },
+      "b2b-journalier": {
+        "name": "Pack B2B Renfort Hebdomadaire & Événementiel",
+        "composition": "Équipes opérationnelles pour chantiers, événements professionnels, salons et remises en état.",
+        "mode": "Non logée · Plage horaire définie par mission"
+      }
+    },
     "groupsOrder": [
       "menage",
       "nounou",
@@ -321,29 +437,99 @@
       "garde-malade"
     ],
     "groupTitles": {
-      "menage": "Ménage",
-      "nounou": "Nounou (garde d’enfants)",
-      "cuisine": "Cuisine",
-      "garde-malade": "Garde-malade"
+      "menage": "Packs Ménage à domicile",
+      "nounou": "Packs Nounou (garde d’enfants)",
+      "cuisine": "Packs Cuisine à domicile",
+      "garde-malade": "Packs Garde-malade & Aide aux proches"
     },
     "rows": {
-      "menage-villa": "Ménage simple dans villa",
-      "menage-mini-villa": "Ménage simple dans mini villa",
-      "menage-appartement": "Ménage dans appartement",
-      "nounou-1": "Nounou d’un enfant",
-      "nounou-1-menage": "Nounou d’un enfant + ménage",
-      "nounou-2-menage": "Nounou de 2 enfants avec ménage",
-      "nounou-3": "Nounou de 3 enfants",
-      "nounou-3-menage": "Nounou de 3 enfants + ménage",
-      "cuisine-simple": "Cuisine simple",
-      "cuisine-menage": "Cuisine / ménage",
-      "cuisine-aide": "Aide cuisine",
-      "cuisine-aide-menage": "Aide cuisine / ménage",
-      "garde-malade-simple": "Garde malade simple",
-      "garde-malade-menage": "Garde malade et ménage"
+      "menage-villa": "Pack Ménage Villa",
+      "menage-mini-villa": "Pack Ménage Mini-Villa",
+      "menage-appartement": "Pack Ménage Appartement",
+      "nounou-1": "Pack Nounou 1 Enfant",
+      "nounou-1-menage": "Pack Nounou 1 Enfant + Ménage",
+      "nounou-2-menage": "Pack Nounou 2 Enfants + Ménage",
+      "nounou-3": "Pack Nounou 3 Enfants",
+      "nounou-3-menage": "Pack Nounou 3 Enfants + Ménage",
+      "cuisine-simple": "Pack Cuisine Simple",
+      "cuisine-menage": "Pack Cuisine & Ménage",
+      "cuisine-aide": "Pack Aide-Cuisine",
+      "cuisine-aide-menage": "Pack Aide-Cuisine & Ménage",
+      "garde-malade-simple": "Pack Garde-Malade Simple",
+      "garde-malade-menage": "Pack Garde-Malade & Ménage"
     },
-    "footnote": "La durée, les horaires et les modalités sont précisés lors de l’échange. Sans engagement : nous vous orientons honnêtement vers le profil qui correspond à votre besoin.",
-    "cta": "Recevoir une estimation adaptée"
+    "footnote": "Les montants des packs et les modalités (logée 24h/24 ou non logée en journée) sont inscrits dans le contrat de placement écrit conclu avec l’agence.",
+    "cta": "Choisir mon pack sur WhatsApp"
+  },
+  "guarantee": {
+    "eyebrow": "Suivi & Garantie (en option)",
+    "title": "Deux formules de suivi et de remplacement pour recruter l’esprit serein.",
+    "intro": "En complément de notre sélection rigoureuse, vous pouvez souscrire une option de suivi et de garantie prévoyant le remplacement sans frais supplémentaires en cas d’inadéquation pendant la période couverte.",
+    "recommendedBadge": "Sérénité maximale",
+    "priceLabel": "Tarif de l’option",
+    "durationLabel": "Durée de remplacement gratuit",
+    "followUpLabel": "Niveau de suivi",
+    "contractNote": "Chaque formule souscrite est mentionnée explicitement dans votre contrat de placement Yallah Services. Le paiement n’intervient qu’après validation du profil retenu.",
+    "cta": "Ajouter cette garantie à ma demande",
+    "formulas": {
+      "essentielle": {
+        "name": "Formule Garantie Essentielle",
+        "summary": "Un filet de sécurité idéal pour accompagner les premières semaines d’intégration au sein de votre foyer.",
+        "bullets": [
+          "Point de suivi sur WhatsApp après le démarrage au domicile",
+          "Remplacement gratuit pendant la période couverte si le profil ne convient pas",
+          "Accompagnement au cadrage des horaires et des tâches"
+        ]
+      },
+      "serenite": {
+        "name": "Formule Garantie Sérénité",
+        "summary": "Un accompagnement prolongé avec suivi dédié et priorité de remplacement pour une continuité de service totale.",
+        "bullets": [
+          "Suivi régulier dédié avec un interlocuteur Yallah Services sur WhatsApp",
+          "Durée de remplacement gratuit étendue en cas d’insatisfaction ou d’imprévu",
+          "Traitement prioritaire de votre dossier pour toute nouvelle sélection"
+        ]
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "Questions fréquentes (FAQ)",
+    "title": "Tout savoir avant de confier votre recherche à Yallah Services.",
+    "intro": "Des réponses claires sur nos délais, nos garanties de remplacement, le contrat de placement et le paiement après validation.",
+    "ctaTitle": "Une autre question sur votre situation ?",
+    "ctaText": "Notre équipe basée à Casablanca vous répond directement sur WhatsApp sous 2 heures, 7j/7.",
+    "ctaButton": "Poser ma question sur WhatsApp",
+    "items": {
+      "delai-profil": {
+        "question": "Quel est le délai pour recevoir un premier profil ?",
+        "answer": "Dès réception de votre demande sur WhatsApp, notre équipe vous répond sous 2 heures (7j/7) pour valider les détails de votre besoin (pack choisi, option logée ou non logée, horaires, ville). Nous vous présentons ensuite des profils vérifiés et disponibles dans un délai moyen inférieur à 24 heures."
+      },
+      "politique-remplacement": {
+        "question": "Quelle est votre politique de remplacement en cas d’insatisfaction ?",
+        "answer": "Si, malgré nos vérifications, la personne retenue ne s’adapte pas au rythme de votre foyer ou aux exigences du poste, nous organisons son remplacement selon la formule « Suivi & Garantie » choisie lors de la mise en place ([À CONFIRMER : durée de garantie selon formule Essentielle ou Sérénité]), sans nouveaux frais de recherche pendant la période couverte."
+      },
+      "paiement-apres-validation": {
+        "question": "À quel moment s’effectue le paiement des frais d’agence ?",
+        "answer": "Aucun paiement n’est demandé à l’avance. L’analyse de votre besoin et la présentation des profils sont sans engagement financier. Le règlement des frais de placement de l’agence intervient exclusivement après que vous avez validé le profil retenu, jamais avant."
+      },
+      "contrat-placement": {
+        "question": "Existe-t-il un contrat de placement entre l’agence et le client ?",
+        "answer": "Oui. Chaque mise en relation validée fait l’objet d’un contrat de placement écrit conclu entre Yallah Services et le client (particulier ou entreprise). Ce document formalise le pack retenu, la modalité d’intervention (logée ou non logée), le salaire convenu, les horaires ainsi que les conditions de suivi et de garantie."
+      },
+      "langues-parlees": {
+        "question": "Quelles sont les langues parlées par le personnel proposé ?",
+        "answer": "Selon les profils et la nature du poste, les candidat(e)s sélectionné(e)s parlent l’arabe (darija), le français et/ou l’anglais. Lors de notre échange initial sur WhatsApp, vous nous indiquez simplement la langue de communication souhaitée au quotidien afin que nous vous orientions vers un profil parfaitement adapté."
+      },
+      "zones-couvertes": {
+        "question": "Quelles sont les zones et villes couvertes au Maroc ?",
+        "answer": "Basée à Casablanca, Yallah Services intervient dans 11 villes du Royaume : Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir, Meknès, Oujda, Kénitra, Salé et Tétouan, ainsi que dans leurs quartiers résidentiels et communes limitrophes (Bouskoura, Anfa, Souissi, Hay Riad, Hivernage, Palmeraie…)."
+      }
+    }
+  },
+  "employerFilter": {
+    "badge": "Réservé aux foyers & entreprises souhaitant recruter",
+    "formBanner": "Ce canal est exclusivement destiné aux particuliers (foyers) et aux entreprises qui souhaitent recruter du personnel. Les demandes d’emploi et candidatures ne sont pas traitées via ce formulaire.",
+    "footerNotice": "Site exclusivement réservé aux particuliers et aux entreprises souhaitant recruter du personnel — les demandes d’emploi ne sont pas traitées par ce canal."
   },
   "zones": {
     "eyebrow": "Zones d’intervention",
@@ -357,10 +543,11 @@
       "fes": "Fès",
       "tanger": "Tanger",
       "agadir": "Agadir",
+      "meknes": "Meknès",
+      "oujda": "Oujda",
       "kenitra": "Kénitra",
-      "mohammedia": "Mohammedia",
-      "temara": "Témara",
-      "sale": "Salé"
+      "sale": "Salé",
+      "tetouan": "Tétouan"
     },
     "areasHeading": "Quartiers et secteurs prioritaires",
     "zones": [
@@ -440,7 +627,7 @@
     },
     "commitments": [
       "Jamais de nom ni de visage de candidat ou de client",
-      "Aucun tarif ferme : tarifs et disponibilités sont confirmés lors de l’échange",
+      "Respect strict de la confidentialité des foyers et des candidats",
       "Toujours un accès direct à WhatsApp"
     ]
   },
@@ -476,13 +663,13 @@
   "contact": {
     "eyebrow": "Contact",
     "title": "Parlons de votre besoin.",
-    "intro": "Le plus simple : écrivez-nous sur WhatsApp. Nous vous répondons, nous posons les bonnes questions, puis nous vous présentons le bon profil.",
+    "intro": "Le plus simple : écrivez-nous sur WhatsApp ou complétez le formulaire ci-contre pour générer votre numéro de dossier. Nous vous répondons sous 2h et vous présentons le bon profil.",
     "chatLabel": "Aperçu d’un échange type",
     "chatBrand": "Yallah Services",
     "chatToday": "Aujourd’hui",
     "chatVisitor": "Bonjour Yallah Services, j’aimerais échanger sur mon besoin. Je cherche une nounou à Casablanca.",
-    "chatCompany1": "Bonjour 👋 Merci pour votre message. Pouvez-vous préciser vos horaires et la fréquence souhaitée ?",
-    "chatCompany2": "Parfait. Nous revenons vers vous sous 24h avec des profils vérifiés, adaptés à votre besoin.",
+    "chatCompany1": "Bonjour 👋 Merci pour votre message. Souhaitez-vous une formule logée (24h/24) ou non logée en journée ?",
+    "chatCompany2": "Parfait. Nous revenons vers vous sous 24h avec des profils vérifiés correspondant à votre pack.",
     "chatInputPlaceholder": "Message",
     "chatDisclaimer": "Aperçu d’un échange type. Votre message s’ouvre ensuite dans WhatsApp : vous pouvez le modifier avant de l’envoyer.",
     "whatsappChannelLabel": "WhatsApp, canal prioritaire",
@@ -496,7 +683,7 @@
   },
   "form": {
     "title": "Décrivez votre besoin",
-    "intro": "Quelques précisions nous permettent de mieux vous répondre. Votre message s’ouvre ensuite dans WhatsApp, vous pouvez le modifier avant de l’envoyer.",
+    "intro": "Validez ce formulaire pour obtenir votre numéro de dossier (YAL-XXXXXX) et ouvrir directement votre demande pré-remplie dans WhatsApp.",
     "tiktokConnected": "Connecté(e) avec TikTok",
     "tiktokConnectedInfo": "Votre nom de profil sera mentionné dans votre message.",
     "tiktokContinue": "Continuer avec TikTok",
@@ -513,15 +700,21 @@
       "particulier": "Un particulier",
       "entreprise": "Une entreprise"
     },
-    "serviceLabel": "Service recherché",
+    "serviceLabel": "Service / Pack recherché",
     "needLabel": "Besoin",
+    "accommodationLabel": "Modalité souhaitée (Logée / Non logée)",
+    "accommodationOptions": {
+      "logee": "Option Logée (24h/24 · 1 jour de repos hebdomadaire)",
+      "nonLogee": "Option Non logée (plage horaire journée · jours ouvrés)",
+      "aDefinir": "À définir avec le conseiller (Logée ou Non logée)"
+    },
     "placeholderChoose": "Choisissez…",
     "otherCity": "Autre ville",
     "cityLabel": "Ville",
     "districtLabel": "Quartier",
     "districtPlaceholder": "Ex. Aïn Diab",
     "detailsLabel": "Précisions",
-    "detailsPlaceholder": "Horaires, fréquence, situation particulière…",
+    "detailsPlaceholder": "Horaires souhaités, composition du foyer, formule de garantie souhaitée…",
     "b2bNeeds": {
       "hotel": "Personnel pour un hôtel",
       "riad": "Personnel pour un riad",
@@ -534,8 +727,8 @@
       "autre": "Autre besoin"
     },
     "previewLabel": "Aperçu de votre message",
-    "submit": "Envoyer ma demande sur WhatsApp",
-    "footnote": "Tarifs et disponibilités confirmés directement lors de l’échange.",
+    "submit": "Valider ma demande et obtenir mon n° de dossier",
+    "footnote": "Aucun paiement avant validation du profil retenu · Contrat de placement écrit.",
     "logout": "Se déconnecter",
     "message": [
       "Bonjour Yallah Services,",
@@ -543,14 +736,36 @@
       "{qui} et je recherche : {besoin}.",
       "Ville / quartier : {ville}.",
       "Merci de me recontacter."
-    ]
+    ],
+    "confirmation": {
+      "badge": "Demande prête à être transmise",
+      "title": "Votre dossier de recherche est créé",
+      "subtitle": "Conservez votre numéro de référence ci-dessous et cliquez sur le bouton WhatsApp pour transmettre immédiatement votre récapitulatif à notre équipe.",
+      "dossierLabel": "Numéro de dossier",
+      "summaryTitle": "Récapitulatif des informations saisies",
+      "summarySegment": "Profil recruteur",
+      "summaryNeed": "Service / besoin",
+      "summaryAccommodation": "Modalité choisie",
+      "summaryLocation": "Ville / quartier",
+      "summaryDetails": "Précisions",
+      "stepsTitle": "Prochaines étapes",
+      "steps": [
+        "Cliquez sur le bouton ci-dessous pour ouvrir la conversation WhatsApp pré-remplie avec votre numéro de dossier.",
+        "Un conseiller Yallah Services vous répond sous 2h (7j/7) pour confirmer le pack, la formule Logée/Non logée et les horaires.",
+        "Vous recevez sous 24h une sélection de profils vérifiés correspondant à votre besoin.",
+        "Après votre validation du profil retenu, signature du contrat de placement et démarrage (aucun frais d’agence n’est payé avant validation)."
+      ],
+      "whatsappCta": "Ouvrir WhatsApp avec mon dossier {dossier}",
+      "editButton": "Modifier les informations saisies"
+    }
   },
   "wa": {
     "hello": "Bonjour Yallah Services,",
-    "general": "{hello} j’aimerais échanger sur mon besoin.",
+    "general": "{hello} j’aimerais échanger sur mon besoin de recrutement.",
     "particulier": "{hello} je suis un particulier et je cherche un profil pour mon domicile. Pouvez-vous me recontacter ? Ma ville : ",
     "entreprise": "{hello} je représente une entreprise et j’aimerais échanger sur un besoin en personnel. Pouvez-vous me recontacter ?",
-    "tarifs": "{hello} j’ai consulté la grille indicative et j’aimerais une estimation adaptée à mon besoin (ville, durée, horaires).",
+    "tarifs": "{hello} j’ai consulté vos packs tarifaires et j’aimerais retenir la formule adaptée à mon besoin (logée / non logée, ville, horaires).",
+    "garantie": "{hello} j’aimerais souscrire une formule Suivi & Garantie pour mon recrutement de personnel.",
     "zones": "{hello} pouvez-vous me confirmer que vous intervenez dans mon secteur ? Ville / quartier : ",
     "question": "{hello} j’ai une question pour votre rubrique « Coulisses & Vos Questions » : ",
     "service": "{hello} je suis intéressé(e) par le service « {service} ». Pouvez-vous me recontacter ? Ma ville : ",
