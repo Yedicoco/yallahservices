@@ -19,12 +19,33 @@ export type Template = string
 /* --- Listes ordonnées : identifiants techniques, zéro texte --- */
 
 export type B2CServiceId = 'menage' | 'garde-enfants' | 'personnes-agees' | 'cuisine' | 'gardiennage' | 'chauffeurs' | 'grand-menage'
+export type SegmentedB2CServiceId = 'menage' | 'garde-enfants' | 'cuisine'
 export type B2BSectorId = 'hotels' | 'riads' | 'restaurants' | 'chantiers' | 'commerces' | 'evenements'
 export type B2BFormulaId = 'permanente' | 'temporaire' | 'journalier'
-export type NavId = 'accueil' | 'particuliers' | 'entreprises' | 'tarifs' | 'zones' | 'videos' | 'contact'
-export type CityId = 'casablanca' | 'rabat' | 'marrakech' | 'fes' | 'tanger' | 'agadir' | 'kenitra' | 'mohammedia' | 'temara' | 'sale'
+export type NavId = 'accueil' | 'particuliers' | 'entreprises' | 'tarifs' | 'garantie' | 'zones' | 'videos' | 'faq' | 'contact'
+export type CityId =
+  | 'casablanca'
+  | 'rabat'
+  | 'marrakech'
+  | 'fes'
+  | 'tanger'
+  | 'agadir'
+  | 'meknes'
+  | 'oujda'
+  | 'kenitra'
+  | 'sale'
+  | 'tetouan'
 export type ZoneId = 'casablanca' | 'rabat' | 'marrakech'
 export type PricingGroupId = 'menage' | 'nounou' | 'cuisine' | 'garde-malade'
+export type B2BPackId = 'b2b-permanent' | 'b2b-temporaire' | 'b2b-journalier'
+export type GuaranteeFormulaId = 'essentielle' | 'serenite'
+export type FaqItemId =
+  | 'delai-profil'
+  | 'politique-remplacement'
+  | 'paiement-apres-validation'
+  | 'contrat-placement'
+  | 'langues-parlees'
+  | 'zones-couvertes'
 export type RubriqueId = 'bon-profil-du-jour' | 'coulisses-et-questions'
 export type TestimonialId = 'nadia' | 'karim' | 'sofia'
 export type ProcessStepId = 'ecrit' | 'selection' | 'verification' | 'mise-en-relation'
@@ -92,6 +113,18 @@ export type Dictionary = {
     askLabel: Localizable
     services: Record<B2CServiceId, Bulleted>
     /**
+     * Segmentation explicite Logée (24h/24, repos hebdomadaire) / Non logée (plage horaire type, jours ouvrés)
+     * pour les services Ménage, Nounou et Cuisine (Tâche 5).
+     */
+    accommodation: {
+      heading: Localizable
+      logeeBadge: Localizable
+      logeeSchedule: Localizable
+      nonLogeeBadge: Localizable
+      nonLogeeSchedule: Localizable
+      services: Record<SegmentedB2CServiceId, { logeeDetail: Localizable; nonLogeeDetail: Localizable }>
+    }
+    /**
      * Description de la bannière de chaque carte (`alt`). Chemin d'image, lui, technique :
      * il reste dans `SERVICE_BANNERS` (lib/content.ts).
      */
@@ -128,12 +161,58 @@ export type Dictionary = {
     captionSr: Localizable
     colService: Localizable
     colPrice: Localizable
+    colComposition: Localizable
+    colMode: Localizable
+    colPriceLogee: Localizable
+    colPriceNonLogee: Localizable
+    logeeLabel: Localizable
+    nonLogeeLabel: Localizable
     currency: Localizable
+    b2cBadge: Localizable
+    b2cTitle: Localizable
+    b2cSubtitle: Localizable
+    agencyFeeTitle: Localizable
+    agencyFeeNote: Localizable
+    packs: Record<string, { name: Localizable; composition: Localizable }>
+    b2bBadge: Localizable
+    b2bTitle: Localizable
+    b2bSubtitle: Localizable
+    b2bColPack: Localizable
+    b2bColMode: Localizable
+    b2bColPrice: Localizable
+    b2bCta: Localizable
+    b2bPacks: Record<B2BPackId, { name: Localizable; composition: Localizable; mode: Localizable }>
     groupsOrder: readonly PricingGroupId[]
     groupTitles: Record<PricingGroupId, Localizable>
     rows: Record<string, Localizable>
     footnote: Localizable
     cta: Localizable
+  }
+  guarantee: {
+    eyebrow: Localizable
+    title: Localizable
+    intro: Localizable
+    recommendedBadge: Localizable
+    priceLabel: Localizable
+    durationLabel: Localizable
+    followUpLabel: Localizable
+    contractNote: Localizable
+    cta: Localizable
+    formulas: Record<GuaranteeFormulaId, { name: Localizable; summary: Localizable; bullets: readonly Localizable[] }>
+  }
+  faq: {
+    eyebrow: Localizable
+    title: Localizable
+    intro: Localizable
+    ctaTitle: Localizable
+    ctaText: Localizable
+    ctaButton: Localizable
+    items: Record<FaqItemId, { question: Localizable; answer: Localizable }>
+  }
+  employerFilter: {
+    badge: Localizable
+    formBanner: Localizable
+    footerNotice: Localizable
   }
   zones: {
     eyebrow: Localizable
@@ -205,6 +284,12 @@ export type Dictionary = {
     segments: { particulier: Localizable; entreprise: Localizable }
     serviceLabel: Localizable
     needLabel: Localizable
+    accommodationLabel: Localizable
+    accommodationOptions: {
+      logee: Localizable
+      nonLogee: Localizable
+      aDefinir: Localizable
+    }
     placeholderChoose: Localizable
     otherCity: Localizable
     cityLabel: Localizable
@@ -218,6 +303,22 @@ export type Dictionary = {
     footnote: Localizable
     logout: Localizable
     message: Template[]
+    confirmation: {
+      badge: Localizable
+      title: Localizable
+      subtitle: Localizable
+      dossierLabel: Localizable
+      summaryTitle: Localizable
+      summarySegment: Localizable
+      summaryNeed: Localizable
+      summaryAccommodation: Localizable
+      summaryLocation: Localizable
+      summaryDetails: Localizable
+      stepsTitle: Localizable
+      steps: readonly Localizable[]
+      whatsappCta: Template
+      editButton: Localizable
+    }
   }
   wa: {
     hello: Localizable
@@ -225,6 +326,7 @@ export type Dictionary = {
     particulier: Localizable
     entreprise: Localizable
     tarifs: Localizable
+    garantie: Localizable
     zones: Localizable
     question: Localizable
     service: Template

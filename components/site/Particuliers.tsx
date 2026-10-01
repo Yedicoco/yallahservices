@@ -1,6 +1,13 @@
 import Image from 'next/image'
-import { Baby, Car, Check, ChefHat, HeartHandshake, Home, ShieldCheck, SprayCan } from 'lucide-react'
-import { B2C_SERVICE_IDS, GRAND_MENAGE_ID, SERVICE_BANNERS, type B2CServiceId } from '@/lib/content'
+import { Baby, Car, Check, ChefHat, Clock, HeartHandshake, Home, Moon, ShieldCheck, SprayCan } from 'lucide-react'
+import {
+  B2C_SERVICE_IDS,
+  GRAND_MENAGE_ID,
+  SEGMENTED_B2C_SERVICE_IDS,
+  SERVICE_BANNERS,
+  type B2CServiceId,
+  type SegmentedB2CServiceId,
+} from '@/lib/content'
 import { RtlArrow } from '@/lib/i18n/react'
 import { whatsappUrl } from '@/lib/whatsapp'
 import { ServicesTabs } from './ServicesTabs'
@@ -19,15 +26,21 @@ const ICONS: Record<B2CServiceId, typeof Home> = {
   'grand-menage': SprayCan,
 }
 
+function isSegmentedService(id: B2CServiceId): id is SegmentedB2CServiceId {
+  return (SEGMENTED_B2C_SERVICE_IDS as readonly string[]).includes(id)
+}
+
 /**
- * Services Particuliers (B2C) : grille de cartes modernes sur section gris très léger.
- * Les libellés viennent du dictionnaire de la langue servie ; l'ordre des cartes vient de
- * `B2C_SERVICE_IDS` (l'ordre éditorial ne dépend donc pas de l'ordre des clés d'un JSON).
+ * Services Particuliers (B2C) : grille de cartes modernes.
+ * Pour les services concernés (ménage, nounou, cuisine), chaque fiche précise explicitement
+ * l'option Logée (24h/24, jour de repos hebdomadaire) et Non logée (plage horaire type, jours ouvrés).
  */
 export function Particuliers({ dict, locale }: Localized) {
+  void locale
   const cards = B2C_SERVICE_IDS.filter((id) => id !== GRAND_MENAGE_ID)
   const grandMenage = dict.b2c.services[GRAND_MENAGE_ID]
   const grand = dict.b2c.grand
+  const acc = dict.b2c.accommodation
 
   return (
     <section id="particuliers" aria-labelledby="titre-particuliers" className="border-t border-gold/15 bg-navy-soft py-16 sm:py-24">
@@ -45,15 +58,14 @@ export function Particuliers({ dict, locale }: Localized) {
           {cards.map((id) => {
             const service = dict.b2c.services[id]
             const Icon = ICONS[id]
-            // Bannière et son `alt` voyagent ensemble : une carte sans légende traduite n'affiche
-            // pas l'image (mieux vaut aucune bannière qu'une bannière muette pour un lecteur d'écran).
             const banner = SERVICE_BANNERS[id] ? { ...SERVICE_BANNERS[id]!, alt: dict.b2c.banners[id] ?? '' } : null
+            const segmented = isSegmentedService(id) ? acc.services[id] : null
+
             return (
               <li
                 key={id}
                 className="group relative flex flex-col overflow-hidden rounded-3xl border border-gold/20 bg-navy-deep transition duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-[0_32px_64px_-32px_rgba(0,0,0,0.95)]"
               >
-                {/* Fond décoratif discret : la photo des professionnels, très atténuée. */}
                 <Image
                   src="/images/hero-professionals.jpg"
                   alt=""
@@ -63,8 +75,6 @@ export function Particuliers({ dict, locale }: Localized) {
                   aria-hidden="true"
                 />
 
-                {/* Bannière du service : 16:9, bord à bord, coins suivis par le rounded-3xl de la carte.
-                    `relative` la place au-dessus du fond décoratif, posé en position absolue. */}
                 {banner ? (
                   <picture className="relative block">
                     <source srcSet={SERVICE_BANNERS[id]!.webp} type="image/webp" />
@@ -81,8 +91,6 @@ export function Particuliers({ dict, locale }: Localized) {
                   </picture>
                 ) : null}
 
-                {/* Le rembourrage vit dans ce conteneur, et non sur le <li>, pour que la bannière reste
-                    bord à bord ; `relative` garde tout le texte au-dessus du fond décoratif. */}
                 <div className="relative flex flex-1 flex-col p-6">
                   <span
                     aria-hidden="true"
@@ -100,8 +108,40 @@ export function Particuliers({ dict, locale }: Localized) {
                       </li>
                     ))}
                   </ul>
-                  {/* Action rapide : WhatsApp, message pré-rempli nommant le service dans la langue du visiteur. */}
-                  <a href={whatsappUrl(waMessage(dict, 'service', { service: service.title }))} target="_blank" rel="noopener noreferrer" className="btn-wa-ghost">
+
+                  {/* Segmentation explicite Logée / Non logée pour Ménage, Nounou et Cuisine (Tâche 5) */}
+                  {segmented && (
+                    <div className="mt-5 rounded-2xl border border-gold/25 bg-navy-soft p-3.5">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-gold-soft">{acc.heading}</p>
+                      <div className="mt-2.5 space-y-2.5">
+                        <div className="rounded-xl border border-gold/20 bg-navy-deep p-2.5">
+                          <p className="flex items-center gap-1.5 text-xs font-bold text-gold-soft">
+                            <Moon size={13} aria-hidden="true" className="shrink-0 text-gold" />
+                            <span>{acc.logeeBadge}</span>
+                            <span className="text-stone">·</span>
+                            <span className="text-paper">{acc.logeeSchedule}</span>
+                          </p>
+                          <p className="mt-1 text-xs leading-5 text-stone">{segmented.logeeDetail}</p>
+                        </div>
+                        <div className="rounded-xl border border-gold/20 bg-navy-deep p-2.5">
+                          <p className="flex items-center gap-1.5 text-xs font-bold text-gold-soft">
+                            <Clock size={13} aria-hidden="true" className="shrink-0 text-gold" />
+                            <span>{acc.nonLogeeBadge}</span>
+                            <span className="text-stone">·</span>
+                            <span className="text-paper">{acc.nonLogeeSchedule}</span>
+                          </p>
+                          <p className="mt-1 text-xs leading-5 text-stone">{segmented.nonLogeeDetail}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <a
+                    href={whatsappUrl(waMessage(dict, 'service', { service: service.title }))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wa-ghost"
+                  >
                     <WhatsAppIcon className="h-[1.05rem] w-[1.05rem] shrink-0" />
                     {dict.b2c.askLabel}
                     <span className="sr-only">{dict.common.onWhatsAppSuffix}</span>
@@ -113,11 +153,13 @@ export function Particuliers({ dict, locale }: Localized) {
           })}
         </ul>
 
-        {/* Nettoyage & grand ménage : le service le plus visuel, détaillé d'après les affiches officielles. */}
+        {/* Nettoyage & grand ménage */}
         <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-gold/25 bg-navy-deep p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
           <div>
             <p className="eyebrow">{grand.eyebrow}</p>
-            <h3 className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] sm:text-4xl rtl:tracking-normal rtl:leading-tight">{grand.title}</h3>
+            <h3 className="mt-3 font-serif text-3xl leading-[1.1] tracking-[-0.02em] sm:text-4xl rtl:tracking-normal rtl:leading-tight">
+              {grand.title}
+            </h3>
             <p className="mt-4 text-base leading-7 text-paper/85">{grandMenage.description}</p>
             <p className="mt-3 text-base leading-7 text-stone">{grand.intro}</p>
             <ul className="mt-5 space-y-2.5">

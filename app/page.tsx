@@ -4,7 +4,9 @@ import type { Locale } from '@/lib/i18n/config'
 import { SITE, siteUrl } from '@/lib/site'
 import { Contact } from '@/components/site/Contact'
 import { Entreprises } from '@/components/site/Entreprises'
+import { Faq } from '@/components/site/Faq'
 import { FloatingWhatsApp } from '@/components/site/FloatingWhatsApp'
+import { Guarantee } from '@/components/site/Guarantee'
 import { Hero } from '@/components/site/Hero'
 import { KeyFigures } from '@/components/site/KeyFigures'
 import { Particuliers } from '@/components/site/Particuliers'
@@ -19,7 +21,6 @@ import { Zones } from '@/components/site/Zones'
 /**
  * Vitrine commerciale Yallah Services (particuliers + entreprises).
  * Données structurées schema.org : agence de placement de personnel, zones desservies, réseaux.
- * Aucun prix n'y figure volontairement (les tarifs restent « à titre indicatif » dans le tableau).
  *
  * Toutes les sections sont des Composants Serveur : elles reçoivent le dictionnaire de la langue
  * résolue à la requête et le rendent dans le HTML. Le navigateur reçoit donc une page déjà traduite
@@ -65,9 +66,11 @@ export default async function HomePage() {
         <Entreprises dict={dict} locale={locale} />
         <Process dict={dict} locale={locale} />
         <PricingTable dict={dict} locale={locale} />
+        <Guarantee dict={dict} locale={locale} />
         <Zones dict={dict} locale={locale} />
         <Videos dict={dict} locale={locale} />
         <Testimonials dict={dict} locale={locale} />
+        <Faq dict={dict} locale={locale} />
         <Contact dict={dict} locale={locale} />
       </main>
       <SiteFooter dict={dict} locale={locale} />

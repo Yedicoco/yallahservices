@@ -14,6 +14,11 @@ export type B2CServiceId = 'menage' | 'garde-enfants' | 'personnes-agees' | 'cui
 /** Services particuliers, dans l'ordre d'affichage. Le dernier (« grand-menage ») a son propre bloc. */
 export const B2C_SERVICE_IDS: readonly B2CServiceId[] = ['menage', 'garde-enfants', 'personnes-agees', 'cuisine', 'gardiennage', 'chauffeurs', 'grand-menage']
 
+/** Services particuliers proposant explicitement la segmentation Logée (24h/24) / Non logée (horaires journée). */
+export type SegmentedB2CServiceId = 'menage' | 'garde-enfants' | 'cuisine'
+
+export const SEGMENTED_B2C_SERVICE_IDS: readonly SegmentedB2CServiceId[] = ['menage', 'garde-enfants', 'cuisine']
+
 /**
  * Visuel d'en-tête des cartes de service : chaque bannière est livrée en 1408×792 (16:9), en JPEG
  * (repli universel) et en WebP (plus léger), servies via <picture>. Le tiers gauche reste
@@ -48,10 +53,33 @@ export type ProcessStepId = 'ecrit' | 'selection' | 'verification' | 'mise-en-re
 
 export const PROCESS_STEP_IDS: readonly ProcessStepId[] = ['ecrit', 'selection', 'verification', 'mise-en-relation']
 
-export type CityId = 'casablanca' | 'rabat' | 'marrakech' | 'fes' | 'tanger' | 'agadir' | 'kenitra' | 'mohammedia' | 'temara' | 'sale'
+export type CityId =
+  | 'casablanca'
+  | 'rabat'
+  | 'marrakech'
+  | 'fes'
+  | 'tanger'
+  | 'agadir'
+  | 'meknes'
+  | 'oujda'
+  | 'kenitra'
+  | 'sale'
+  | 'tetouan'
 
 /** Villes couvertes (fiche officielle), dans l'ordre d'affichage. Les noms traduits sont dans `dict.zones.cities`. */
-export const CITY_IDS: readonly CityId[] = ['casablanca', 'rabat', 'marrakech', 'fes', 'tanger', 'agadir', 'kenitra', 'mohammedia', 'temara', 'sale']
+export const CITY_IDS: readonly CityId[] = [
+  'casablanca',
+  'rabat',
+  'marrakech',
+  'fes',
+  'tanger',
+  'agadir',
+  'meknes',
+  'oujda',
+  'kenitra',
+  'sale',
+  'tetouan',
+]
 
 export type ZoneId = 'casablanca' | 'rabat' | 'marrakech'
 
@@ -84,10 +112,27 @@ export const B2B_NEED_IDS: readonly B2BNeedId[] = [
 
 export type PricingGroupId = 'menage' | 'nounou' | 'cuisine' | 'garde-malade'
 
+export type FaqItemId =
+  | 'delai-profil'
+  | 'politique-remplacement'
+  | 'paiement-apres-validation'
+  | 'contrat-placement'
+  | 'langues-parlees'
+  | 'zones-couvertes'
+
+export const FAQ_ITEM_IDS: readonly FaqItemId[] = [
+  'delai-profil',
+  'politique-remplacement',
+  'paiement-apres-validation',
+  'contrat-placement',
+  'langues-parlees',
+  'zones-couvertes',
+]
+
 /**
- * Grille tarifaire officielle (montants en dirhams, tels que publiés, à titre indicatif).
- * La grille source ne précise pas de période : aucune unité n'est ajoutée ici.
- * Les libellés de lignes sont traduits via `dict.pricing.rows[rowId]`.
+ * Grille tarifaire de référence par catégorie.
+ * La configuration complète des packs fermes (Particuliers Logée / Non logée, Entreprises B2B
+ * et formules Suivi & Garantie) vit dans `lib/packs.ts`.
  */
 export const PRICING_GROUPS: ReadonlyArray<{ id: PricingGroupId; rows: ReadonlyArray<{ id: string; price: string }> }> = [
   {
