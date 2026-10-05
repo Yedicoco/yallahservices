@@ -18,9 +18,8 @@ export const SITE = {
   /** Format national (sans le 0 initial) : sert à reconnaître le numéro de l'entreprise dans un texte. */
   phoneCoreDigits: '691733585',
   email: 'servicesyallah@gmail.com',
-  /** Logo officiel (hébergé sur le Blob Vercel du projet). */
-  logoUrl:
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/da1235a0-a8a6-11f1-ae21-ff04260a3621.png-vH8DW3TxL0jLqWrKaFWAvBFyZ3rZpZ.jpeg',
+  /** Logo officiel fourni par Yallah Services et servi par le site. */
+  logoUrl: '/yallah-services-logo.png',
   /** Les noms de réseaux sont des marques : non traduits. Seuls les libellés d'usage sont dans les dictionnaires. */
   socials: {
     tiktok: { id: 'tiktok', label: 'TikTok', handle: '@yallah.services.m', url: 'https://www.tiktok.com/@yallah.services.m' },
