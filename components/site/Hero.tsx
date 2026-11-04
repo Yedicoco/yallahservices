@@ -1,4 +1,4 @@
-import { BadgeCheck, Clock, HeartHandshake, MapPin, Wifi, ArrowRight } from 'lucide-react'
+import { BadgeCheck, Clock, HeartHandshake, MapPin, Wifi } from 'lucide-react'
 import { CITIES_COUNT } from '@/lib/content'
 import { t } from '@/lib/i18n/dictionaries'
 import { WhatsAppIcon } from './icons'
