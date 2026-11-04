@@ -26,6 +26,30 @@ const ICONS: Record<B2CServiceId, typeof Home> = {
   'grand-menage': SprayCan,
 }
 
+const GRAND_MENAGE_COPY = {
+  fr: {
+    price: '300 à 700 DH / jour',
+    priceNote: 'Le prix varie selon le logement, la superficie, le nombre de pièces et l’état du logement.',
+    scope: 'Appartement, villa, mini-villa, Airbnb et remise en état.',
+    supplied: 'Les produits et le matériel de nettoyage sont fournis par le demandeur.',
+    monthlyNote: 'Cette prestation ponctuelle est distincte des tarifs mensuels « logée » et « non logée » présentés plus bas.',
+  },
+  ar: {
+    price: 'من 300 حتى 700 درهم / النهار',
+    priceNote: 'الثمن كيتبدل حسب نوع السكن، المساحة، عدد البيوت والحالة ديال الدار.',
+    scope: 'شقة، فيلا، ميني فيلا، Airbnb وتجهيز الدار من جديد.',
+    supplied: 'مواد وأدوات التنظيف كيوفرهم صاحب الطلب.',
+    monthlyNote: 'هاد الخدمة مؤقتة ومختلفة على أثمنة الخدمة الشهرية « مع المبيت » و« بلا مبيت » اللي كاينة لتحت.',
+  },
+  en: {
+    price: '300 to 700 DH / day',
+    priceNote: 'The price varies by property type, surface area, number of rooms and the condition of the property.',
+    scope: 'Apartment, villa, mini-villa, Airbnb and move-in or reset cleaning.',
+    supplied: 'The requester provides the cleaning products and equipment.',
+    monthlyNote: 'This one-off service is separate from the monthly live-in and non-live-in rates shown below.',
+  },
+} as const
+
 function isSegmentedService(id: B2CServiceId): id is SegmentedB2CServiceId {
   return (SEGMENTED_B2C_SERVICE_IDS as readonly string[]).includes(id)
 }
@@ -36,11 +60,11 @@ function isSegmentedService(id: B2CServiceId): id is SegmentedB2CServiceId {
  * l'option Logée (24h/24, jour de repos hebdomadaire) et Non logée (plage horaire type, jours ouvrés).
  */
 export function Particuliers({ dict, locale }: Localized) {
-  void locale
   const cards = B2C_SERVICE_IDS.filter((id) => id !== GRAND_MENAGE_ID)
   const grandMenage = dict.b2c.services[GRAND_MENAGE_ID]
   const grand = dict.b2c.grand
   const acc = dict.b2c.accommodation
+  const copy = GRAND_MENAGE_COPY[locale]
 
   return (
     <section id="particuliers" aria-labelledby="titre-particuliers" className="border-t border-gold/15 bg-navy-soft py-16 sm:py-24">
@@ -153,7 +177,7 @@ export function Particuliers({ dict, locale }: Localized) {
           })}
         </ul>
 
-        {/* Nettoyage & grand ménage */}
+        {/* Emplacement retenu : après les services particuliers, avant les tarifs mensuels. */}
         <div className="mt-12 grid items-center gap-8 rounded-[2rem] border border-gold/25 bg-navy-deep p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:p-10">
           <div>
             <p className="eyebrow">{grand.eyebrow}</p>
@@ -162,6 +186,11 @@ export function Particuliers({ dict, locale }: Localized) {
             </h3>
             <p className="mt-4 text-base leading-7 text-paper/85">{grandMenage.description}</p>
             <p className="mt-3 text-base leading-7 text-stone">{grand.intro}</p>
+            <div className="mt-5 rounded-2xl border border-gold/40 bg-gold/10 p-4 sm:p-5">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-gold-soft">{locale === 'ar' ? 'الثمن التقريبي' : locale === 'en' ? 'Estimated price' : 'Tarif indicatif'}</p>
+              <p className="mt-1 text-2xl font-bold tracking-tight text-gold-soft sm:text-3xl">{copy.price}</p>
+              <p className="mt-2 text-sm leading-6 text-paper/85">{copy.priceNote}</p>
+            </div>
             <ul className="mt-5 space-y-2.5">
               {grand.bullets.map((bullet) => (
                 <li key={bullet} className="flex items-start gap-3 text-[0.95rem] font-medium leading-6 text-paper/90">
@@ -169,7 +198,16 @@ export function Particuliers({ dict, locale }: Localized) {
                   {bullet}
                 </li>
               ))}
+              <li className="flex items-start gap-3 text-[0.95rem] font-medium leading-6 text-paper/90">
+                <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
+                {copy.scope}
+              </li>
+              <li className="flex items-start gap-3 text-[0.95rem] font-medium leading-6 text-paper/90">
+                <Check size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-gold" />
+                {copy.supplied}
+              </li>
             </ul>
+            <p className="mt-5 rounded-xl border border-gold/20 bg-navy-soft px-4 py-3 text-sm leading-6 text-stone">{copy.monthlyNote}</p>
             <WhatsAppLink dict={dict} messageKey="service" params={{ service: grandMenage.title }} variant="gold" className="mt-7">
               {grand.cta}
             </WhatsAppLink>
